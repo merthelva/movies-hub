@@ -1,8 +1,15 @@
+import { Roboto } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import type { PropsWithChildren } from "react";
 
+import "../globals.scss";
 import { routing } from "@/i18n/routing";
+
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["300", "400", "800"],
+});
 
 export default async function LocaleLayout({
   children,
@@ -16,7 +23,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <body>
+      <body className={roboto.className}>
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>
     </html>
