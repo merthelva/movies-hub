@@ -4,6 +4,7 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import type { PropsWithChildren } from "react";
 
 import "../globals.scss";
+import { ThemeProvider } from "@/context/theme/ThemeContext";
 import { routing } from "@/i18n/routing";
 
 const roboto = Roboto({
@@ -15,16 +16,17 @@ export default async function LocaleLayout({
   children,
   params,
 }: PropsWithChildren<LayoutProps<"/[locale]">>) {
-  // Ensure that the incoming `locale` is valid
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
 
   return (
-    <html lang={locale}>
+    <html lang={locale} data-theme="dark">
       <body className={roboto.className}>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
