@@ -14,14 +14,7 @@ import { HttpStatusCodes } from "@/common/constants/http-status-codes.constant";
 import { serializeErrorMessage } from "@/common/utils/serialize-error-message.util";
 import { API_BASE_URL } from "@/common/constants/api-base-url.constant";
 import type { SuccessResponseType } from "@/common/types/success-response.type";
-
-const getCookieAccessToken = async (): Promise<
-  [Awaited<ReturnType<typeof cookies>>, string | null]
-> => {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("accessToken")?.value || null;
-  return [cookieStore, token];
-};
+import { getCookieStoreAndAccessToken } from "@/common/utils/get-cookie-store-and-access-token.util";
 
 const login = async (
   credentials: LoginCredentialsType,
@@ -76,7 +69,7 @@ const register = async (
 };
 
 const logout = async (): Promise<GenericResponseType<SuccessResponseType>> => {
-  const [cookieStore, token] = await getCookieAccessToken();
+  const [cookieStore, token] = await getCookieStoreAndAccessToken();
   if (!token) {
     return {
       status: "error",
@@ -110,7 +103,7 @@ const logout = async (): Promise<GenericResponseType<SuccessResponseType>> => {
 const removeAccount = async (
   userId: number,
 ): Promise<GenericResponseType<SuccessResponseType>> => {
-  const [cookieStore, token] = await getCookieAccessToken();
+  const [cookieStore, token] = await getCookieStoreAndAccessToken();
   if (!token) {
     return {
       status: "error",
@@ -139,7 +132,7 @@ const removeAccount = async (
 
 const getCurrentUser = async (): Promise<AuthContextValueType["user"]> => {
   try {
-    const [, token] = await getCookieAccessToken();
+    const [, token] = await getCookieStoreAndAccessToken();
 
     if (!token) {
       return null;
