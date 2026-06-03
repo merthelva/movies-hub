@@ -43,24 +43,39 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   const handleRegister = async (credentials: RegisterCredentialsType) => {
-    const user = await register(credentials);
+    const response = await register(credentials);
+    if (response.status === "error") {
+      return;
+    }
 
-    setUser(user);
+    setUser(response.data);
   };
 
   const handleLogin = async (credentials: LoginCredentialsType) => {
-    const { accessToken, ...user } = await login(credentials);
+    const response = await login(credentials);
+    if (response.status === "error") {
+      return;
+    }
 
+    const { accessToken, ...user } = response.data;
     setUser(user);
   };
 
   const handleLogout = async () => {
-    await logout();
+    const response = await logout();
+    if (response.status === "error") {
+      return;
+    }
+
     setUser(null);
   };
 
   const handleRemoveAccount = async (userId: number) => {
-    await removeAccount(userId);
+    const response = await removeAccount(userId);
+    if (response.status === "error") {
+      return;
+    }
+
     setUser(null);
   };
 
