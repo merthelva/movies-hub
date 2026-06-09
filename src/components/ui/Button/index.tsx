@@ -8,19 +8,18 @@ const Button = ({
   size = "md",
   className,
   ...rest
-}: ButtonPropsType) => {
-  const classNames = joinClassNames(
-    styles.button,
-    styles[size],
-    styles[variant],
-    className,
-  );
-
-  return (
-    <button className={classNames} {...rest}>
-      {children}
-    </button>
-  );
-};
+}: ButtonPropsType) => (
+  <button
+    className={joinClassNames(
+      styles.button,
+      styles[size],
+      styles[variant],
+      className,
+    )}
+    {...rest}
+  >
+    {children}
+  </button>
+);
 
 export { Button };
