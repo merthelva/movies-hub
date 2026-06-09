@@ -1,0 +1,133 @@
+@use "@/styles/mixins" as m;
+
+.dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  border-radius: var(--radius-xl);
+  width: min(480px, 90%);
+  box-shadow: var(--shadow-xl);
+
+  &::backdrop {
+    background-color: var(--color-backdrop);
+  }
+}
+
+.container {
+  display: grid;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-xl);
+}
+
+.header {
+  @include m.flex-between;
+  gap: var(--spacing-md);
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+}
+
+.closeBtn {
+  @include m.flex-center;
+  background: transparent;
+  border: none;
+  color: var(--color-text);
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  margin-left: auto;
+  transition: color var(--transition-fast);
+
+  &:hover {
+    color: var(--color-accent);
+  }
+
+  @include m.focus-ring;
+}
+
+.body {
+  display: grid;
+}
+
+// Error variant
+.errorVariant {
+  display: grid;
+  justify-items: center;
+  gap: var(--spacing-lg);
+  text-align: center;
+}
+
+.errorMessage {
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  margin: 0;
+}
+
+// List select variant
+.listSelectVariant {
+  display: grid;
+  gap: var(--spacing-sm);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.listSelectItem {
+  @include m.flex-between;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+// List create variant
+.listCreateVariant {
+  display: grid;
+  gap: var(--spacing-lg);
+}
+
+.field {
+  display: grid;
+  gap: var(--spacing-xs);
+}
+
+.label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.input {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+  transition: border-color var(--transition-fast);
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+}
+
+.inputError {
+  border-color: #e53e3e;
+}
+
+.fieldError {
+  font-size: var(--font-size-xs);
+  color: #e53e3e;
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+}
