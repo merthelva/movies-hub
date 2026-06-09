@@ -7,14 +7,12 @@ import type { ThemeContextType, ThemeType } from "./theme.type";
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 const ThemeProvider = ({ children }: PropsWithChildren) => {
-  const [theme, setTheme] = useState<ThemeType>(() => {
-    if (typeof window === "undefined") {
-      return "dark";
-    }
+  const [theme, setTheme] = useState<ThemeType>("dark");
 
+  useEffect(() => {
     const storedTheme = localStorage.getItem("theme") as ThemeType | null;
-    return storedTheme ?? "dark";
-  });
+    setTheme(storedTheme ?? "dark");
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("theme", theme);
