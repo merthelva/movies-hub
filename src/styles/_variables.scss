@@ -60,6 +60,10 @@ html[data-theme="dark"] {
   --color-text: #e8e8e8;
   --color-border: #2a2a2a;
   --color-backdrop: #ffffff80;
+  --color-error: #ff6b6b;
+  --color-info: #4dadf7;
+  --color-warning: #ffd43b;
+  --color-success: #69db7c;
 }
 
 html[data-theme="light"] {
@@ -69,4 +73,8 @@ html[data-theme="light"] {
   --color-text: #1a1a1a;
   --color-border: #e0e0e0;
   --color-backdrop: #00000080;
+  --color-error: #e53e3e;
+  --color-info: #1d72b8;
+  --color-warning: #d97706;
+  --color-success: #2f9e44;
 }
