@@ -1,94 +1,51 @@
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+"use client";
 
-import type {
-  DialogListCreateFormType,
-  ListCreateVariantPropsType,
-} from "./component.type";
+import { useActionState, useEffect } from "react";
+
+import type { ListCreateVariantPropsType } from "./component.type";
 import styles from "./styles.module.scss";
 
 import { Button } from "@/components/ui/Button";
-import { joinClassNames } from "@/common/utils/join-classnames.util";
-
-const listCreateSchema = z.object({
-  name: z
-    .string()
-    .min(1, "Name is required")
-    .max(50, "Name must be at most 50 characters"),
-});
+import { Input } from "@/components/ui/Input";
+import { Message } from "@/components/ui/Message";
+import { listCreateFormAction } from "@/features/user-lists/actions/form.actions";
+import { INITIAL_STATE } from "@/common/constants/form-initial-state.constant";
 
 const ListCreateVariant = ({
-  onCreate,
+  userListType,
   onClose,
 }: ListCreateVariantPropsType) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    reset,
-  } = useForm<DialogListCreateFormType>({
-    resolver: zodResolver(listCreateSchema),
-  });
+  const [state, formAction, isPending] = useActionState(
+    listCreateFormAction.bind(null, userListType),
+    INITIAL_STATE,
+  );
 
-  const handleClearAndClose = () => {
-    reset();
+  useEffect(() => {
+    if (state.status !== "success") {
+      return;
+    }
     onClose();
-  };
-
-  const handleCreate = async (data: DialogListCreateFormType) => {
-    await onCreate(data);
-    handleClearAndClose();
-  };
+  }, [state.status, onClose]);
 
   return (
-    <form
-      className={styles.listCreateVariant}
-      onSubmit={handleSubmit(handleCreate)}
-    >
-      {/* TODO: Replace this with ui/Input component */}
-      <div className={styles.field}>
-        <label htmlFor="list-name" className={styles.label}>
-          List Name
-        </label>
-        <input
-          id="list-name"
-          className={joinClassNames(
-            styles.input,
-            errors.name ? styles.inputError : "",
-          )}
-          aria-describedby="list-name-error"
-          placeholder="My Movie List"
-          {...register("name")}
-        />
-        {errors.name != null && (
-          <span
-            id="list-name-error"
-            aria-atomic={false}
-            aria-live="polite"
-            aria-relevant="additions text"
-            className={styles.fieldError}
-          >
-            {errors.name.message}
-          </span>
-        )}
-      </div>
+    <form className={styles.listCreateVariant} action={formAction}>
+      <Input
+        aria-describedby="list-name-error"
+        id="list-name"
+        name="name"
+        label="List Name"
+        hasError={state.status === "error"}
+        placeholder="My Movie List"
+      />
+      {state.status === "error" && state.message && (
+        <Message id="list-name-error" variant="error" content={state.message} />
+      )}
       <div className={styles.formActions}>
-        <Button
-          type="button"
-          variant="ghost"
-          size="md"
-          onClick={handleClearAndClose}
-        >
+        <Button type="button" variant="ghost" size="md" onClick={onClose}>
           Cancel
         </Button>
-        <Button
-          type="submit"
-          variant="primary"
-          size="md"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? "Creating..." : "Create"}
+        <Button type="submit" variant="primary" size="md" disabled={isPending}>
+          {isPending ? "Creating..." : "Create"}
         </Button>
       </div>
     </form>

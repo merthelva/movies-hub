@@ -1,9 +1,11 @@
+import type { UserListType } from "@/features/user-lists/types/user-list.type";
+
 type DialogListCreateFormType = {
   name: string;
 };
 
 type ListCreateVariantPropsType = {
-  onCreate: (data: DialogListCreateFormType) => Promise<void>;
+  userListType: UserListType;
   onClose: VoidFunction;
 };
 
