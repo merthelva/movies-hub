@@ -40,18 +40,25 @@ const AuthForm = ({ mode, redirectTo }: AuthFormPropsType) => {
       <h1 className={styles.title}>{isLogin ? t("login") : t("register")}</h1>
 
       {!isLogin && (
-        <Input aria-describedby="auth-form-error" id="name" label={t("name")} />
+        <Input
+          aria-describedby="auth-form-error"
+          id="name"
+          name="name"
+          label={t("name")}
+        />
       )}
       <Input
         aria-describedby="auth-form-error"
         type="email"
         id="email"
+        name="email"
         label={t("email")}
       />
       <Input
         aria-describedby="auth-form-error"
         type="password"
         id="password"
+        name="password"
         label={t("password")}
       />
       {state.status === "error" && state.message && (
