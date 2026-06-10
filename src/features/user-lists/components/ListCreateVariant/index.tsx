@@ -32,7 +32,7 @@ const ListCreateVariant = ({
       <Input
         aria-describedby="list-name-error"
         id="list-name"
-        name="name"
+        name="list-name"
         label="List Name"
         hasError={state.status === "error"}
         placeholder="My Movie List"
