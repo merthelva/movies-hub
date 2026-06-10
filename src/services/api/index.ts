@@ -3,6 +3,7 @@ import { HttpStatusCodes } from "@/common/constants/http-status-codes.constant";
 import type { GenericResponseType } from "@/common/types/generic-response.type";
 import { getCookieStoreAndAccessToken } from "@/common/utils/get-cookie-store-and-access-token.util";
 import type { ApiErrorDataType, FetchOptionsType } from "./api.type";
+import { getCurrentUser } from "@/features/auth/actions";
 
 const apiService = async <TResponse>(
   endpoint: string,
@@ -21,8 +22,9 @@ const apiService = async <TResponse>(
   };
 
   if (withAuth) {
+    const currentUser = await getCurrentUser();
     const [, token] = await getCookieStoreAndAccessToken();
-    if (token) {
+    if (currentUser != null && token) {
       headers["Authorization"] = `Bearer ${token}`;
     }
   }
