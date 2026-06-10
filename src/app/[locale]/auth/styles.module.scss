@@ -1,0 +1,8 @@
+@use "@/styles/mixins" as m;
+
+.page {
+  @include m.flex-center;
+  min-height: 100dvh;
+  padding: var(--spacing-xl);
+  background-color: var(--color-bg);
+}
