@@ -11,12 +11,10 @@ import {
 } from "@/features/auth/actions/form.actions";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/Button";
-import type { AuthActionStateType } from "@/features/auth/types/actions.type";
 import type { AuthFormPropsType } from "@/features/auth/types/component.type";
 import { Input } from "@/components/ui/Input";
 import { Message } from "@/components/ui/Message";
-
-const INITIAL_STATE: AuthActionStateType = { status: "idle" };
+import { INITIAL_STATE } from "@/common/constants/form-initial-state.constant";
 
 const AuthForm = ({ mode, redirectTo }: AuthFormPropsType) => {
   const t = useTranslations("Auth");

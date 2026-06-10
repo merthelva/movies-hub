@@ -24,11 +24,6 @@ type AuthContextValueType = {
   isLoading: boolean;
 };
 
-type AuthActionStateType = {
-  status: "idle" | "success" | "error";
-  message?: string;
-};
-
 export type {
   LoginCredentialsType,
   RegisterCredentialsType,
@@ -36,5 +31,4 @@ export type {
   RegisterResponseType,
   GetCurrentUserResponseType,
   AuthContextValueType,
-  AuthActionStateType,
 };

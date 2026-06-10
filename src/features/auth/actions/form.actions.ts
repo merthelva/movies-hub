@@ -2,14 +2,14 @@
 
 import { login, register } from ".";
 import { loginSchema, registerSchema } from "@/features/auth/schemas";
-import type { AuthActionStateType } from "@/features/auth/types/actions.type";
 import { serializeMessage } from "@/common/utils/serialize-message.util";
 import { safeParseFormBody } from "../utils/safe-parse-form-body.util";
+import type { FormActionStateType } from "@/common/types/form-action-state.type";
 
 const loginFormAction = async (
-  _prevState: AuthActionStateType,
+  _prevState: FormActionStateType,
   formData: FormData,
-): Promise<AuthActionStateType> => {
+): Promise<FormActionStateType> => {
   const parsedLoginForm = safeParseFormBody(loginSchema, {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
@@ -31,9 +31,9 @@ const loginFormAction = async (
 };
 
 const registerFormAction = async (
-  _prevState: AuthActionStateType,
+  _prevState: FormActionStateType,
   formData: FormData,
-): Promise<AuthActionStateType> => {
+): Promise<FormActionStateType> => {
   const parsedRegisterForm = safeParseFormBody(registerSchema, {
     name: formData.get("name") as string,
     email: formData.get("email") as string,
