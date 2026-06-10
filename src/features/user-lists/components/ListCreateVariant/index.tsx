@@ -25,7 +25,7 @@ const ListCreateVariant = ({
       return;
     }
     onClose();
-  }, [state.status, onClose]);
+  }, [state.status]);
 
   return (
     <form className={styles.listCreateVariant} action={formAction}>
