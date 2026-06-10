@@ -14,7 +14,10 @@ import { Button } from "@/components/ui/Button";
 import type { AuthFormPropsType } from "@/features/auth/types/component.type";
 import { Input } from "@/components/ui/Input";
 import { Message } from "@/components/ui/Message";
-import { INITIAL_STATE } from "@/common/constants/form-initial-state.constant";
+import {
+  LOGIN_INITIAL_STATE,
+  REGISTER_INITIAL_STATE,
+} from "@/features/auth/constants/form-initial-state.constant";
 
 const AuthForm = ({ mode, redirectTo }: AuthFormPropsType) => {
   const t = useTranslations("Auth");
@@ -23,7 +26,7 @@ const AuthForm = ({ mode, redirectTo }: AuthFormPropsType) => {
 
   const [state, formAction, isPending] = useActionState(
     isLogin ? loginFormAction : registerFormAction,
-    INITIAL_STATE,
+    isLogin ? LOGIN_INITIAL_STATE : REGISTER_INITIAL_STATE,
   );
 
   // router.push triggers soft navigation — AuthProvider doesn't remount, user state stays null.
@@ -45,6 +48,13 @@ const AuthForm = ({ mode, redirectTo }: AuthFormPropsType) => {
           id="name"
           name="name"
           label={t("name")}
+          defaultValue={
+            state.status === "error" && "name" in state.formFields
+              ? String(state.formFields.name)
+              : ""
+          }
+          hasError={state.status === "error"}
+          placeholder="Enter [2-50] characters"
         />
       )}
       <Input
@@ -53,6 +63,9 @@ const AuthForm = ({ mode, redirectTo }: AuthFormPropsType) => {
         id="email"
         name="email"
         label={t("email")}
+        defaultValue={state.status === "error" ? state.formFields.email : ""}
+        hasError={state.status === "error"}
+        placeholder="test@placeholder.com"
       />
       <Input
         aria-describedby="auth-form-error"
@@ -60,6 +73,9 @@ const AuthForm = ({ mode, redirectTo }: AuthFormPropsType) => {
         id="password"
         name="password"
         label={t("password")}
+        defaultValue={state.status === "error" ? state.formFields.password : ""}
+        hasError={state.status === "error"}
+        placeholder="Enter at least 6 characters"
       />
       {state.status === "error" && state.message && (
         <Message

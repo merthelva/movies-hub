@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Message } from "@/components/ui/Message";
 import { listCreateFormAction } from "@/features/user-lists/actions/form.actions";
-import { INITIAL_STATE } from "@/common/constants/form-initial-state.constant";
+import { INITIAL_STATE } from "@/features/user-lists/constants/form-initial-state.constant";
 
 const ListCreateVariant = ({
   userListType,
@@ -34,8 +34,9 @@ const ListCreateVariant = ({
         id="list-name"
         name="list-name"
         label="List Name"
+        defaultValue={state.status === "error" ? state.formFields.name : ""}
         hasError={state.status === "error"}
-        placeholder="My Movie List"
+        placeholder="Enter [1-50] character(s)"
       />
       {state.status === "error" && state.message && (
         <Message id="list-name-error" variant="error" content={state.message} />
