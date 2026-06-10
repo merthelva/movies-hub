@@ -46,6 +46,7 @@ const ListCreateVariant = ({
       className={styles.listCreateVariant}
       onSubmit={handleSubmit(handleCreate)}
     >
+      {/* TODO: Replace this with ui/Input component */}
       <div className={styles.field}>
         <label htmlFor="list-name" className={styles.label}>
           List Name
