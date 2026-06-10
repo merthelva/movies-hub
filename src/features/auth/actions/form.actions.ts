@@ -3,7 +3,7 @@
 import { login, register } from ".";
 import { loginSchema, registerSchema } from "@/features/auth/schemas";
 import type { AuthActionStateType } from "@/features/auth/types/actions.type";
-import { serializeErrorMessage } from "@/common/utils/serialize-error-message.util";
+import { serializeMessage } from "@/common/utils/serialize-message.util";
 import { safeParseFormBody } from "../utils/safe-parse-form-body.util";
 
 const loginFormAction = async (
@@ -23,7 +23,7 @@ const loginFormAction = async (
   if (response.status === "error") {
     return {
       status: "error",
-      message: serializeErrorMessage(response.message),
+      message: serializeMessage("error", response.message),
     };
   }
 
@@ -48,7 +48,7 @@ const registerFormAction = async (
   if (response.status === "error") {
     return {
       status: "error",
-      message: serializeErrorMessage(response.message),
+      message: serializeMessage("error", response.message),
     };
   }
 

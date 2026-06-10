@@ -11,7 +11,7 @@ import type {
 } from "@/features/auth/types/actions.type";
 import type { GenericResponseType } from "@/common/types/generic-response.type";
 import { HttpStatusCodes } from "@/common/constants/http-status-codes.constant";
-import { serializeErrorMessage } from "@/common/utils/serialize-error-message.util";
+import { serializeMessage } from "@/common/utils/serialize-message.util";
 import { API_BASE_URL } from "@/common/constants/api-base-url.constant";
 import type { SuccessResponseType } from "@/common/types/success-response.type";
 import { getCookieStoreAndAccessToken } from "@/common/utils/get-cookie-store-and-access-token.util";
@@ -28,7 +28,7 @@ const login = async (
   if (jsonResp?.status === "error") {
     return {
       ...jsonResp,
-      message: serializeErrorMessage(jsonResp.message),
+      message: serializeMessage("error", jsonResp.message),
     };
   }
 
@@ -58,7 +58,7 @@ const register = async (
   if (jsonResp?.status === "error") {
     return {
       ...jsonResp,
-      message: serializeErrorMessage(jsonResp.message),
+      message: serializeMessage("error", jsonResp.message),
     };
   }
 
@@ -89,7 +89,7 @@ const logout = async (): Promise<GenericResponseType<SuccessResponseType>> => {
   if (jsonResp?.status === "error") {
     return {
       ...jsonResp,
-      message: serializeErrorMessage(jsonResp.message),
+      message: serializeMessage("error", jsonResp.message),
     };
   }
 
@@ -122,7 +122,7 @@ const removeAccount = async (
   if (jsonResp?.status === "error") {
     return {
       ...jsonResp,
-      message: serializeErrorMessage(jsonResp.message),
+      message: serializeMessage("error", jsonResp.message),
     };
   }
 
