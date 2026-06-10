@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/Button";
 import type { AuthActionStateType } from "@/features/auth/types/actions.type";
 import type { AuthFormPropsType } from "@/features/auth/types/component.type";
 import { Input } from "@/components/ui/Input";
+import { Message } from "@/components/ui/Message";
 
 const INITIAL_STATE: AuthActionStateType = { status: "idle" };
 
@@ -30,7 +31,9 @@ const AuthForm = ({ mode, redirectTo }: AuthFormPropsType) => {
   // router.push triggers soft navigation — AuthProvider doesn't remount, user state stays null.
   // window.location.assign forces full browser navigation → remount → getCurrentUser() re-runs.
   useEffect(() => {
-    if (state.status !== "success") return;
+    if (state.status !== "success") {
+      return;
+    }
     window.location.assign(redirectTo ?? `/${locale}`);
   }, [state.status, redirectTo, locale]);
 
@@ -38,22 +41,28 @@ const AuthForm = ({ mode, redirectTo }: AuthFormPropsType) => {
     <form className={styles.form} action={formAction} noValidate>
       <h1 className={styles.title}>{isLogin ? t("login") : t("register")}</h1>
 
-      {!isLogin && <Input id="name" label={t("name")} />}
-
-      <Input type="email" id="email" label={t("email")} />
-
-      <Input type="password" id="password" label={t("password")} />
-
+      {!isLogin && (
+        <Input aria-describedby="auth-form-error" id="name" label={t("name")} />
+      )}
+      <Input
+        aria-describedby="auth-form-error"
+        type="email"
+        id="email"
+        label={t("email")}
+      />
+      <Input
+        aria-describedby="auth-form-error"
+        type="password"
+        id="password"
+        label={t("password")}
+      />
       {state.status === "error" && state.message && (
-        <p
-          aria-live="polite"
-          aria-atomic={false}
-          aria-relevant="additions text"
-          className={styles.serverError}
-          role="alert"
-        >
-          {state.message}
-        </p>
+        <Message
+          id="auth-form-error"
+          renderAs="p"
+          variant="error"
+          content={state.message}
+        />
       )}
 
       <Button type="submit" disabled={isPending} className={styles.submitBtn}>
