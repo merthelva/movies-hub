@@ -1,0 +1,82 @@
+"use client";
+
+import { useState } from "react";
+import { Menu } from "lucide-react";
+
+import { useAuth } from "@/features/auth/context";
+import { useRouter } from "@/i18n/navigation";
+import { Button } from "@/components/ui/Button";
+import { NavLink } from "@/components/NavLink";
+import { Drawer } from "@/components/Drawer";
+
+import styles from "./styles.module.scss";
+
+// TODO: Static for now. Update links after all pages created
+const authenticatedNavLinks = [
+  { href: "/", label: "Home" },
+  { href: "/movies", label: "Movies" },
+  { href: "/lists/watchlists", label: "Watchlists" },
+  { href: "/lists/favoritelists", label: "Favorites" },
+];
+
+const unauthenticatedNavLinks = [
+  { href: "/", label: "Home" },
+  { href: "/movies", label: "Movies" },
+];
+
+const HeaderNav = () => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const router = useRouter();
+  const { user, logout } = useAuth();
+  const isAuthenticated = user != null;
+
+  const navLinks = isAuthenticated
+    ? authenticatedNavLinks
+    : unauthenticatedNavLinks;
+
+  const handleOpenDrawer = () => {
+    setIsDrawerOpen(true);
+  };
+
+  const handleCloseDrawer = () => {
+    setIsDrawerOpen(false);
+  };
+
+  const handleLogin = () => {
+    router.push("/auth/login");
+  };
+
+  return (
+    <>
+      <nav className={styles.nav}>
+        <ul className={styles.navLinks}>
+          {navLinks.map(({ href, label }) => (
+            <li key={href}>
+              <NavLink href={href} label={label} />
+            </li>
+          ))}
+        </ul>
+        <Button
+          variant="primary"
+          onClick={isAuthenticated ? logout : handleLogin}
+        >
+          {isAuthenticated ? "Logout" : "Login"}
+        </Button>
+      </nav>
+
+      <Button
+        aria-label="Open navigation menu"
+        aria-expanded={isDrawerOpen}
+        variant="ghost"
+        className={styles.burgerBtn}
+        onClick={handleOpenDrawer}
+      >
+        <Menu />
+      </Button>
+
+      <Drawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
+    </>
+  );
+};
+
+export { HeaderNav };
