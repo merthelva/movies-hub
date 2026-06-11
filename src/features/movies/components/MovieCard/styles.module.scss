@@ -1,0 +1,78 @@
+@use "@/styles/mixins" as m;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  @include m.transition(box-shadow);
+
+  &:hover {
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+.posterLink {
+  display: block;
+}
+
+.posterWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  background-color: var(--color-border);
+}
+
+.poster {
+  object-fit: cover;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+  flex: 1;
+}
+
+.titleLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin: 0;
+  @include m.truncate;
+  @include m.transition(color);
+
+  &:hover {
+    color: var(--color-accent);
+  }
+}
+
+.meta {
+  @include m.flex-between;
+  font-size: var(--font-size-xs);
+}
+
+.year {
+  color: var(--color-text);
+  opacity: 0.6;
+}
+
+.rating {
+  color: var(--color-accent);
+  font-weight: var(--font-weight-bold);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) 0 var(--spacing-sm);
+}

@@ -1,0 +1,35 @@
+@use "@/styles/mixins" as m;
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.header {
+  @include m.flex-between;
+}
+
+.sectionTitle {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.viewMore {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.grid {
+  @include m.grid(2, var(--spacing-md));
+
+  @include m.respond-to("sm") {
+    @include m.grid(3, var(--spacing-md));
+  }
+
+  @include m.respond-to("lg") {
+    @include m.grid(5, var(--spacing-md));
+  }
+}
