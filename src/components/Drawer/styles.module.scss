@@ -1,0 +1,64 @@
+@use "@/styles/mixins" as m;
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: var(--color-backdrop);
+  z-index: var(--z-modal-backdrop);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--transition-slow),
+    visibility var(--transition-slow);
+
+  &.backdropVisible {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: min(320px, 60%);
+  background-color: var(--color-surface);
+  z-index: var(--z-modal);
+  transform: translateX(-100%);
+  transition: transform var(--transition-slow);
+  display: flex;
+  flex-direction: column;
+
+  &.open {
+    transform: translateX(0);
+  }
+}
+
+.navList {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-block-start: var(--spacing-lg);
+  overflow-y: auto;
+
+  a {
+    display: block;
+    padding: var(--spacing-md) var(--spacing-lg);
+    width: 100%;
+    border-block-end: 1px solid var(--color-border);
+
+    &:last-child {
+      border-block-end: none;
+    }
+  }
+}
+
+.footer {
+  padding: var(--spacing-lg);
+  border-block-start: 1px solid var(--color-border);
+
+  button {
+    width: 100%;
+  }
+}
