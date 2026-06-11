@@ -2,6 +2,9 @@
 // Applied to html[data-theme="dark|light"]
 
 html {
+  // Layout
+  --header-height: 80px;
+
   // Font sizes
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
