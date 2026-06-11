@@ -87,7 +87,6 @@ const Drawer = ({ isOpen, onClose }: DrawerPropsType) => {
         <div className={styles.footer}>
           <Button
             variant="primary"
-            size="lg"
             onClick={isAuthenticated ? handleLogout : handleLogin}
           >
             {isAuthenticated ? "Logout" : "Login"}
