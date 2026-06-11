@@ -9,7 +9,6 @@ const UserListDialogVariant = ({
   isOpen,
   title,
   onClose,
-  userListType,
   ...rest
 }: UserListDialogVariantPropsType) => {
   return (
@@ -28,7 +27,7 @@ const UserListDialogVariant = ({
       {rest.variant === "list-create" && (
         <ListCreateVariant
           key={`dialog-${isOpen ? "visible" : "hidden"}`}
-          userListType={userListType}
+          userListType={rest.userListType}
           onClose={onClose}
         />
       )}
