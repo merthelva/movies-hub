@@ -7,7 +7,7 @@ import type { NavLinkPropsType } from "./component.type";
 import styles from "./styles.module.scss";
 import { checkIsLinkActive } from "./check-is-link-active.util";
 
-const NavLink = ({ className, href, label }: NavLinkPropsType) => {
+const NavLink = ({ className, href, label, onClick }: NavLinkPropsType) => {
   // current URL path (locale-stripped)
   const pathname = usePathname();
 
@@ -21,6 +21,7 @@ const NavLink = ({ className, href, label }: NavLinkPropsType) => {
         className,
         isActive ? styles.active : "",
       )}
+      onClick={onClick}
     >
       {label}
     </Link>
