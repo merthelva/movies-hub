@@ -36,11 +36,6 @@
 
 .switchLink {
   color: var(--color-accent);
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
 
   @include m.focus-ring;
 }

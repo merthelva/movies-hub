@@ -18,6 +18,7 @@ import {
   LOGIN_INITIAL_STATE,
   REGISTER_INITIAL_STATE,
 } from "@/features/auth/constants/form-initial-state.constant";
+import { NavLink } from "@/components/NavLink";
 
 const AuthForm = ({ mode, redirectTo }: AuthFormPropsType) => {
   const t = useTranslations("Auth");
@@ -92,12 +93,11 @@ const AuthForm = ({ mode, redirectTo }: AuthFormPropsType) => {
 
       <p className={styles.switchMode}>
         {isLogin ? t("noAccount") : t("haveAccount")}{" "}
-        <Link
-          href={isLogin ? "/auth/register" : "/auth/login"}
+        <NavLink
           className={styles.switchLink}
-        >
-          {isLogin ? t("register") : t("login")}
-        </Link>
+          href={isLogin ? "/auth/register" : "/auth/login"}
+          label={isLogin ? t("register") : t("login")}
+        />
       </p>
     </form>
   );
