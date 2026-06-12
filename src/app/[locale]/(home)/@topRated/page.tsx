@@ -12,7 +12,7 @@ export default async function TopRatedPage({
 
   // For `getMoviesByCategory`, `page` query param is set to 1 by default.
   // Only the first 20 movies are fetched from the service. So, `response.data.results.length = 20`
-  const response = await getMoviesByCategory("top-rated");
+  const response = await getMoviesByCategory("top_rated");
   const t = await getTranslations("Home");
 
   if (response.status === "error") {

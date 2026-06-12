@@ -1,7 +1,7 @@
 const MOVIE_CATEGORIES = [
   "popular",
-  "now-playing",
-  "top-rated",
+  "now_playing",
+  "top_rated",
   "upcoming",
 ] as const;
 

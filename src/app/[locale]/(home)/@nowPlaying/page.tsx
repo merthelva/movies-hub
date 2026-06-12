@@ -14,7 +14,7 @@ export default async function NowPlayingPage({
 
   // For `getMoviesByCategory`, `page` query param is set to 1 by default.
   // Only the first 20 movies are fetched from the service. So, `response.data.results.length = 20`
-  const response = await getMoviesByCategory("now-playing");
+  const response = await getMoviesByCategory("now_playing");
   const t = await getTranslations("Home");
 
   if (response.status === "error") {
