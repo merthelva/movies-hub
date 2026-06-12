@@ -35,4 +35,24 @@ const ListCardSkeleton = () => (
   </div>
 );
 
-export { MovieCardSkeleton, MovieDetailsSkeleton, ListCardSkeleton };
+const SKELETON_CARD_IDS = [1, 2, 3, 4, 5] as const;
+
+const MovieCategorySectionSkeleton = () => (
+  <section>
+    <div className={styles.categorySectionHeader}>
+      <div className={styles.categorySectionTitle} />
+    </div>
+    <div className={styles.categorySectionGrid}>
+      {SKELETON_CARD_IDS.map((id) => (
+        <MovieCardSkeleton key={id} />
+      ))}
+    </div>
+  </section>
+);
+
+export {
+  MovieCardSkeleton,
+  MovieCategorySectionSkeleton,
+  MovieDetailsSkeleton,
+  ListCardSkeleton,
+};

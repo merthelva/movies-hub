@@ -1,3 +1,5 @@
+@use "@/styles/mixins" as m;
+
 @mixin skeleton-box {
   background-color: var(--color-border);
   border-radius: var(--radius-md);
@@ -74,6 +76,30 @@
   @include skeleton-box;
   height: 32px;
   width: 100px;
+}
+
+// MovieCategorySection skeleton
+.categorySectionHeader {
+  @include m.flex-between;
+  margin-bottom: var(--spacing-lg);
+}
+
+.categorySectionTitle {
+  @include skeleton-box;
+  height: 24px;
+  width: 180px;
+}
+
+.categorySectionGrid {
+  @include m.grid(2, var(--spacing-md));
+
+  @include m.respond-to("sm") {
+    @include m.grid(3, var(--spacing-md));
+  }
+
+  @include m.respond-to("lg") {
+    @include m.grid(5, var(--spacing-md));
+  }
 }
 
 // ListCard skeleton
