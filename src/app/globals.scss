@@ -1,5 +1,9 @@
 @use "../styles";
 
-main {
-  padding-top: var(--header-height);
+html {
+  height: 100dvh;
+}
+
+body {
+  height: 100%;
 }
