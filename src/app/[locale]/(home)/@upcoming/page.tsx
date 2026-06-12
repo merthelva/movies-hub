@@ -3,7 +3,6 @@ import { getTranslations } from "next-intl/server";
 import { Alert } from "@/components/ui/Alert";
 import { MovieCategorySection } from "@/features/movies/components/MovieCategorySection";
 import { getMoviesByCategory } from "@/features/movies/services";
-import styles from "../styles.module.scss";
 
 export default async function UpcomingPage({
   searchParams,
@@ -35,13 +34,11 @@ export default async function UpcomingPage({
   }
 
   return (
-    <div className={styles.section}>
-      <MovieCategorySection
-        title={t("upcoming")}
-        movies={response.data.results}
-        viewMoreHref="/movies/upcoming"
-        viewMoreLabel={t("viewMore")}
-      />
-    </div>
+    <MovieCategorySection
+      title={t("upcoming")}
+      movies={response.data.results}
+      viewMoreHref="/movies/upcoming"
+      viewMoreLabel={t("viewMore")}
+    />
   );
 }

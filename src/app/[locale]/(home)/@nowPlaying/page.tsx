@@ -3,7 +3,6 @@ import { getTranslations } from "next-intl/server";
 import { Alert } from "@/components/ui/Alert";
 import { MovieCategorySection } from "@/features/movies/components/MovieCategorySection";
 import { getMoviesByCategory } from "@/features/movies/services";
-import styles from "../styles.module.scss";
 
 export default async function NowPlayingPage({
   searchParams,
@@ -37,13 +36,11 @@ export default async function NowPlayingPage({
   }
 
   return (
-    <div className={styles.section}>
-      <MovieCategorySection
-        title={t("nowPlaying")}
-        movies={response.data.results}
-        viewMoreHref="/movies/now-playing"
-        viewMoreLabel={t("viewMore")}
-      />
-    </div>
+    <MovieCategorySection
+      title={t("nowPlaying")}
+      movies={response.data.results}
+      viewMoreHref="/movies/now-playing"
+      viewMoreLabel={t("viewMore")}
+    />
   );
 }
