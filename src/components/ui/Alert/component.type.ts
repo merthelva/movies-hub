@@ -3,6 +3,8 @@ import type { ReactNode } from "react";
 
 type AlertPropsType = {
   role?: "alert" | "status";
+  isDismissible?: boolean;
+  hasAutoDismiss?: boolean;
   variant: StateVariantType;
   content: string | ReactNode;
 };
