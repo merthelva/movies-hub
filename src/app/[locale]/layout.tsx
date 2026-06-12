@@ -1,11 +1,14 @@
 import { Roboto } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
-import type { PropsWithChildren } from "react";
 
 import "../globals.scss";
-import { ThemeProvider } from "@/context/theme/ThemeContext";
+import { AuthProvider } from "@/features/auth/context";
+import { ThemeProvider } from "@/context/theme";
+import { Header } from "@/components/Header";
 import { routing } from "@/i18n/routing";
+import type { LocaleLayoutPropsType } from "./props.type";
+import styles from "./styles.module.scss";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -14,8 +17,9 @@ const roboto = Roboto({
 
 export default async function LocaleLayout({
   children,
+  modal,
   params,
-}: PropsWithChildren<LayoutProps<"/[locale]">>) {
+}: LocaleLayoutPropsType) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) {
     notFound();
@@ -25,7 +29,13 @@ export default async function LocaleLayout({
     <html lang={locale} data-theme="dark">
       <body className={roboto.className}>
         <NextIntlClientProvider>
-          <ThemeProvider>{children}</ThemeProvider>
+          <AuthProvider>
+            <ThemeProvider>
+              <Header />
+              <main className={styles.main}>{children}</main>
+              {modal}
+            </ThemeProvider>
+          </AuthProvider>
         </NextIntlClientProvider>
       </body>
     </html>
