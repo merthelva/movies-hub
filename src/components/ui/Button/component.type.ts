@@ -1,12 +1,13 @@
 import type { ComponentPropsWithoutRef, PropsWithChildren } from "react";
 
+import type { ComponentSizeType } from "@/common/types/component-size.type";
+
 type ButtonVariantType = "primary" | "secondary" | "ghost";
-type ButtonSizeType = "sm" | "md" | "lg";
 
 type ButtonPropsType = ComponentPropsWithoutRef<"button"> &
   PropsWithChildren & {
     variant?: ButtonVariantType;
-    size?: ButtonSizeType;
+    componentSize?: ComponentSizeType;
   };
 
-export type { ButtonVariantType, ButtonSizeType, ButtonPropsType };
+export type { ButtonVariantType, ButtonPropsType };

@@ -5,14 +5,14 @@ import styles from "./styles.module.scss";
 const Button = ({
   children,
   variant = "primary",
-  size = "md",
+  componentSize = "md",
   className,
   ...rest
 }: ButtonPropsType) => (
   <button
     className={joinClassNames(
       styles.button,
-      styles[size],
+      styles[componentSize],
       styles[variant],
       className,
     )}
