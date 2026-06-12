@@ -14,8 +14,17 @@
   }
 }
 
+.posterContainer {
+  position: relative;
+}
+
 .posterLink {
   display: block;
+  padding-block: 0;
+
+  &::after {
+    display: none;
+  }
 }
 
 .posterWrapper {
@@ -38,17 +47,17 @@
 }
 
 .titleLink {
+  display: block;
   text-decoration: none;
   color: inherit;
-}
-
-.title {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
-  color: var(--color-text);
-  margin: 0;
   @include m.truncate;
   @include m.transition(color);
+
+  &::after {
+    display: none;
+  }
 
   &:hover {
     color: var(--color-accent);
@@ -71,16 +80,24 @@
 }
 
 .actions {
+  position: absolute;
+  inset: var(--spacing-md) var(--spacing-sm) auto auto;
   display: flex;
   align-items: center;
-  gap: var(--spacing-xs);
-  padding: var(--spacing-xs) 0 var(--spacing-sm);
+  gap: var(--spacing-md);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-md);
+  background-color: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
-:is(.posterLink, .titleLink) {
-  padding-block: 0;
+.actionBtn {
+  padding: 0;
+  color: rgba(255, 255, 255, 0.9);
 
-  &:hover {
-    // text-decoration: none;
+  &:hover:not(:disabled) {
+    background-color: transparent;
+    color: var(--color-accent);
   }
 }
