@@ -76,3 +76,11 @@
   gap: var(--spacing-xs);
   padding: var(--spacing-xs) 0 var(--spacing-sm);
 }
+
+:is(.posterLink, .titleLink) {
+  padding-block: 0;
+
+  &:hover {
+    // text-decoration: none;
+  }
+}
