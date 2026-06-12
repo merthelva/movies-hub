@@ -7,6 +7,7 @@ const Input = ({
   label,
   hasError = false,
   type = "text",
+  className,
   ...props
 }: InputPropsType) => {
   return (
@@ -22,7 +23,7 @@ const Input = ({
           styles.input,
           styles[componentSize],
           hasError ? styles.error : "",
-          props.className,
+          className,
         )}
         {...props}
       />
