@@ -1,0 +1,29 @@
+@use "@/styles/mixins" as m;
+
+.page {
+  display: grid;
+  gap: var(--spacing-3xl);
+}
+
+.section {
+  margin-top: var(--spacing-3xl);
+}
+
+.searchResultsTitle {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-lg);
+}
+
+.searchResultsGrid {
+  @include m.grid(2, var(--spacing-md));
+
+  @include m.respond-to("sm") {
+    @include m.grid(3, var(--spacing-md));
+  }
+
+  @include m.respond-to("lg") {
+    @include m.grid(5, var(--spacing-md));
+  }
+}
