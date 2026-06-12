@@ -18,7 +18,7 @@ import {
   LOGIN_INITIAL_STATE,
   REGISTER_INITIAL_STATE,
 } from "@/features/auth/constants/form-initial-state.constant";
-import { NavLink } from "@/components/NavLink";
+import { NavLink } from "@/components/ui/NavLink";
 
 const AuthForm = ({ mode, redirectTo }: AuthFormPropsType) => {
   const t = useTranslations("Auth");

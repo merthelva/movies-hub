@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 import { useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/Button";
-import { NavLink } from "@/components/NavLink";
+import { NavLink } from "@/components/ui/NavLink";
 import { joinClassNames } from "@/common/utils/join-classnames.util";
 
 import type { DrawerPropsType } from "./component.type";

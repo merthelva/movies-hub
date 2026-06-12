@@ -6,7 +6,7 @@ import { Menu } from "lucide-react";
 import { useAuth } from "@/features/auth/context";
 import { useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/Button";
-import { NavLink } from "@/components/NavLink";
+import { NavLink } from "@/components/ui/NavLink";
 import { Drawer } from "@/components/Drawer";
 
 import styles from "./styles.module.scss";

@@ -7,6 +7,7 @@ import type { NavLinkPropsType } from "./component.type";
 import styles from "./styles.module.scss";
 import { checkIsLinkActive } from "./check-is-link-active.util";
 
+// TODO: This should be ui component. Move this into "ui" folder and update all of its imports in other components
 const NavLink = ({
   children,
   className,
