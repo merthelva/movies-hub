@@ -10,9 +10,11 @@ const Input = ({
 }: InputPropsType) => {
   return (
     <div className={styles.field}>
-      <label htmlFor={props.id} className={styles.label}>
-        {label}
-      </label>
+      {label && (
+        <label htmlFor={props.id} className={styles.label}>
+          {label}
+        </label>
+      )}
       <input
         type={type}
         className={joinClassNames(
