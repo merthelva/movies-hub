@@ -13,6 +13,8 @@
 }
 
 .searchResultsGrid {
+  margin-block-end: var(--spacing-lg);
+
   @include m.grid(2, var(--spacing-md));
 
   @include m.respond-to("sm") {

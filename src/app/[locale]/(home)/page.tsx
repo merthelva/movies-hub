@@ -7,17 +7,23 @@ import { MovieSearchInput } from "@/features/movies/components/MovieSearchInput"
 import { searchMovies } from "@/features/movies/services";
 import styles from "./styles.module.scss";
 import { Alert } from "@/components/ui/Alert";
+import { SearchedMoviesPagination } from "./components/SearchedMoviesPagination";
+import { checkIsNumberString } from "@/common/utils/check-is-number-string.util";
 
 export default async function HomePage({
   searchParams,
 }: PageProps<"/[locale]">) {
-  const { query } = await searchParams;
+  const { query, page } = await searchParams;
   const searchQuery = typeof query === "string" ? query.trim() : "";
+  const currentPage =
+    typeof page === "string" && checkIsNumberString(page) ? +page : 1;
   const t = await getTranslations("Home");
   let searchedMoviesResponse: Awaited<ReturnType<typeof searchMovies>> | null =
     null;
   if (searchQuery) {
-    searchedMoviesResponse = await searchMovies(searchQuery);
+    searchedMoviesResponse = await searchMovies(searchQuery, {
+      page: currentPage,
+    });
   }
 
   const renderSearchMovieResults = () => {
@@ -44,11 +50,16 @@ export default async function HomePage({
     }
 
     return (
-      <div className={styles.searchResultsGrid}>
-        {searchedMoviesResponse.data.results.map((movie) => (
-          <MovieCard key={movie.tmdbId} {...movie} />
-        ))}
-      </div>
+      <>
+        <div className={styles.searchResultsGrid}>
+          {searchedMoviesResponse.data.results.map((movie) => (
+            <MovieCard key={movie.tmdbId} {...movie} />
+          ))}
+        </div>
+        <SearchedMoviesPagination
+          totalPages={searchedMoviesResponse.data.totalPages}
+        />
+      </>
     );
   };
 
