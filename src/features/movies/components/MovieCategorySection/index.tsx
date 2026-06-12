@@ -10,7 +10,7 @@ const MovieCategorySection = ({
   viewMoreLabel,
 }: MovieCategorySectionPropsType) => {
   return (
-    <>
+    <div>
       <div className={styles.header}>
         <h2 className={styles.sectionTitle}>{title}</h2>
         <NavLink
@@ -24,7 +24,7 @@ const MovieCategorySection = ({
           <MovieCard key={movie.tmdbId} {...movie} />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,13 +1,8 @@
 @use "@/styles/mixins" as m;
 
-.section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
-}
-
 .header {
   @include m.flex-between;
+  margin-block-end: var(--spacing-md);
 }
 
 .sectionTitle {
