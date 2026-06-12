@@ -28,12 +28,14 @@ const MovieSearchInput = () => {
     }
 
     const query = new URLSearchParams(searchParamsRef.current.toString());
+    query.delete("page");
     if (debouncedValue) {
       query.set("query", debouncedValue);
     } else {
       query.delete("query");
     }
-    router.replace(`${pathname}?${query.toString().toLowerCase()}`);
+    const queryString = query.toString().toLowerCase();
+    router.replace(`${pathname}${queryString ? `?${queryString}` : ""}`);
   }, [debouncedValue]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
