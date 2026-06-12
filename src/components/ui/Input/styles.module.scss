@@ -27,3 +27,15 @@
 .error {
   border-color: var(--color-error);
 }
+
+.sm {
+  padding: var(--spacing-xs) var(--spacing-sm);
+}
+
+.md {
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.lg {
+  padding: var(--spacing-md) var(--spacing-xl);
+}

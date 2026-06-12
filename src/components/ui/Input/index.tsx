@@ -3,6 +3,7 @@ import type { InputPropsType } from "./component.type";
 import styles from "./styles.module.scss";
 
 const Input = ({
+  componentSize = "md",
   label,
   hasError = false,
   type = "text",
@@ -19,6 +20,7 @@ const Input = ({
         type={type}
         className={joinClassNames(
           styles.input,
+          styles[componentSize],
           hasError ? styles.error : "",
           props.className,
         )}
