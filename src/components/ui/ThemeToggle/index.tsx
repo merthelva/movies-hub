@@ -14,7 +14,7 @@ const ThemeToggle = () => {
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       className={styles.toggle}
       variant="secondary"
-      size="sm"
+      componentSize="sm"
       onClick={handleToggleTheme}
     >
       {isDark ? <Sun size={20} /> : <Moon size={20} />}

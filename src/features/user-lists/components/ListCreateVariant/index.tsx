@@ -42,10 +42,20 @@ const ListCreateVariant = ({
         <Message id="list-name-error" variant="error" content={state.message} />
       )}
       <div className={styles.formActions}>
-        <Button type="button" variant="ghost" size="md" onClick={onClose}>
+        <Button
+          type="button"
+          variant="ghost"
+          componentSize="md"
+          onClick={onClose}
+        >
           Cancel
         </Button>
-        <Button type="submit" variant="primary" size="md" disabled={isPending}>
+        <Button
+          type="submit"
+          variant="primary"
+          componentSize="md"
+          disabled={isPending}
+        >
           {isPending ? "Creating..." : "Create"}
         </Button>
       </div>

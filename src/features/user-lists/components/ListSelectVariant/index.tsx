@@ -17,7 +17,7 @@ const ListSelectVariant = ({
           <span>{list.name}</span>
           <Button
             variant={isInList ? "secondary" : "primary"}
-            size="sm"
+            componentSize="sm"
             onClick={
               isInList
                 ? onRemove.bind(null, list.id)

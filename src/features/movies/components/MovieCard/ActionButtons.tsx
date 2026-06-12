@@ -31,7 +31,7 @@ const ActionButtons = ({ movieId }: ActionButtonsPropsType) => {
         <Button
           aria-label="Add to favorites"
           className={styles.actionBtn}
-          size="sm"
+          componentSize="sm"
           variant="ghost"
           onClick={handleAddMovieToUserList.bind(null, "favoritelists")}
         >
@@ -40,7 +40,7 @@ const ActionButtons = ({ movieId }: ActionButtonsPropsType) => {
         <Button
           aria-label="Add to watchlist"
           className={styles.actionBtn}
-          size="sm"
+          componentSize="sm"
           variant="ghost"
           onClick={handleAddMovieToUserList.bind(null, "watchlists")}
         >
