@@ -53,7 +53,7 @@ export default async function HomePage({
   };
 
   return (
-    <div className={styles.page}>
+    <>
       <MovieSearchInput />
       <Suspense fallback={<MovieCategorySectionSkeleton />}>
         {searchedMoviesResponse && (
@@ -63,6 +63,6 @@ export default async function HomePage({
           </section>
         )}
       </Suspense>
-    </div>
+    </>
   );
 }

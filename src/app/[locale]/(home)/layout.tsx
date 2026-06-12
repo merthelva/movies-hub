@@ -1,4 +1,5 @@
 import type { HomeLayoutPropsType } from "./props.type";
+import styles from "./styles.module.scss";
 
 export default function HomeLayout({
   children,
@@ -8,12 +9,12 @@ export default function HomeLayout({
   upcoming,
 }: HomeLayoutPropsType) {
   return (
-    <>
+    <div className={styles.page}>
       {children}
       {popular}
       {nowPlaying}
       {topRated}
       {upcoming}
-    </>
+    </div>
   );
 }
