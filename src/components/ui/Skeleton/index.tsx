@@ -50,9 +50,37 @@ const MovieCategorySectionSkeleton = () => (
   </section>
 );
 
+const TrailerSkeleton = () => (
+  <div className={styles.trailerSection}>
+    <div className={joinClassNames(styles.line, styles.lineMid)} />
+    <div className={styles.trailerEmbed} />
+  </div>
+);
+
+const CAST_SKELETON_IDS = [1, 2, 3, 4, 5, 6] as const;
+
+const MovieStarSkeleton = () => (
+  <div className={styles.movieStar}>
+    <div className={styles.starAvatar} />
+    <div className={joinClassNames(styles.line, styles.lineMid)} />
+    <div className={joinClassNames(styles.line, styles.lineShort)} />
+  </div>
+);
+
+const CastSectionSkeleton = () => (
+  <div className={styles.castSection}>
+    {CAST_SKELETON_IDS.map((id) => (
+      <MovieStarSkeleton key={id} />
+    ))}
+  </div>
+);
+
 export {
   MovieCardSkeleton,
   MovieCategorySectionSkeleton,
   MovieDetailsSkeleton,
+  TrailerSkeleton,
+  MovieStarSkeleton,
+  CastSectionSkeleton,
   ListCardSkeleton,
 };
