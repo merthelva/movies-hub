@@ -1,3 +1,5 @@
+import type { ListCreateResponseType } from "@/features/user-lists/types/actions.type";
+
 type ListSelectVariantPropsType = {
   lists: Array<{ id: number; name: string }>;
   movieListIds: Array<number>;
@@ -6,14 +8,9 @@ type ListSelectVariantPropsType = {
   onRemove: (listId: number) => void;
 };
 
-type DialogListItemType = {
-  id: number;
-  name: string;
-};
-
 type DialogListSelectVariantType = ListSelectVariantPropsType & {
   variant: "list-select";
-  lists: Array<DialogListItemType>;
+  lists: Array<ListCreateResponseType>;
   movieId: number;
 };
 
