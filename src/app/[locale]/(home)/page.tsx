@@ -7,7 +7,7 @@ import { MovieSearchInput } from "@/features/movies/components/MovieSearchInput"
 import { searchMovies } from "@/features/movies/services";
 import styles from "./styles.module.scss";
 import { Alert } from "@/components/ui/Alert";
-import { SearchedMoviesPagination } from "./components/SearchedMoviesPagination";
+import { UrlPagination } from "@/components/UrlPagination";
 import { checkIsNumberString } from "@/common/utils/check-is-number-string.util";
 
 export default async function HomePage({
@@ -56,7 +56,7 @@ export default async function HomePage({
             <MovieCard key={movie.tmdbId} {...movie} />
           ))}
         </div>
-        <SearchedMoviesPagination
+        <UrlPagination
           totalPages={searchedMoviesResponse.data.totalPages}
         />
       </>
