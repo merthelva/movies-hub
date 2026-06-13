@@ -11,6 +11,7 @@ const apiService = async <TResponse>(
 ): Promise<GenericResponseType<TResponse>> => {
   const {
     body,
+    method = "GET",
     withAuth = false,
     headers: extraHeaders,
     ...restOptions
