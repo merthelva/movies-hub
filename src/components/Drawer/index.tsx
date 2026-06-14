@@ -4,6 +4,7 @@ import { useEffect } from "react";
 
 import { useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/Button";
+import { LoadingIndicator } from "@/components/ui/LoadingIndicator";
 import { NavLink } from "@/components/ui/NavLink";
 import { joinClassNames } from "@/common/utils/join-classnames.util";
 
@@ -26,7 +27,7 @@ const unauthenticatedNavLinks = [
 
 const Drawer = ({ isOpen, onClose }: DrawerPropsType) => {
   const router = useRouter();
-  const { user, logout } = useAuth();
+  const { user, isLoading, logout } = useAuth();
   const isAuthenticated = user != null;
 
   useEffect(() => {
@@ -89,7 +90,13 @@ const Drawer = ({ isOpen, onClose }: DrawerPropsType) => {
             variant="primary"
             onClick={isAuthenticated ? handleLogout : handleLogin}
           >
-            {isAuthenticated ? "Logout" : "Login"}
+            {isLoading ? (
+              <LoadingIndicator />
+            ) : isAuthenticated ? (
+              "Logout"
+            ) : (
+              "Login"
+            )}
           </Button>
         </div>
       </div>

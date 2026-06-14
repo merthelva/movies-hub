@@ -6,6 +6,7 @@ import { Menu } from "lucide-react";
 import { useAuth } from "@/features/auth/context";
 import { useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/Button";
+import { LoadingIndicator } from "@/components/ui/LoadingIndicator";
 import { NavLink } from "@/components/ui/NavLink";
 import { Drawer } from "@/components/Drawer";
 
@@ -27,7 +28,7 @@ const unauthenticatedNavLinks = [
 const HeaderNav = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const router = useRouter();
-  const { user, logout } = useAuth();
+  const { user, isLoading, logout } = useAuth();
   const isAuthenticated = user != null;
 
   const navLinks = isAuthenticated
@@ -60,7 +61,13 @@ const HeaderNav = () => {
           variant="primary"
           onClick={isAuthenticated ? logout : handleLogin}
         >
-          {isAuthenticated ? "Logout" : "Login"}
+          {isLoading ? (
+            <LoadingIndicator />
+          ) : isAuthenticated ? (
+            "Logout"
+          ) : (
+            "Login"
+          )}
         </Button>
       </nav>
 

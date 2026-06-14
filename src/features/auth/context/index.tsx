@@ -62,7 +62,9 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   };
 
   const handleLogout = async () => {
+    setIsLoading(true);
     const response = await logout();
+    setIsLoading(false);
     if (response.status === "error") {
       return;
     }
