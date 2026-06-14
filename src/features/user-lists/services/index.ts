@@ -1,8 +1,11 @@
+"use server";
+
 import { apiService } from "@/services/api";
 import type {
   CheckIsMovieInUserListResponseType,
   PaginatedUserListMoviesResponseType,
   PaginatedUserListsResponseType,
+  UserListsWithMovieStatusResponseType,
 } from "@/features/user-lists/types/service-response.type";
 import type { ListCreateResponseType } from "@/features/user-lists/types/actions.type";
 import type { SuccessResponseType } from "@/common/types/success-response.type";
@@ -120,7 +123,7 @@ const updateUserWatchlist = async (listId: number, name: string) => {
   });
 };
 
-const addMovieToUserFavoritelist = async (listId: number, tmdbId: string) => {
+const addMovieToUserFavoritelist = async (listId: number, tmdbId: number) => {
   return await apiService<SuccessResponseType>(
     `/favoritelists/${listId}/addMovie`,
     {
@@ -133,7 +136,7 @@ const addMovieToUserFavoritelist = async (listId: number, tmdbId: string) => {
   );
 };
 
-const addMovieToUserWatchlist = async (listId: number, tmdbId: string) => {
+const addMovieToUserWatchlist = async (listId: number, tmdbId: number) => {
   return await apiService<SuccessResponseType>(
     `/watchlists/${listId}/addMovie`,
     {
@@ -148,7 +151,7 @@ const addMovieToUserWatchlist = async (listId: number, tmdbId: string) => {
 
 const deleteMovieFromUserFavoritelist = async (
   listId: number,
-  tmdbId: string,
+  tmdbId: number,
 ) => {
   return await apiService<SuccessResponseType>(
     `/favoritelists/${listId}/deleteMovie/${tmdbId}`,
@@ -159,7 +162,7 @@ const deleteMovieFromUserFavoritelist = async (
   );
 };
 
-const deleteMovieFromUserWatchlist = async (listId: number, tmdbId: string) => {
+const deleteMovieFromUserWatchlist = async (listId: number, tmdbId: number) => {
   return await apiService<SuccessResponseType>(
     `/watchlists/${listId}/deleteMovie/${tmdbId}`,
     {
@@ -169,9 +172,10 @@ const deleteMovieFromUserWatchlist = async (listId: number, tmdbId: string) => {
   );
 };
 
+// TODO: This service function might be unnecessary
 const checkIsMovieInUserFavoritelist = async (
   listId: number,
-  tmdbId: string,
+  tmdbId: number,
 ) => {
   return await apiService<CheckIsMovieInUserListResponseType>(
     `/favoritelists/${listId}/containsMovie/${tmdbId}`,
@@ -181,9 +185,28 @@ const checkIsMovieInUserFavoritelist = async (
   );
 };
 
-const checkIsMovieInUserWatchlist = async (listId: number, tmdbId: string) => {
+// TODO: This service function might be unnecessary
+const checkIsMovieInUserWatchlist = async (listId: number, tmdbId: number) => {
   return await apiService<CheckIsMovieInUserListResponseType>(
     `/watchlists/${listId}/containsMovie/${tmdbId}`,
+    {
+      withAuth: true,
+    },
+  );
+};
+
+const getUserFavoritelistsWithMovieStatus = async (tmdbId: number) => {
+  return await apiService<UserListsWithMovieStatusResponseType>(
+    `/favoritelists/movieStatus/${tmdbId}`,
+    {
+      withAuth: true,
+    },
+  );
+};
+
+const getUserWatchlistsWithMovieStatus = async (tmdbId: number) => {
+  return await apiService<UserListsWithMovieStatusResponseType>(
+    `/watchlists/movieStatus/${tmdbId}`,
     {
       withAuth: true,
     },
@@ -207,4 +230,6 @@ export {
   deleteMovieFromUserWatchlist,
   checkIsMovieInUserFavoritelist,
   checkIsMovieInUserWatchlist,
+  getUserFavoritelistsWithMovieStatus,
+  getUserWatchlistsWithMovieStatus,
 };
