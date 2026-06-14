@@ -166,6 +166,7 @@ const ActionButtons = ({ movieId }: ActionButtonsPropsType) => {
           title={dialogTitle}
           onClose={handleCloseUserListDialog}
           variant="list-create"
+          movieId={movieId}
           userListType={userListType}
         />
       )}

@@ -1,12 +1,20 @@
-import { createList } from ".";
+"use server";
+
 import { listCreateSchema } from "@/features/user-lists/schemas";
 import { safeParseFormBody } from "@/features/auth/utils/safe-parse-form-body.util";
 import { serializeMessage } from "@/common/utils/serialize-message.util";
 import type { UserListType } from "@/features/user-lists/types/user-list.type";
 import type { FormActionStateType } from "@/common/types/form-action-state.type";
 import type { ListCreateBodyType } from "@/features/user-lists/types/actions.type";
+import {
+  addMovieToUserFavoritelist,
+  addMovieToUserWatchlist,
+  createUserFavoritelist,
+  createUserWatchlist,
+} from "@/features/user-lists/services";
 
 const listCreateFormAction = async (
+  movieId: number,
   userListType: UserListType,
   _prevState: FormActionStateType<ListCreateBodyType>,
   formData: FormData,
@@ -24,7 +32,17 @@ const listCreateFormAction = async (
     };
   }
 
-  const response = await createList(parsedListCreateForm.data, userListType);
+  const createUserListFn =
+    userListType === "favoritelists"
+      ? createUserFavoritelist
+      : createUserWatchlist;
+
+  const addMovieToUserListFn =
+    userListType === "favoritelists"
+      ? addMovieToUserFavoritelist
+      : addMovieToUserWatchlist;
+
+  const response = await createUserListFn(parsedListCreateForm.data.name);
   if (response.status === "error") {
     return {
       status: "error",
@@ -35,7 +53,22 @@ const listCreateFormAction = async (
     };
   }
 
-  return { status: response.status };
+  const movieAddToListResponse = await addMovieToUserListFn(
+    response.data.id,
+    movieId,
+  );
+
+  if (movieAddToListResponse.status === "error") {
+    return {
+      status: "error",
+      formFields: {
+        name: formData.get("list-name") as string,
+      },
+      message: serializeMessage("error", movieAddToListResponse.message),
+    };
+  }
+
+  return { status: "success" };
 };
 
 export { listCreateFormAction };
