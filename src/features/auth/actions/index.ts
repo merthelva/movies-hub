@@ -94,6 +94,7 @@ const logout = async (): Promise<GenericResponseType<SuccessResponseType>> => {
     };
   }
 
+  const cookieStore = await cookies();
   cookieStore.delete("accessToken");
   return {
     status: "success",
@@ -127,6 +128,7 @@ const removeAccount = async (
     };
   }
 
+  const cookieStore = await cookies();
   cookieStore.delete("accessToken");
   return jsonResp;
 };
