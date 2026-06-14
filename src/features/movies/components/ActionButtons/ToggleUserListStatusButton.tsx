@@ -22,7 +22,7 @@ const ToggleUserListStatusButton = ({
   };
 
   return isPending ? (
-    <LoadingIndicator size="sm" />
+    <LoadingIndicator />
   ) : (
     <Button
       {...props}
