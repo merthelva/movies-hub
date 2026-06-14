@@ -1,0 +1,22 @@
+.actions {
+  position: absolute;
+  inset: var(--spacing-sm) var(--spacing-sm) auto auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-sm);
+  border-radius: var(--radius-md);
+  background-color: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.actionBtn {
+  padding: 0;
+  color: rgba(255, 255, 255, 0.9);
+
+  &:hover:not(:disabled) {
+    background-color: transparent;
+    color: var(--color-accent);
+  }
+}

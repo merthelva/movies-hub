@@ -2,7 +2,7 @@ import Image from "next/image";
 import { TMDB_IMAGE_BASE_URL } from "@/common/constants/tmdb-image-base-url.constant";
 import { NavLink } from "@/components/ui/NavLink";
 import type { MovieCardPropsType } from "./component.type";
-import { ActionButtons } from "./ActionButtons";
+import { ActionButtons } from "../ActionButtons";
 import styles from "./styles.module.scss";
 
 const MovieCard = ({
