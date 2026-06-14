@@ -9,16 +9,17 @@ import { HttpStatusCodes } from "@/common/constants/http-status-codes.constant";
 import { serializeMessage } from "@/common/utils/serialize-message.util";
 import { API_BASE_URL } from "@/common/constants/api-base-url.constant";
 import { getCurrentUser } from "@/features/auth/actions";
-import { getCookieStoreAndAccessToken } from "@/common/utils/get-cookie-store-and-access-token.util";
+import { getAccessToken } from "@/common/utils/get-access-token.util";
 import type { UserListType } from "@/features/user-lists/types/user-list.type";
 
+// TODO: There might be no need for this action and might be removed
 const createList = async (
   body: ListCreateBodyType,
   userListType: UserListType,
 ): Promise<GenericResponseType<ListCreateResponseType>> => {
-  const [currentUser, [, token]] = await Promise.all([
+  const [currentUser, token] = await Promise.all([
     getCurrentUser(),
-    getCookieStoreAndAccessToken(),
+    getAccessToken(),
   ]);
 
   if (currentUser == null || !token) {

@@ -14,8 +14,9 @@ import { HttpStatusCodes } from "@/common/constants/http-status-codes.constant";
 import { serializeMessage } from "@/common/utils/serialize-message.util";
 import { API_BASE_URL } from "@/common/constants/api-base-url.constant";
 import type { SuccessResponseType } from "@/common/types/success-response.type";
-import { getCookieStoreAndAccessToken } from "@/common/utils/get-cookie-store-and-access-token.util";
+import { getAccessToken } from "@/common/utils/get-access-token.util";
 
+// TODO: Replace `fetch` call with `apiService`
 const login = async (
   credentials: LoginCredentialsType,
 ): Promise<GenericResponseType<LoginResponseType>> => {
@@ -69,7 +70,7 @@ const register = async (
 };
 
 const logout = async (): Promise<GenericResponseType<SuccessResponseType>> => {
-  const [cookieStore, token] = await getCookieStoreAndAccessToken();
+  const token = await getAccessToken();
   if (!token) {
     return {
       status: "error",
@@ -103,7 +104,7 @@ const logout = async (): Promise<GenericResponseType<SuccessResponseType>> => {
 const removeAccount = async (
   userId: number,
 ): Promise<GenericResponseType<SuccessResponseType>> => {
-  const [cookieStore, token] = await getCookieStoreAndAccessToken();
+  const token = await getAccessToken();
   if (!token) {
     return {
       status: "error",
@@ -132,7 +133,7 @@ const removeAccount = async (
 
 const getCurrentUser = async (): Promise<AuthContextValueType["user"]> => {
   try {
-    const [, token] = await getCookieStoreAndAccessToken();
+    const token = await getAccessToken();
 
     if (!token) {
       return null;
@@ -144,6 +145,10 @@ const getCurrentUser = async (): Promise<AuthContextValueType["user"]> => {
         Authorization: `Bearer ${token}`,
       },
     });
+    if (!response.ok) {
+      return null;
+    }
+
     const jsonResp = (await response.json()) as AuthContextValueType["user"];
     return jsonResp;
   } catch (error: unknown) {
