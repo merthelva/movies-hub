@@ -2,30 +2,36 @@ import type { ListSelectVariantPropsType } from "./component.type";
 import styles from "./styles.module.scss";
 
 import { Button } from "@/components/ui/Button";
+import { LoadingIndicator } from "@/components/ui/LoadingIndicator";
 
 const ListSelectVariant = ({
   lists,
-  movieListIds,
+  listIdToUpdate,
   onAdd,
   onRemove,
 }: ListSelectVariantPropsType) => (
   <ul className={styles.listSelectVariant}>
     {lists.map((list) => {
-      const isInList = new Set(movieListIds).has(list.id);
+      const isUpdating = listIdToUpdate === list.id;
       return (
         <li key={list.id} className={styles.listSelectItem}>
           <span>{list.name}</span>
-          <Button
-            variant={isInList ? "secondary" : "primary"}
-            componentSize="sm"
-            onClick={
-              isInList
-                ? onRemove.bind(null, list.id)
-                : onAdd.bind(null, list.id)
-            }
-          >
-            {isInList ? "Remove" : "Add"}
-          </Button>
+          {!isUpdating ? (
+            <Button
+              variant={list.hasMovie ? "secondary" : "primary"}
+              componentSize="sm"
+              disabled={listIdToUpdate !== null}
+              onClick={
+                list.hasMovie
+                  ? onRemove.bind(null, list.id)
+                  : onAdd.bind(null, list.id)
+              }
+            >
+              {list.hasMovie ? "Remove" : "Add"}
+            </Button>
+          ) : (
+            <LoadingIndicator />
+          )}
         </li>
       );
     })}
