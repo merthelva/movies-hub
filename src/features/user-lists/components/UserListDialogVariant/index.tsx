@@ -19,7 +19,7 @@ const UserListDialogVariant = ({
       {rest.variant === "list-select" && (
         <ListSelectVariant
           lists={rest.lists}
-          movieListIds={rest.movieListIds}
+          listIdToUpdate={rest.listIdToUpdate}
           onAdd={rest.onAdd}
           onRemove={rest.onRemove}
         />
