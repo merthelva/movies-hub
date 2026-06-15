@@ -1,0 +1,19 @@
+@use "@/styles/mixins" as m;
+
+.page {
+  display: grid;
+  gap: var(--spacing-xl);
+  align-content: start;
+}
+
+.grid {
+  @include m.grid(2, var(--spacing-md));
+
+  @include m.respond-to("sm") {
+    @include m.grid(3, var(--spacing-md));
+  }
+
+  @include m.respond-to("lg") {
+    @include m.grid(5, var(--spacing-md));
+  }
+}
