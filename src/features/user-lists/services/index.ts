@@ -2,7 +2,6 @@
 
 import { apiService } from "@/services/api";
 import type {
-  CheckIsMovieInUserListResponseType,
   PaginatedUserListMoviesResponseType,
   PaginatedUserListsResponseType,
   UserListsWithMovieStatusResponseType,
@@ -103,6 +102,7 @@ const deleteUserWatchlist = async (listId: number) => {
   });
 };
 
+// TODO: Will updating a user list feature be added?
 const updateUserFavoritelist = async (listId: number, name: string) => {
   return await apiService<SuccessResponseType>(`/favoritelists/${listId}`, {
     method: "PATCH",
@@ -113,6 +113,7 @@ const updateUserFavoritelist = async (listId: number, name: string) => {
   });
 };
 
+// TODO: Will updating a user list feature be added?
 const updateUserWatchlist = async (listId: number, name: string) => {
   return await apiService<SuccessResponseType>(`/watchlists/${listId}`, {
     method: "PATCH",
@@ -172,29 +173,6 @@ const deleteMovieFromUserWatchlist = async (listId: number, tmdbId: number) => {
   );
 };
 
-// TODO: This service function might be unnecessary
-const checkIsMovieInUserFavoritelist = async (
-  listId: number,
-  tmdbId: number,
-) => {
-  return await apiService<CheckIsMovieInUserListResponseType>(
-    `/favoritelists/${listId}/containsMovie/${tmdbId}`,
-    {
-      withAuth: true,
-    },
-  );
-};
-
-// TODO: This service function might be unnecessary
-const checkIsMovieInUserWatchlist = async (listId: number, tmdbId: number) => {
-  return await apiService<CheckIsMovieInUserListResponseType>(
-    `/watchlists/${listId}/containsMovie/${tmdbId}`,
-    {
-      withAuth: true,
-    },
-  );
-};
-
 const getUserFavoritelistsWithMovieStatus = async (tmdbId: number) => {
   return await apiService<UserListsWithMovieStatusResponseType>(
     `/favoritelists/movieStatus/${tmdbId}`,
@@ -228,8 +206,6 @@ export {
   addMovieToUserWatchlist,
   deleteMovieFromUserFavoritelist,
   deleteMovieFromUserWatchlist,
-  checkIsMovieInUserFavoritelist,
-  checkIsMovieInUserWatchlist,
   getUserFavoritelistsWithMovieStatus,
   getUserWatchlistsWithMovieStatus,
 };

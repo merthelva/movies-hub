@@ -8,11 +8,6 @@ type PaginatedUserListsResponseType =
 type PaginatedUserListMoviesResponseType =
   PaginatedResponseType<MovieDetailsType>;
 
-// TODO: This service function might be unnecessary. If removed, get rid of all imports of this type as well.
-type CheckIsMovieInUserListResponseType = {
-  isMovieInList: boolean;
-};
-
 type UserListsWithMovieStatusResponseType = Array<{
   id: number;
   name: string;
@@ -20,7 +15,6 @@ type UserListsWithMovieStatusResponseType = Array<{
 }>;
 
 export type {
-  CheckIsMovieInUserListResponseType,
   PaginatedUserListsResponseType,
   PaginatedUserListMoviesResponseType,
   UserListsWithMovieStatusResponseType,
