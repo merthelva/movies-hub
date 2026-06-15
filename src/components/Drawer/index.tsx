@@ -15,15 +15,11 @@ import { useAuth } from "@/features/auth/context";
 // TODO: Static for now. Update links after all pages created
 const authenticatedNavLinks = [
   { href: "/", label: "Home" },
-  { href: "/movies", label: "Movies" },
-  { href: "/lists/watchlists", label: "Watchlists" },
-  { href: "/lists/favoritelists", label: "Favorites" },
+  { href: "/user/watchlists", label: "Watchlists" },
+  { href: "/user/favoritelists", label: "Favorites" },
 ];
 
-const unauthenticatedNavLinks = [
-  { href: "/", label: "Home" },
-  { href: "/movies", label: "Movies" },
-];
+const unauthenticatedNavLinks = [{ href: "/", label: "Home" }];
 
 const Drawer = ({ isOpen, onClose }: DrawerPropsType) => {
   const router = useRouter();
