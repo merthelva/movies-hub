@@ -11,6 +11,8 @@ import {
   addMovieToUserWatchlist,
   createUserFavoritelist,
   createUserWatchlist,
+  updateUserFavoritelist,
+  updateUserWatchlist,
 } from "@/features/user-lists/services";
 
 const listCreateFormAction = async (
@@ -71,4 +73,42 @@ const listCreateFormAction = async (
   return { status: "success" };
 };
 
-export { listCreateFormAction };
+const listEditFormAction = async (
+  listId: number,
+  userListType: UserListType,
+  _prevState: FormActionStateType<ListCreateBodyType>,
+  formData: FormData,
+): Promise<FormActionStateType<ListCreateBodyType>> => {
+  const parsedListEditForm = safeParseFormBody(listCreateSchema, {
+    name: formData.get("list-name") as string,
+  });
+
+  if (parsedListEditForm.status === "error") {
+    return {
+      ...parsedListEditForm,
+      formFields: {
+        name: formData.get("list-name") as string,
+      },
+    };
+  }
+
+  const updateUserListFn =
+    userListType === "favoritelists"
+      ? updateUserFavoritelist
+      : updateUserWatchlist;
+
+  const response = await updateUserListFn(listId, parsedListEditForm.data.name);
+  if (response.status === "error") {
+    return {
+      status: "error",
+      formFields: {
+        name: formData.get("list-name") as string,
+      },
+      message: serializeMessage("error", response.message),
+    };
+  }
+
+  return { status: "success" };
+};
+
+export { listCreateFormAction, listEditFormAction };

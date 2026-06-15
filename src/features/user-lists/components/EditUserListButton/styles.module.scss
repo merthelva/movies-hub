@@ -1,0 +1,10 @@
+.editUserListForm {
+  display: grid;
+  gap: var(--spacing-sm);
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+}
