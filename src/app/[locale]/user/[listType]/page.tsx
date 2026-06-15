@@ -62,7 +62,7 @@ export default async function UserListsPage({
                 id={list.id}
                 name={list.name}
                 createdAt={list.createdAt}
-                listType={listType as UserListType}
+                userListType={listType as UserListType}
               />
             ))}
           </div>

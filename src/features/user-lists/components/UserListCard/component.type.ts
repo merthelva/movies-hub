@@ -4,7 +4,7 @@ type UserListCardPropsType = {
   id: number;
   name: string;
   createdAt: string;
-  listType: UserListType;
+  userListType: UserListType;
 };
 
 export type { UserListCardPropsType };
