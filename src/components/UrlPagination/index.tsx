@@ -30,7 +30,7 @@ const UrlPagination = ({ totalPages }: UrlPaginationPropsType) => {
   return (
     <Pagination
       currentPage={currentPage}
-      totalPages={totalPages >= 500 ? 500 : totalPages}
+      totalPages={Math.min(totalPages, 500)}
       onPageChange={handleChangePage}
     />
   );
