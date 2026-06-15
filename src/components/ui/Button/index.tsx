@@ -16,6 +16,7 @@ const Button = ({
       styles[variant],
       className,
     )}
+    type="button"
     {...rest}
   >
     {children}
