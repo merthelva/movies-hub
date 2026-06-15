@@ -102,7 +102,6 @@ const deleteUserWatchlist = async (listId: number) => {
   });
 };
 
-// TODO: Will updating a user list feature be added?
 const updateUserFavoritelist = async (listId: number, name: string) => {
   return await apiService<SuccessResponseType>(`/favoritelists/${listId}`, {
     method: "PATCH",
@@ -113,7 +112,6 @@ const updateUserFavoritelist = async (listId: number, name: string) => {
   });
 };
 
-// TODO: Will updating a user list feature be added?
 const updateUserWatchlist = async (listId: number, name: string) => {
   return await apiService<SuccessResponseType>(`/watchlists/${listId}`, {
     method: "PATCH",
