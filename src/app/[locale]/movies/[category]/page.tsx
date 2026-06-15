@@ -61,7 +61,7 @@ export default async function MovieCategoryPage({
       <h1 className={styles.title}>{categoryTitle}</h1>
       <div className={styles.grid}>
         {response.data.results.map((movie) => (
-          <MovieCard key={movie.tmdbId} {...movie} />
+          <MovieCard key={movie.tmdbId} variant="public" {...movie} />
         ))}
       </div>
       <UrlPagination totalPages={response.data.totalPages} />

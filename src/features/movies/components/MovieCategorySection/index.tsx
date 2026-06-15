@@ -21,7 +21,7 @@ const MovieCategorySection = ({
       </div>
       <div className={styles.grid}>
         {movies.map((movie) => (
-          <MovieCard key={movie.tmdbId} {...movie} />
+          <MovieCard key={movie.tmdbId} variant="public" {...movie} />
         ))}
       </div>
     </div>

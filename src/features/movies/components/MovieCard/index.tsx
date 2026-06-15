@@ -4,6 +4,7 @@ import { NavLink } from "@/components/ui/NavLink";
 import type { MovieCardPropsType } from "./component.type";
 import { ActionButtons } from "../ActionButtons";
 import styles from "./styles.module.scss";
+import { DeleteMovieFromUserListButton } from "../DeleteMovieFromUserListButton";
 
 const MovieCard = ({
   tmdbId,
@@ -11,6 +12,7 @@ const MovieCard = ({
   posterPath,
   releaseDate,
   voteAverage,
+  ...rest
 }: MovieCardPropsType) => {
   const [year] = releaseDate.split("-");
   const movieHref = `/movie/${tmdbId}`;
@@ -32,7 +34,20 @@ const MovieCard = ({
         <ActionButtons movieId={tmdbId} />
       </div>
       <div className={styles.body}>
-        <NavLink href={movieHref} label={title} className={styles.titleLink} />
+        <div className={styles.titleWrapper}>
+          <NavLink
+            className={styles.titleLink}
+            href={movieHref}
+            label={title}
+          />
+          {rest.variant === "protected" && (
+            <DeleteMovieFromUserListButton
+              listId={rest.listId}
+              movieId={tmdbId}
+              onDeleteMovieFromUserList={rest.onDeleteMovieFromUserList}
+            />
+          )}
+        </div>
         <div className={styles.meta}>
           <span className={styles.year}>{year}</span>
           <span className={styles.rating}>★ {voteAverage.toFixed(1)}</span>

@@ -53,12 +53,10 @@ export default async function HomePage({
       <>
         <div className={styles.searchResultsGrid}>
           {searchedMoviesResponse.data.results.map((movie) => (
-            <MovieCard key={movie.tmdbId} {...movie} />
+            <MovieCard key={movie.tmdbId} variant="public" {...movie} />
           ))}
         </div>
-        <UrlPagination
-          totalPages={searchedMoviesResponse.data.totalPages}
-        />
+        <UrlPagination totalPages={searchedMoviesResponse.data.totalPages} />
       </>
     );
   };

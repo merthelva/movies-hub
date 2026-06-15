@@ -46,8 +46,15 @@
   flex: 1;
 }
 
+.titleWrapper {
+  @include m.flex-between;
+
+  [type="button"] {
+    padding-inline-end: 0;
+  }
+}
+
 .titleLink {
-  display: block;
   text-decoration: none;
   color: inherit;
   font-size: var(--font-size-sm);
