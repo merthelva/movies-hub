@@ -12,10 +12,6 @@
   &:hover {
     box-shadow: var(--shadow-md);
     border-color: var(--color-accent);
-
-    &:hover::after {
-      display: none;
-    }
   }
 }
 
@@ -26,6 +22,10 @@
   text-decoration: none;
   color: var(--color-text);
   cursor: pointer;
+
+  &:hover::after {
+    display: none;
+  }
 }
 
 .info {
