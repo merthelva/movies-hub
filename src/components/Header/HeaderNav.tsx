@@ -10,6 +10,7 @@ import { LoadingIndicator } from "@/components/ui/LoadingIndicator";
 import { NavLink } from "@/components/ui/NavLink";
 import { Drawer } from "@/components/Drawer";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 
 import styles from "./styles.module.scss";
 
@@ -67,6 +68,8 @@ const HeaderNav = () => {
           )}
         </Button>
       </nav>
+
+      <LanguageSwitcher />
 
       <ThemeToggle />
 
