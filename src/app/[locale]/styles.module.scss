@@ -2,5 +2,7 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: var(--spacing-xl) var(--spacing-md);
-  margin-block-start: var(--header-height);
+  transform: translateY(var(--header-height));
+  border: 1px solid blue;
+  height: calc(100% - var(--header-height));
 }
