@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
+import { Plus } from "lucide-react";
 
 import { Alert } from "@/components/ui/Alert";
 import { MovieCard } from "@/features/movies/components/MovieCard";
@@ -14,6 +15,7 @@ import styles from "./styles.module.scss";
 import type { UserListType } from "@/features/user-lists/types/user-list.type";
 import { userLists } from "@/features/user-lists/constants/user-lists.constant";
 import { checkIsNumberString } from "@/common/utils/check-is-number-string.util";
+import { NavLink } from "@/components/ui/NavLink";
 
 export default async function UserListMoviesPage({
   params,
@@ -60,7 +62,13 @@ export default async function UserListMoviesPage({
   return (
     <div className={styles.page}>
       {response.data.totalItems === 0 ? (
-        <Alert content={t("emptyList")} variant="warning" />
+        <>
+          <NavLink className={styles.link} href="/">
+            <Plus size={18} />
+            <span>Add movie</span>
+          </NavLink>
+          <Alert content={t("emptyList")} variant="warning" />
+        </>
       ) : (
         <>
           <div className={styles.grid}>

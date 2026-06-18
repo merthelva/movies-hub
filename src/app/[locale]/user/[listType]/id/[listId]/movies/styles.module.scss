@@ -17,3 +17,15 @@
     @include m.grid(5, var(--spacing-md));
   }
 }
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--color-accent);
+  margin-inline-start: auto;
+
+  &:hover::after {
+    width: 0;
+  }
+}
