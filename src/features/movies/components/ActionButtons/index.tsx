@@ -32,8 +32,7 @@ const ActionButtons = ({ movieId }: ActionButtonsPropsType) => {
     useImmer<UserListsWithMovieStatusResponseType>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const dialogTitle =
-    userListType === "favoritelists" ? "Add to Favorites" : "Add to Watchlist";
+  const dialogTitle = `Manage ${userListType === "favoritelists" ? "Favoritelist" : "Watchlist"} Movies`;
 
   const handleOpenUserListDialogVariantForMovieToggle = async (
     type: UserListType,

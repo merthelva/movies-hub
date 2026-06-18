@@ -12,10 +12,7 @@ const CreateUserListButton = ({
 }: CreateUserListButtonPropsType) => {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
-  const dialogTitle =
-    userListType === "favoritelists"
-      ? "Create New Favoritelist"
-      : "Create New Watchlist";
+  const dialogTitle = `Create ${userListType === "favoritelists" ? "Favoritelist" : "Watchlist"}`;
 
   const handleOpenCreateDialog = () => {
     setIsCreateDialogOpen(true);
