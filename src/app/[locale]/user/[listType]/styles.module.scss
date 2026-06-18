@@ -2,8 +2,9 @@
 
 .page {
   display: grid;
+  grid-template-rows: auto 1fr;
   gap: var(--spacing-xl);
-  align-content: start;
+  height: 100%;
 }
 
 .titleWrapper {
@@ -11,6 +12,15 @@
 
   > [type="button"] {
     color: var(--color-accent);
+  }
+}
+
+.pageContentWrapper {
+  display: grid;
+  gap: var(--spacing-lg);
+
+  > :nth-child(2) {
+    align-self: end;
   }
 }
 
@@ -22,6 +32,8 @@
 }
 
 .grid {
+  align-self: start;
+
   @include m.grid(1, var(--spacing-md));
 
   @include m.respond-to("sm") {

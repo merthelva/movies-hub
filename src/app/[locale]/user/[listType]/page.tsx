@@ -58,7 +58,7 @@ export default async function UserListsPage({
       {response.data.totalItems === 0 ? (
         <Alert content={t("noLists")} variant="warning" />
       ) : (
-        <>
+        <div className={styles.pageContentWrapper}>
           <div className={styles.grid}>
             {response.data.items.map((list) => (
               <UserListCard
@@ -75,7 +75,7 @@ export default async function UserListsPage({
               response.data.totalItems / response.data.limit,
             )}
           />
-        </>
+        </div>
       )}
     </div>
   );

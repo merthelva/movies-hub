@@ -3,10 +3,21 @@
 .page {
   display: grid;
   gap: var(--spacing-xl);
-  align-content: start;
+  height: 100%;
+}
+
+.pageContentWrapper {
+  display: grid;
+  gap: var(--spacing-lg);
+
+  > :nth-child(2) {
+    align-self: end;
+  }
 }
 
 .grid {
+  align-self: start;
+
   @include m.grid(2, var(--spacing-md));
 
   @include m.respond-to("sm") {

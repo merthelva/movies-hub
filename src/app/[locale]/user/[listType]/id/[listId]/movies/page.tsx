@@ -70,7 +70,7 @@ export default async function UserListMoviesPage({
           <Alert content={t("emptyList")} variant="warning" />
         </>
       ) : (
-        <>
+        <div className={styles.pageContentWrapper}>
           <div className={styles.grid}>
             {response.data.items.map((movie) => (
               <MovieCard
@@ -88,7 +88,7 @@ export default async function UserListMoviesPage({
               response.data.totalItems / response.data.limit,
             )}
           />
-        </>
+        </div>
       )}
     </div>
   );
