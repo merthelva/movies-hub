@@ -24,7 +24,7 @@
   cursor: pointer;
 
   &:hover::after {
-    display: none;
+    width: 0;
   }
 }
 
