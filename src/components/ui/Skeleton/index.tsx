@@ -36,6 +36,21 @@ const ListCardSkeleton = () => (
 );
 
 const SKELETON_CARD_IDS = [1, 2, 3, 4, 5] as const;
+const USER_LIST_SKELETON_IDS = [1, 2, 3, 4, 5, 6] as const;
+
+const UserListGridSkeleton = () => (
+  <div className={styles.userListPage}>
+    <div className={styles.userListHeader}>
+      <div className={styles.userListTitle} />
+      <div className={styles.userListCreateBtn} />
+    </div>
+    <div className={styles.userListGrid}>
+      {USER_LIST_SKELETON_IDS.map((id) => (
+        <ListCardSkeleton key={id} />
+      ))}
+    </div>
+  </div>
+);
 
 const MovieCategorySectionSkeleton = () => (
   <section>
@@ -83,4 +98,5 @@ export {
   MovieStarSkeleton,
   CastSectionSkeleton,
   ListCardSkeleton,
+  UserListGridSkeleton,
 };

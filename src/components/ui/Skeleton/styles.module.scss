@@ -179,3 +179,38 @@
   border-radius: var(--radius-lg);
   border: 1px solid var(--color-border);
 }
+
+// UserListGrid skeleton
+.userListPage {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: var(--spacing-xl);
+}
+
+.userListHeader {
+  @include m.flex-between;
+}
+
+.userListTitle {
+  @include skeleton-box;
+  height: 36px;
+  width: 220px;
+}
+
+.userListCreateBtn {
+  @include skeleton-box;
+  height: 28px;
+  width: 80px;
+}
+
+.userListGrid {
+  @include m.grid(1, var(--spacing-md));
+
+  @include m.respond-to("sm") {
+    @include m.grid(2, var(--spacing-md));
+  }
+
+  @include m.respond-to("lg") {
+    @include m.grid(3, var(--spacing-md));
+  }
+}
