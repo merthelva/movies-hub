@@ -1,5 +1,7 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+
 import { apiService } from "@/services/api";
 import type {
   PaginatedUserListMoviesResponseType,
@@ -11,21 +13,39 @@ import type { SuccessResponseType } from "@/common/types/success-response.type";
 import type { QueryParamsType } from "@/features/movies/types/query-params.type";
 
 const createUserFavoritelist = async (name: string) => {
-  return await apiService<ListCreateResponseType>("/favoritelists/create", {
-    method: "POST",
-    withAuth: true,
-    body: { name },
-  });
+  const response = await apiService<ListCreateResponseType>(
+    "/favoritelists/create",
+    {
+      method: "POST",
+      withAuth: true,
+      body: { name },
+    },
+  );
+
+  if (response.status === "success") {
+    revalidatePath("/[locale]/user/[listType]", "page");
+  }
+
+  return response;
 };
 
 const createUserWatchlist = async (name: string) => {
-  return await apiService<ListCreateResponseType>("/watchlists/create", {
-    method: "POST",
-    withAuth: true,
-    body: {
-      name,
+  const response = await apiService<ListCreateResponseType>(
+    "/watchlists/create",
+    {
+      method: "POST",
+      withAuth: true,
+      body: {
+        name,
+      },
     },
-  });
+  );
+
+  if (response.status === "success") {
+    revalidatePath("/[locale]/user/[listType]", "page");
+  }
+
+  return response;
 };
 
 const getAllUserFavoritelists = async (
@@ -89,41 +109,74 @@ const getAllUserWatchlistMovies = async (
 };
 
 const deleteUserFavoritelist = async (listId: number) => {
-  return await apiService<SuccessResponseType>(
+  const response = await apiService<SuccessResponseType>(
     `/favoritelists/delete/${listId}`,
     { method: "DELETE", withAuth: true },
   );
+
+  if (response.status === "success") {
+    revalidatePath("/[locale]/user/[listType]", "page");
+  }
+
+  return response;
 };
 
 const deleteUserWatchlist = async (listId: number) => {
-  return await apiService<SuccessResponseType>(`/watchlists/delete/${listId}`, {
-    method: "DELETE",
-    withAuth: true,
-  });
+  const response = await apiService<SuccessResponseType>(
+    `/watchlists/delete/${listId}`,
+    {
+      method: "DELETE",
+      withAuth: true,
+    },
+  );
+
+  if (response.status === "success") {
+    revalidatePath("/[locale]/user/[listType]", "page");
+  }
+
+  return response;
 };
 
 const updateUserFavoritelist = async (listId: number, name: string) => {
-  return await apiService<SuccessResponseType>(`/favoritelists/${listId}`, {
-    method: "PATCH",
-    withAuth: true,
-    body: {
-      name,
+  const response = await apiService<SuccessResponseType>(
+    `/favoritelists/${listId}`,
+    {
+      method: "PATCH",
+      withAuth: true,
+      body: {
+        name,
+      },
     },
-  });
+  );
+
+  if (response.status === "success") {
+    revalidatePath("/[locale]/user/[listType]", "page");
+  }
+
+  return response;
 };
 
 const updateUserWatchlist = async (listId: number, name: string) => {
-  return await apiService<SuccessResponseType>(`/watchlists/${listId}`, {
-    method: "PATCH",
-    withAuth: true,
-    body: {
-      name,
+  const response = await apiService<SuccessResponseType>(
+    `/watchlists/${listId}`,
+    {
+      method: "PATCH",
+      withAuth: true,
+      body: {
+        name,
+      },
     },
-  });
+  );
+
+  if (response.status === "success") {
+    revalidatePath("/[locale]/user/[listType]", "page");
+  }
+
+  return response;
 };
 
 const addMovieToUserFavoritelist = async (listId: number, tmdbId: number) => {
-  return await apiService<SuccessResponseType>(
+  const response = await apiService<SuccessResponseType>(
     `/favoritelists/${listId}/addMovie`,
     {
       method: "POST",
@@ -133,10 +186,16 @@ const addMovieToUserFavoritelist = async (listId: number, tmdbId: number) => {
       },
     },
   );
+
+  if (response.status === "success") {
+    revalidatePath("/[locale]/user/[listType]/id/[listId]/movies", "page");
+  }
+
+  return response;
 };
 
 const addMovieToUserWatchlist = async (listId: number, tmdbId: number) => {
-  return await apiService<SuccessResponseType>(
+  const response = await apiService<SuccessResponseType>(
     `/watchlists/${listId}/addMovie`,
     {
       method: "POST",
@@ -146,29 +205,47 @@ const addMovieToUserWatchlist = async (listId: number, tmdbId: number) => {
       },
     },
   );
+
+  if (response.status === "success") {
+    revalidatePath("/[locale]/user/[listType]/id/[listId]/movies", "page");
+  }
+
+  return response;
 };
 
 const deleteMovieFromUserFavoritelist = async (
   listId: number,
   tmdbId: number,
 ) => {
-  return await apiService<SuccessResponseType>(
+  const response = await apiService<SuccessResponseType>(
     `/favoritelists/${listId}/deleteMovie/${tmdbId}`,
     {
       method: "DELETE",
       withAuth: true,
     },
   );
+
+  if (response.status === "success") {
+    revalidatePath("/[locale]/user/[listType]/id/[listId]/movies", "page");
+  }
+
+  return response;
 };
 
 const deleteMovieFromUserWatchlist = async (listId: number, tmdbId: number) => {
-  return await apiService<SuccessResponseType>(
+  const response = await apiService<SuccessResponseType>(
     `/watchlists/${listId}/deleteMovie/${tmdbId}`,
     {
       method: "DELETE",
       withAuth: true,
     },
   );
+
+  if (response.status === "success") {
+    revalidatePath("/[locale]/user/[listType]/id/[listId]/movies", "page");
+  }
+
+  return response;
 };
 
 const getUserFavoritelistsWithMovieStatus = async (tmdbId: number) => {
