@@ -11,6 +11,7 @@ import { joinClassNames } from "@/common/utils/join-classnames.util";
 import type { DrawerPropsType } from "./component.type";
 import styles from "./styles.module.scss";
 import { useAuth } from "@/features/auth/context";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 // TODO: Static for now. Update links after all pages created
 const authenticatedNavLinks = [
@@ -82,8 +83,10 @@ const Drawer = ({ isOpen, onClose }: DrawerPropsType) => {
           ))}
         </nav>
         <div className={styles.footer}>
+          <ThemeToggle />
           <Button
             variant="primary"
+            className={styles.authBtn}
             onClick={isAuthenticated ? handleLogout : handleLogin}
           >
             {isLoading ? (

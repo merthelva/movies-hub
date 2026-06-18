@@ -55,10 +55,13 @@
 }
 
 .footer {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
   padding: var(--spacing-sm);
   border-block-start: 1px solid var(--color-border);
 
-  button {
-    width: 100%;
+  .authBtn {
+    flex: 1;
   }
 }
