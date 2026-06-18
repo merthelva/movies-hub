@@ -12,12 +12,16 @@ import { listCreateFormAction } from "@/features/user-lists/actions/form.actions
 import { INITIAL_STATE } from "@/features/user-lists/constants/form-initial-state.constant";
 
 const ListCreateVariant = ({
-  movieId,
   userListType,
   onClose,
+  ...rest
 }: ListCreateVariantPropsType) => {
   const [state, formAction, isPending] = useActionState(
-    listCreateFormAction.bind(null, movieId, userListType),
+    listCreateFormAction.bind(
+      null,
+      rest.option === "with-movie-addition" ? rest.movieId : null,
+      userListType,
+    ),
     INITIAL_STATE,
   );
 

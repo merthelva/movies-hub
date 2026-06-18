@@ -12,6 +12,7 @@ import { UrlPagination } from "@/components/UrlPagination";
 import { checkIsNumberString } from "@/common/utils/check-is-number-string.util";
 import styles from "./styles.module.scss";
 import { userLists } from "@/features/user-lists/constants/user-lists.constant";
+import { CreateUserListButton } from "@/features/user-lists/components/CreateUserListButton";
 
 export default async function UserListsPage({
   params,
@@ -46,11 +47,14 @@ export default async function UserListsPage({
 
   return (
     <div className={styles.page}>
-      <h1 className={styles.title}>
-        {listType === "favoritelists"
-          ? t("myFavoritelists")
-          : t("myWatchlists")}
-      </h1>
+      <div className={styles.titleWrapper}>
+        <h1 className={styles.title}>
+          {listType === "favoritelists"
+            ? t("myFavoritelists")
+            : t("myWatchlists")}
+        </h1>
+        <CreateUserListButton userListType={listType} />
+      </div>
       {response.data.totalItems === 0 ? (
         <Alert content={t("noLists")} variant="warning" />
       ) : (

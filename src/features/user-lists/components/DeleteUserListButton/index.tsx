@@ -14,7 +14,7 @@ const DeleteUserListButton = ({
   const [isPending, startTransition] = useTransition();
 
   const handleDeleteUserList = () => {
-    startTransition(async () => {
+    startTransition(() => {
       onDeleteUserList(listId);
     });
   };

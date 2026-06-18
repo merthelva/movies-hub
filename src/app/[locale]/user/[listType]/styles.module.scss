@@ -6,6 +6,14 @@
   align-content: start;
 }
 
+.titleWrapper {
+  @include m.flex-between;
+
+  > [type="button"] {
+    color: var(--color-accent);
+  }
+}
+
 .title {
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);

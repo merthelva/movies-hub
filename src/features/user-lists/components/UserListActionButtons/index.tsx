@@ -1,5 +1,3 @@
-"use client";
-
 import { DeleteUserListButton } from "../DeleteUserListButton";
 import { EditUserListButton } from "../EditUserListButton";
 import type { UserListActionButtonsPropsType } from "./component.type";

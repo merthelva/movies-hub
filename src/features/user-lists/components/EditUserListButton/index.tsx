@@ -30,7 +30,7 @@ const EditUserListButton = ({
       return;
     }
     handleCloseEditDialog();
-  }, [state.status]);
+  }, [state]);
 
   const handleOpenEditDialog = () => {
     setIsEditDialogOpen(true);

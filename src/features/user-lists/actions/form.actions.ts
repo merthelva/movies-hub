@@ -7,8 +7,6 @@ import type { UserListType } from "@/features/user-lists/types/user-list.type";
 import type { FormActionStateType } from "@/common/types/form-action-state.type";
 import type { ListCreateBodyType } from "@/features/user-lists/types/actions.type";
 import {
-  addMovieToUserFavoritelist,
-  addMovieToUserWatchlist,
   createUserFavoritelist,
   createUserWatchlist,
   updateUserFavoritelist,
@@ -16,7 +14,7 @@ import {
 } from "@/features/user-lists/services";
 
 const listCreateFormAction = async (
-  movieId: number,
+  movieId: number | null,
   userListType: UserListType,
   _prevState: FormActionStateType<ListCreateBodyType>,
   formData: FormData,
@@ -39,11 +37,6 @@ const listCreateFormAction = async (
       ? createUserFavoritelist
       : createUserWatchlist;
 
-  const addMovieToUserListFn =
-    userListType === "favoritelists"
-      ? addMovieToUserFavoritelist
-      : addMovieToUserWatchlist;
-
   const response = await createUserListFn(parsedListCreateForm.data.name);
   if (response.status === "error") {
     return {
@@ -54,6 +47,17 @@ const listCreateFormAction = async (
       message: serializeMessage("error", response.message),
     };
   }
+
+  if (movieId === null) {
+    return { status: "success" };
+  }
+
+  const { addMovieToUserFavoritelist, addMovieToUserWatchlist } =
+    await import("@/features/user-lists/services");
+  const addMovieToUserListFn =
+    userListType === "favoritelists"
+      ? addMovieToUserFavoritelist
+      : addMovieToUserWatchlist;
 
   const movieAddToListResponse = await addMovieToUserListFn(
     response.data.id,

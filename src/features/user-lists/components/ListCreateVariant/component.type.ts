@@ -5,10 +5,12 @@ type DialogListCreateFormType = {
 };
 
 type ListCreateVariantPropsType = {
-  movieId: number;
   userListType: UserListType;
   onClose: VoidFunction;
-};
+} & (
+  | { option: "with-movie-addition"; movieId: number }
+  | { option: "create-only" }
+);
 
 type DialogListCreateVariantType = ListCreateVariantPropsType & {
   variant: "list-create";

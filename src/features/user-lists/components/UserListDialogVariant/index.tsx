@@ -27,7 +27,7 @@ const UserListDialogVariant = ({
       {rest.variant === "list-create" && (
         <ListCreateVariant
           key={`dialog-${isOpen ? "visible" : "hidden"}`}
-          movieId={rest.movieId}
+          {...rest}
           userListType={rest.userListType}
           onClose={onClose}
         />
