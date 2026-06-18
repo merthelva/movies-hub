@@ -37,7 +37,7 @@ export default async function TopRatedPage({
     <MovieCategorySection
       title={t("topRated")}
       movies={response.data.results}
-      viewMoreHref="/movies/top-rated"
+      viewMoreHref="/movies/top_rated"
       viewMoreLabel={t("viewMore")}
     />
   );

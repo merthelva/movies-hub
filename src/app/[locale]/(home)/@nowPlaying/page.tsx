@@ -39,7 +39,7 @@ export default async function NowPlayingPage({
     <MovieCategorySection
       title={t("nowPlaying")}
       movies={response.data.results}
-      viewMoreHref="/movies/now-playing"
+      viewMoreHref="/movies/now_playing"
       viewMoreLabel={t("viewMore")}
     />
   );
