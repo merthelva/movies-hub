@@ -27,19 +27,43 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   const [user, setUser] = useState<AuthContextType["user"]>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // TODO: Decide whether to perform a full page reload after login/logout/register/removeAccount to re-validate server components and fetch user-specific data?
-
   useEffect(() => {
     const initializeAuth = async () => {
       const currentUser = await getCurrentUser();
-      if (currentUser != null) {
-        setUser(currentUser);
-      }
-
+      setUser(currentUser ?? null);
       setIsLoading(false);
     };
 
     initializeAuth();
+
+    const intervalId = setInterval(
+      () => {
+        getCurrentUser().then((currentUser) => {
+          setUser(currentUser ?? null);
+        });
+      },
+      5 * 60 * 1_000,
+    );
+
+    const controller = new AbortController();
+    document.addEventListener(
+      "visibilitychange",
+      () => {
+        if (document.visibilityState !== "visible") {
+          return;
+        }
+
+        getCurrentUser().then((currentUser) => {
+          setUser(currentUser ?? null);
+        });
+      },
+      { signal: controller.signal },
+    );
+
+    return () => {
+      clearInterval(intervalId);
+      controller.abort();
+    };
   }, []);
 
   const handleRegister = async (credentials: RegisterCredentialsType) => {
