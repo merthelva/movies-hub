@@ -3,6 +3,5 @@
   margin: 0 auto;
   padding: var(--spacing-xl) var(--spacing-md);
   transform: translateY(var(--header-height));
-  border: 1px solid blue;
   height: calc(100% - var(--header-height));
 }
