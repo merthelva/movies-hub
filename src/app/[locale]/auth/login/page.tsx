@@ -1,5 +1,4 @@
-import { redirect } from "next/navigation";
-
+import { redirect } from "@/i18n/navigation";
 import { AuthForm } from "@/features/auth/components/AuthForm";
 import { sanitizeRedirect } from "@/common/utils/sanitize-redirect.util";
 import { getCurrentUser } from "@/features/auth/actions";
@@ -12,7 +11,10 @@ export default async function LoginPage({
   const currentUser = await getCurrentUser();
 
   if (currentUser != null) {
-    redirect(`/${locale}`);
+    redirect({
+      href: "/",
+      locale,
+    });
   }
 
   const { redirect: redirectParam } = await searchParams;

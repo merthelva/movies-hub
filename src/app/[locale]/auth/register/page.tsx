@@ -1,5 +1,4 @@
-import { redirect } from "next/navigation";
-
+import { redirect } from "@/i18n/navigation";
 import { AuthForm } from "@/features/auth/components/AuthForm";
 import { getCurrentUser } from "@/features/auth/actions";
 
@@ -10,7 +9,10 @@ export default async function RegisterPage({
   const currentUser = await getCurrentUser();
 
   if (currentUser != null) {
-    redirect(`/${locale}`);
+    redirect({
+      href: "/",
+      locale,
+    });
   }
 
   return <AuthForm mode="register" />;

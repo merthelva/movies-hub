@@ -8,6 +8,7 @@ import {
   type PropsWithChildren,
 } from "react";
 
+import { useRouter } from "@/i18n/navigation";
 import {
   getCurrentUser,
   login,
@@ -26,6 +27,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const AuthProvider = ({ children }: PropsWithChildren) => {
   const [user, setUser] = useState<AuthContextType["user"]>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { push } = useRouter();
 
   useEffect(() => {
     const initializeAuth = async () => {
@@ -94,6 +96,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
     }
 
     setUser(null);
+    push("/");
   };
 
   const handleRemoveAccount = async (userId: number) => {
@@ -103,6 +106,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
     }
 
     setUser(null);
+    push("/");
   };
 
   const value: AuthContextType = {
