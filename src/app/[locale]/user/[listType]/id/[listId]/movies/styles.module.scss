@@ -1,11 +1,5 @@
 @use "@/styles/mixins" as m;
 
-.page {
-  display: grid;
-  gap: var(--spacing-xl);
-  height: 100%;
-}
-
 .pageContentWrapper {
   display: grid;
   gap: var(--spacing-lg);
@@ -34,7 +28,7 @@
   align-items: center;
   gap: var(--spacing-sm);
   color: var(--color-accent);
-  margin-inline-start: auto;
+  justify-self: end;
 
   &:hover::after {
     width: 0;

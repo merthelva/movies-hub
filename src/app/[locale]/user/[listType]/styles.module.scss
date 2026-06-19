@@ -2,9 +2,13 @@
 
 .page {
   display: grid;
-  grid-template-rows: auto 1fr;
   gap: var(--spacing-xl);
-  height: 100%;
+  align-items: start;
+
+  &:not(:has(> :is([role="status"], [role="alert"]))) {
+    grid-template-rows: auto 1fr;
+    height: 100%;
+  }
 }
 
 .titleWrapper {
@@ -32,8 +36,6 @@
 }
 
 .grid {
-  align-self: start;
-
   @include m.grid(1, var(--spacing-md));
 
   @include m.respond-to("sm") {

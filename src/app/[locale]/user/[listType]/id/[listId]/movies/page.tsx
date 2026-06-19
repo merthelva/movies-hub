@@ -12,6 +12,7 @@ import {
 } from "@/features/user-lists/services";
 import { UrlPagination } from "@/components/UrlPagination";
 import styles from "./styles.module.scss";
+import pageStyles from "../../../styles.module.scss";
 import type { UserListType } from "@/features/user-lists/types/user-list.type";
 import { userLists } from "@/features/user-lists/constants/user-lists.constant";
 import { checkIsNumberString } from "@/common/utils/check-is-number-string.util";
@@ -60,15 +61,13 @@ export default async function UserListMoviesPage({
   }
 
   return (
-    <div className={styles.page}>
+    <div className={pageStyles.page}>
+      <NavLink className={styles.link} href="/">
+        <Plus size={18} />
+        <span>Add movie</span>
+      </NavLink>
       {response.data.totalItems === 0 ? (
-        <>
-          <NavLink className={styles.link} href="/">
-            <Plus size={18} />
-            <span>Add movie</span>
-          </NavLink>
-          <Alert content={t("emptyList")} variant="warning" />
-        </>
+        <Alert content={t("emptyList")} variant="warning" />
       ) : (
         <div className={styles.pageContentWrapper}>
           <div className={styles.grid}>
