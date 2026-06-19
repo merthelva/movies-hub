@@ -8,6 +8,7 @@ import {
   getAllUserWatchlists,
 } from "@/features/user-lists/services";
 import type { UserListType } from "@/features/user-lists/types/user-list.type";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { UrlPagination } from "@/components/UrlPagination";
 import { checkIsNumberString } from "@/common/utils/check-is-number-string.util";
 import styles from "./styles.module.scss";
@@ -47,6 +48,7 @@ export default async function UserListsPage({
 
   return (
     <div className={styles.page}>
+      <ScrollToTop />
       <div className={styles.titleWrapper}>
         <h1 className={styles.title}>
           {listType === "favoritelists"

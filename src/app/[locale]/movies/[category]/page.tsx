@@ -7,6 +7,7 @@ import { MovieCard } from "@/features/movies/components/MovieCard";
 import { MOVIE_CATEGORIES } from "@/features/movies/constants/movie-categories.constant";
 import { getMoviesByCategory } from "@/features/movies/services";
 import type { MovieCategoryType } from "@/features/movies/types/movie-category.type";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { UrlPagination } from "@/components/UrlPagination";
 import styles from "./styles.module.scss";
 
@@ -58,6 +59,7 @@ export default async function MovieCategoryPage({
 
   return (
     <div className={styles.page}>
+      <ScrollToTop />
       <h1 className={styles.title}>{categoryTitle}</h1>
       <div className={styles.grid}>
         {response.data.results.map((movie) => (

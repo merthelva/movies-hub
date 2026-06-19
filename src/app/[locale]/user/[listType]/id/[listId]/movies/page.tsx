@@ -10,6 +10,7 @@ import {
   getAllUserFavoritelistMovies,
   getAllUserWatchlistMovies,
 } from "@/features/user-lists/services";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { UrlPagination } from "@/components/UrlPagination";
 import styles from "./styles.module.scss";
 import pageStyles from "../../../styles.module.scss";
@@ -62,6 +63,7 @@ export default async function UserListMoviesPage({
 
   return (
     <div className={pageStyles.page}>
+      <ScrollToTop />
       <NavLink className={styles.link} href="/">
         <Plus size={18} />
         <span>Add movie</span>
