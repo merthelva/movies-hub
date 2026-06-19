@@ -3,7 +3,7 @@
 .form {
   display: grid;
   gap: var(--spacing-lg);
-  width: min(400px, 90vw);
+  width: min(400px, 100%);
 }
 
 .title {

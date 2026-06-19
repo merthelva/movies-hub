@@ -35,7 +35,7 @@ $breakpoints: (
 // Grid utilities
 @mixin grid($columns, $gap: var(--spacing-md)) {
   display: grid;
-  grid-template-columns: repeat($columns, 1fr);
+  grid-template-columns: repeat($columns, minmax(0, 1fr));
   gap: $gap;
 }
 
