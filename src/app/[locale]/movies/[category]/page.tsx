@@ -42,7 +42,7 @@ export default async function MovieCategoryPage({
   if (response.status === "error") {
     return (
       <Alert
-        content={`An error occurred while fetching "${categoryTitle}" movies.`}
+        content={t("categoryFetchError", { category: categoryTitle })}
         variant="error"
       />
     );
@@ -51,7 +51,7 @@ export default async function MovieCategoryPage({
   if (response.data.results.length === 0) {
     return (
       <Alert
-        content={`No movies found for "${categoryTitle}".`}
+        content={t("categoryNoResults", { category: categoryTitle })}
         variant="info"
       />
     );

@@ -2,6 +2,7 @@
 
 import { useActionState, useEffect, useState } from "react";
 import { Edit } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/Button";
 import { Dialog } from "@/components/ui/Dialog";
@@ -19,6 +20,8 @@ const EditUserListButton = ({
   userListType,
 }: EditUserListButtonPropsType) => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const tLists = useTranslations("Lists");
+  const tCommon = useTranslations("Common");
 
   const [state, formAction, isPending] = useActionState(
     listEditFormAction.bind(null, listId, userListType),
@@ -47,7 +50,7 @@ const EditUserListButton = ({
       </Button>
       <Dialog
         isOpen={isEditDialogOpen}
-        title="Edit List"
+        title={tLists("editList")}
         onClose={handleCloseEditDialog}
       >
         <form className={styles.editUserListForm} action={formAction}>
@@ -55,12 +58,12 @@ const EditUserListButton = ({
             aria-describedby="edit-list-name-error"
             id="edit-list-name"
             name="list-name"
-            label="List Name"
+            label={tLists("listName")}
             defaultValue={
               state.status === "error" ? state.formFields.name : listName
             }
             hasError={state.status === "error"}
-            placeholder="Enter [1-50] character(s)"
+            placeholder={tLists("listNamePlaceholder")}
           />
           {state.status === "error" && state.message && (
             <Message
@@ -76,7 +79,7 @@ const EditUserListButton = ({
               componentSize="md"
               onClick={handleCloseEditDialog}
             >
-              Cancel
+              {tCommon("cancel")}
             </Button>
             <Button
               type="submit"
@@ -84,7 +87,7 @@ const EditUserListButton = ({
               componentSize="md"
               disabled={isPending}
             >
-              {isPending ? "Saving..." : "Save"}
+              {isPending ? tCommon("saving") : tCommon("save")}
             </Button>
           </div>
         </form>

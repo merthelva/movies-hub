@@ -1,5 +1,8 @@
+"use client";
+
 import { useTransition } from "react";
 import { Bookmark, Heart } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import styles from "./styles.module.scss";
 import { Button } from "@/components/ui/Button";
@@ -15,6 +18,7 @@ const ToggleUserListStatusButton = ({
   ...props
 }: ToggleUserListStatusButtonPropsType) => {
   const [isPending, startTransition] = useTransition();
+  const t = useTranslations("Movie");
 
   const handleClick = () => {
     startTransition(onDeferOpenDialog);
@@ -26,7 +30,11 @@ const ToggleUserListStatusButton = ({
   ) : (
     <Button
       {...props}
-      aria-label={`Toggle movie status for user ${userListType}`}
+      aria-label={t(
+        userListType === "favoritelists"
+          ? "toggleFavoritelistAriaLabel"
+          : "toggleWatchlistAriaLabel",
+      )}
       className={joinClassNames(styles.actionBtn, className)}
       variant="ghost"
       onClick={handleClick}

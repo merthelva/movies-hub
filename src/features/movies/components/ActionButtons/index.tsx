@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { useAuth } from "@/features/auth/context";
 import { UserListDialogVariant } from "@/features/user-lists/components/UserListDialogVariant";
@@ -23,6 +24,7 @@ import ToggleUserListStatusButton from "./ToggleUserListStatusButton";
 
 const ActionButtons = ({ movieId }: ActionButtonsPropsType) => {
   const { user } = useAuth();
+  const t = useTranslations("Lists");
   const [isUserListDialogOpen, setIsUserListDialogOpen] = useState(false);
   const [userListType, setUserListType] =
     useState<UserListType>("favoritelists");
@@ -32,7 +34,11 @@ const ActionButtons = ({ movieId }: ActionButtonsPropsType) => {
     useImmer<UserListsWithMovieStatusResponseType>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const dialogTitle = `Manage ${userListType === "favoritelists" ? "Favoritelist" : "Watchlist"} Movies`;
+  const dialogTitle = t(
+    userListType === "favoritelists"
+      ? "manageFavoritelistMoviesTitle"
+      : "manageWatchlistMoviesTitle",
+  );
 
   const handleOpenUserListDialogVariantForMovieToggle = async (
     type: UserListType,
@@ -142,9 +148,7 @@ const ActionButtons = ({ movieId }: ActionButtonsPropsType) => {
           title={dialogTitle}
           onClose={handleCloseUserListDialog}
           variant="error"
-          message={
-            errorMessage ?? "You need to be logged in to manage your lists."
-          }
+          message={errorMessage ?? t("loginRequired")}
         />
       )}
       {user != null && userListsWithMovieStatus.length > 0 && (

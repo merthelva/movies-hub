@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Menu } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { useAuth } from "@/features/auth/context";
 import { useRouter } from "@/i18n/navigation";
@@ -14,20 +15,20 @@ import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 
 import styles from "./styles.module.scss";
 
-// TODO: Static for now. Update links after all pages created
-const authenticatedNavLinks = [
-  { href: "/", label: "Home" },
-  { href: "/user/watchlists", label: "Watchlists" },
-  { href: "/user/favoritelists", label: "Favorites" },
-];
-
-const unauthenticatedNavLinks = [{ href: "/", label: "Home" }];
-
 const HeaderNav = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const router = useRouter();
   const { user, isLoading, logout } = useAuth();
+  const t = useTranslations("Common");
   const isAuthenticated = user != null;
+
+  const authenticatedNavLinks = [
+    { href: "/", label: t("home") },
+    { href: "/user/watchlists", label: t("watchlists") },
+    { href: "/user/favoritelists", label: t("favoritelists") },
+  ];
+
+  const unauthenticatedNavLinks = [{ href: "/", label: t("home") }];
 
   const navLinks = isAuthenticated
     ? authenticatedNavLinks
@@ -62,9 +63,9 @@ const HeaderNav = () => {
           {isLoading ? (
             <LoadingIndicator />
           ) : isAuthenticated ? (
-            "Logout"
+            t("logout")
           ) : (
-            "Login"
+            t("login")
           )}
         </Button>
       </nav>
@@ -74,7 +75,7 @@ const HeaderNav = () => {
       <ThemeToggle />
 
       <Button
-        aria-label="Open navigation menu"
+        aria-label={t("openNavMenu")}
         aria-expanded={isDrawerOpen}
         variant="ghost"
         className={styles.burgerBtn}

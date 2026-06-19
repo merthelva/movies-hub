@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 import { useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/Button";
@@ -14,19 +15,19 @@ import { useAuth } from "@/features/auth/context";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 
-// TODO: Static for now. Update links after all pages created
-const authenticatedNavLinks = [
-  { href: "/", label: "Home" },
-  { href: "/user/watchlists", label: "Watchlists" },
-  { href: "/user/favoritelists", label: "Favorites" },
-];
-
-const unauthenticatedNavLinks = [{ href: "/", label: "Home" }];
-
 const Drawer = ({ isOpen, onClose }: DrawerPropsType) => {
   const router = useRouter();
   const { user, isLoading, logout } = useAuth();
+  const t = useTranslations("Common");
   const isAuthenticated = user != null;
+
+  const authenticatedNavLinks = [
+    { href: "/", label: t("home") },
+    { href: "/user/watchlists", label: t("watchlists") },
+    { href: "/user/favoritelists", label: t("favoritelists") },
+  ];
+
+  const unauthenticatedNavLinks = [{ href: "/", label: t("home") }];
 
   useEffect(() => {
     const controller = new AbortController();

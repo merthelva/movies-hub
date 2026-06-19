@@ -53,12 +53,7 @@ export default async function UserListMoviesPage({
       : deleteMovieFromUserWatchlist;
 
   if (response.status === "error") {
-    return (
-      <Alert
-        content="An error occurred while fetching movies for this list."
-        variant="error"
-      />
-    );
+    return <Alert content={t("fetchMoviesError")} variant="error" />;
   }
 
   return (
@@ -66,7 +61,7 @@ export default async function UserListMoviesPage({
       <ScrollToTop />
       <NavLink className={styles.link} href="/">
         <Plus size={18} />
-        <span>Add movie</span>
+        <span>{t("addMovieLink")}</span>
       </NavLink>
       {response.data.totalItems === 0 ? (
         <Alert content={t("emptyList")} variant="warning" />

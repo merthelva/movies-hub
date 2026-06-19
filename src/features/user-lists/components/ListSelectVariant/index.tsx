@@ -1,3 +1,7 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 import type { ListSelectVariantPropsType } from "./component.type";
 import styles from "./styles.module.scss";
 
@@ -9,8 +13,10 @@ const ListSelectVariant = ({
   listIdToUpdate,
   onAdd,
   onRemove,
-}: ListSelectVariantPropsType) => (
-  <ul className={styles.listSelectVariant}>
+}: ListSelectVariantPropsType) => {
+  const t = useTranslations("Common");
+
+  return <ul className={styles.listSelectVariant}>
     {lists.map((list) => {
       const isUpdating = listIdToUpdate === list.id;
       return (
@@ -27,7 +33,7 @@ const ListSelectVariant = ({
                   : onAdd.bind(null, list.id)
               }
             >
-              {list.hasMovie ? "Remove" : "Add"}
+              {list.hasMovie ? t("remove") : t("add")}
             </Button>
           ) : (
             <LoadingIndicator />
@@ -35,7 +41,7 @@ const ListSelectVariant = ({
         </li>
       );
     })}
-  </ul>
-);
+  </ul>;
+};
 
 export { ListSelectVariant };

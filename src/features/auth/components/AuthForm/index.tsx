@@ -55,7 +55,7 @@ const AuthForm = ({ mode, redirectTo }: AuthFormPropsType) => {
               : ""
           }
           hasError={state.status === "error"}
-          placeholder="Enter [2-50] characters"
+          placeholder={t("namePlaceholder")}
         />
       )}
       <Input
@@ -76,7 +76,7 @@ const AuthForm = ({ mode, redirectTo }: AuthFormPropsType) => {
         label={t("password")}
         defaultValue={state.status === "error" ? state.formFields.password : ""}
         hasError={state.status === "error"}
-        placeholder="Enter at least 6 characters"
+        placeholder={t("passwordPlaceholder")}
       />
       {state.status === "error" && state.message && (
         <Message

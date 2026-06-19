@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Plus } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/Button";
 import type { CreateUserListButtonPropsType } from "./component.type";
@@ -11,8 +12,13 @@ const CreateUserListButton = ({
   userListType,
 }: CreateUserListButtonPropsType) => {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const tLists = useTranslations("Lists");
+  const tCommon = useTranslations("Common");
 
-  const dialogTitle = `Create ${userListType === "favoritelists" ? "Favoritelist" : "Watchlist"}`;
+  const isFavoritelist = userListType === "favoritelists";
+  const dialogTitle = tLists(
+    isFavoritelist ? "createFavoritelistTitle" : "createWatchlistTitle",
+  );
 
   const handleOpenCreateDialog = () => {
     setIsCreateDialogOpen(true);
@@ -25,12 +31,16 @@ const CreateUserListButton = ({
   return (
     <>
       <Button
-        aria-label={`Create new ${userListType === "favoritelists" ? "favoritelist" : "watchlist"}`}
+        aria-label={tLists(
+          isFavoritelist
+            ? "createFavoritelistAriaLabel"
+            : "createWatchlistAriaLabel",
+        )}
         variant="ghost"
         onClick={handleOpenCreateDialog}
       >
         <Plus size={18} />
-        <span>Create</span>
+        <span>{tCommon("create")}</span>
       </Button>
       <UserListDialogVariant
         isOpen={isCreateDialogOpen}

@@ -32,21 +32,11 @@ export default async function HomePage({
     }
 
     if (searchedMoviesResponse?.status === "error") {
-      return (
-        <Alert
-          content="An error occurred while searching for movies. Please try again later."
-          variant="error"
-        />
-      );
+      return <Alert content={t("searchError")} variant="error" />;
     }
 
     if (searchedMoviesResponse.data.results.length === 0) {
-      return (
-        <Alert
-          content="No movie is found with this search input."
-          variant="info"
-        />
-      );
+      return <Alert content={t("noSearchResults")} variant="info" />;
     }
 
     return (

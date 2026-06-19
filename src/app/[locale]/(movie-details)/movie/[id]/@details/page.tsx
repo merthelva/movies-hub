@@ -22,12 +22,7 @@ export default async function DetailsPage({
   const response = await getMovieDetails(Number(id));
 
   if (response.status === "error") {
-    return (
-      <Alert
-        content="An error occurred while fetching movie details."
-        variant="error"
-      />
-    );
+    return <Alert content={t("fetchDetailsError")} variant="error" />;
   }
 
   const movie = response.data;
@@ -63,7 +58,7 @@ export default async function DetailsPage({
             ★ {movie.voteAverage.toFixed(1)}
           </span>
           <span className={styles.voteCount}>
-            ({movie.voteCount.toLocaleString()} votes)
+            ({movie.voteCount.toLocaleString()} {t("votes")})
           </span>
           <span className={styles.separator}>•</span>
           <span className={styles.year}>{year}</span>

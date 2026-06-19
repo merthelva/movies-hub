@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 import type { ListCreateVariantPropsType } from "./component.type";
 import styles from "./styles.module.scss";
@@ -16,6 +17,8 @@ const ListCreateVariant = ({
   onClose,
   ...rest
 }: ListCreateVariantPropsType) => {
+  const tLists = useTranslations("Lists");
+  const tCommon = useTranslations("Common");
   const [state, formAction, isPending] = useActionState(
     listCreateFormAction.bind(
       null,
@@ -38,10 +41,10 @@ const ListCreateVariant = ({
         aria-describedby="list-name-error"
         id="list-name"
         name="list-name"
-        label="List Name"
+        label={tLists("listName")}
         defaultValue={state.status === "error" ? state.formFields.name : ""}
         hasError={state.status === "error"}
-        placeholder="Enter [1-50] character(s)"
+        placeholder={tLists("listNamePlaceholder")}
       />
       {state.status === "error" && state.message && (
         <Message id="list-name-error" variant="error" content={state.message} />
@@ -53,7 +56,7 @@ const ListCreateVariant = ({
           componentSize="md"
           onClick={onClose}
         >
-          Cancel
+          {tCommon("cancel")}
         </Button>
         <Button
           type="submit"
@@ -61,7 +64,7 @@ const ListCreateVariant = ({
           componentSize="md"
           disabled={isPending}
         >
-          {isPending ? "Creating..." : "Create"}
+          {isPending ? tLists("creating") : tCommon("create")}
         </Button>
       </div>
     </form>
