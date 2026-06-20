@@ -48,6 +48,11 @@
 
 .titleWrapper {
   @include m.flex-between;
+  gap: var(--spacing-sm);
+
+  > [type="button"] {
+    padding-inline: 0;
+  }
 }
 
 .titleLink {
