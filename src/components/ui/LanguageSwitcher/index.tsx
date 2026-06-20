@@ -2,17 +2,16 @@
 
 import { useLocale } from "next-intl";
 
-import { usePathname, useRouter } from "@/i18n/navigation";
+import { usePathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { MultiSwitch } from "@/components/ui/MultiSwitch";
 
 const LanguageSwitcher = () => {
   const locale = useLocale();
-  const router = useRouter();
   const pathname = usePathname();
 
   const handleLocaleChange = (nextLocale: string) => {
-    router.replace(pathname, { locale: nextLocale });
+    window.location.replace(`/${nextLocale}${pathname}`);
   };
 
   return (
