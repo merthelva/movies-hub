@@ -10,12 +10,6 @@ const ThemeProvider = ({ children }: PropsWithChildren) => {
   const [theme, setTheme] = useState<ThemeType>("dark");
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem("theme") as ThemeType | null;
-    setTheme(storedTheme ?? "dark");
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("theme", theme);
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
 
