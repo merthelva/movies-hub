@@ -3,7 +3,9 @@ import styles from "./styles.module.scss";
 
 const Header = () => (
   <header className={styles.header}>
-    <HeaderNav />
+    <div className={styles.wrapper}>
+      <HeaderNav />
+    </div>
   </header>
 );
 
