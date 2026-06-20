@@ -8,6 +8,7 @@ import { Alert } from "@/components/ui/Alert";
 import { getMovieDetails } from "@/features/movies/services";
 import { formatRuntime } from "@/features/movies/utils/format-runtime.util";
 import { formatCurrency } from "@/features/movies/utils/format-currency.util";
+import { ActionButtons } from "@/features/movies/components/ActionButtons";
 
 export default async function DetailsPage({
   params,
@@ -50,6 +51,7 @@ export default async function DetailsPage({
           sizes="(max-width: 768px) 100vw, 280px"
           priority
         />
+        <ActionButtons movieId={+id} />
       </div>
       <div className={styles.info}>
         <h1 className={styles.title}>{movie.title}</h1>
