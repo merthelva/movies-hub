@@ -33,6 +33,11 @@
   &.open {
     transform: translateX(0);
   }
+
+  > [alt] {
+    margin-block-start: var(--spacing-xl);
+    margin-inline: auto;
+  }
 }
 
 .navList {

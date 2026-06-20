@@ -14,6 +14,7 @@ import styles from "./styles.module.scss";
 import { useAuth } from "@/features/auth/context";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
+import HeaderLogo from "../Header/HeaderLogo";
 
 const Drawer = ({ isOpen, onClose }: DrawerPropsType) => {
   const router = useRouter();
@@ -79,6 +80,7 @@ const Drawer = ({ isOpen, onClose }: DrawerPropsType) => {
         aria-modal="true"
         aria-label="Navigation menu"
       >
+        <HeaderLogo />
         <nav className={styles.navList}>
           {navLinks.map(({ href, label }) => (
             <NavLink key={href} href={href} label={label} onClick={onClose} />
