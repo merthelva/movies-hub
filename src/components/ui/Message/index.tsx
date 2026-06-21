@@ -15,11 +15,7 @@ const Message = ({
       aria-atomic={false}
       aria-live="polite"
       aria-relevant="additions text"
-      className={joinClassNames(
-        styles.message,
-        styles[variant],
-        props.className,
-      )}
+      className={joinClassNames(styles.message, props.className)}
     >
       {content}
     </span>
