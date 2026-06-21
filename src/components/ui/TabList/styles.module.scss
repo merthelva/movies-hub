@@ -1,0 +1,63 @@
+@use "@/styles/mixins" as m;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.tablist {
+  display: flex;
+  gap: var(--spacing-xs);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--spacing-xs);
+
+  &.scrollable {
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
+  }
+}
+
+.tab {
+  flex-shrink: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-xs) var(--spacing-md);
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-normal);
+  border-radius: var(--radius-md);
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+
+  @include m.focus-ring;
+
+  &:hover:not(:disabled):not(.active) {
+    color: var(--color-accent);
+    background-color: var(--color-surface);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .scrollable & {
+    min-width: 25%;
+    text-align: center;
+  }
+}
+
+.active {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+  font-weight: var(--font-weight-bold);
+}
+
+.panel {
+  padding: var(--spacing-lg) 0;
+
+  @include m.focus-ring;
+}
