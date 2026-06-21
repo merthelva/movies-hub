@@ -9,6 +9,7 @@ import { Header } from "@/components/Header";
 import { routing } from "@/i18n/routing";
 import type { LocaleLayoutPropsType } from "./props.type";
 import styles from "./styles.module.scss";
+import { joinClassNames } from "@/common/utils/join-classnames.util";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -32,7 +33,9 @@ export default async function LocaleLayout({
           <AuthProvider>
             <ThemeProvider>
               <Header />
-              <main className={styles.main}>{children}</main>
+              <main className={joinClassNames("fluid-wrapper", styles.main)}>
+                {children}
+              </main>
               {modal}
             </ThemeProvider>
           </AuthProvider>

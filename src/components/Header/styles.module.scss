@@ -22,8 +22,6 @@
   justify-content: flex-end;
   gap: var(--spacing-sm);
   height: 100%;
-  max-width: 1280px;
-  margin-inline: auto;
 }
 
 .logo {
@@ -47,10 +45,7 @@
   list-style: none;
 }
 
-.burgerBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.burgerBtn[type="button"] {
   color: var(--color-text);
   padding: var(--spacing-xs);
   border-radius: var(--radius-md);
