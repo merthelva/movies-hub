@@ -5,6 +5,7 @@ import type { MovieDetailsType } from "@/features/movies/types/movie.type";
 import type { MovieCastType } from "@/features/movies/types/movie-cast.type";
 import type { MovieTrailerType } from "@/features/movies/types/movie-trailer.type";
 import type { PaginatedMoviesResponseType } from "@/features/movies/types/service-response.type";
+import type { LanguageType } from "@/common/types/language.type";
 
 const getMoviesByCategory = async (
   category: MovieCategoryType,
@@ -35,8 +36,13 @@ const searchMovies = async (
   );
 };
 
-const getMovieDetails = async (movieId: number) => {
-  return await apiService<MovieDetailsType>(`/movies/${movieId}/details`);
+const getMovieDetails = async (
+  movieId: number,
+  language: LanguageType = "en-US",
+) => {
+  return await apiService<MovieDetailsType>(
+    `/movies/${movieId}/details?language=${language}`,
+  );
 };
 
 const getMovieCast = async (movieId: number) => {

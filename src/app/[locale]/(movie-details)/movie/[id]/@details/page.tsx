@@ -9,18 +9,20 @@ import { getMovieDetails } from "@/features/movies/services";
 import { formatRuntime } from "@/features/movies/utils/format-runtime.util";
 import { formatCurrency } from "@/features/movies/utils/format-currency.util";
 import { ActionButtons } from "@/features/movies/components/ActionButtons";
+import { Language } from "@/common/constants/language.constant";
+import type { LocaleType } from "@/common/types/locale.type";
 
 export default async function DetailsPage({
   params,
 }: PageProps<"/[locale]/movie/[id]">) {
-  const { id } = await params;
+  const { id, locale } = await params;
   const t = await getTranslations("Movie");
 
   if (isNaN(Number(id))) {
     notFound();
   }
 
-  const response = await getMovieDetails(Number(id));
+  const response = await getMovieDetails(+id, Language[locale as LocaleType]);
 
   if (response.status === "error") {
     return <Alert content={t("fetchDetailsError")} variant="error" />;
