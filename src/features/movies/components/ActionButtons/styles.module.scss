@@ -9,6 +9,10 @@
   background-color: rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
+
+  > [role="status"] {
+    border-top-color: #e8e8e8;
+  }
 }
 
 .actionBtn {
