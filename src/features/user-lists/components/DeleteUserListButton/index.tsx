@@ -20,7 +20,7 @@ const DeleteUserListButton = ({
   };
 
   return (
-    <Button variant="ghost" onClick={handleDeleteUserList}>
+    <Button variant="ghost" disabled={isPending} onClick={handleDeleteUserList}>
       {isPending ? <LoadingIndicator /> : <Trash size={20} />}
     </Button>
   );

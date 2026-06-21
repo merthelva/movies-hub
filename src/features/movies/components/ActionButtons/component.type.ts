@@ -7,7 +7,7 @@ type ActionButtonsPropsType = {
 
 type ToggleUserListStatusButtonPropsType = ButtonPropsType & {
   userListType: UserListType;
-  onDeferOpenDialog: VoidFunction;
+  isLoading: boolean;
   onFetchUserListsWithMovieStatus: (type: UserListType) => Promise<void>;
 };
 

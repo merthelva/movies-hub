@@ -1,6 +1,5 @@
 "use client";
 
-import { useTransition } from "react";
 import { Bookmark, Heart } from "lucide-react";
 import { useTranslations } from "next-intl";
 
@@ -13,19 +12,17 @@ import type { ToggleUserListStatusButtonPropsType } from "./component.type";
 const ToggleUserListStatusButton = ({
   className,
   userListType,
-  onDeferOpenDialog,
+  isLoading,
   onFetchUserListsWithMovieStatus,
   ...props
 }: ToggleUserListStatusButtonPropsType) => {
-  const [isPending, startTransition] = useTransition();
   const t = useTranslations("Movie");
 
   const handleClick = () => {
-    startTransition(onDeferOpenDialog);
     onFetchUserListsWithMovieStatus(userListType);
   };
 
-  return isPending ? (
+  return isLoading ? (
     <LoadingIndicator />
   ) : (
     <Button

@@ -28,7 +28,8 @@ const ActionButtons = ({ movieId }: ActionButtonsPropsType) => {
   const [isUserListDialogOpen, setIsUserListDialogOpen] = useState(false);
   const [userListType, setUserListType] =
     useState<UserListType>("favoritelists");
-  const [listIdToUpdate, setlistIdToUpdate] =
+  const [isFetchingUserLists, setIsFetchingUserLists] = useState(false);
+  const [listIdToUpdate, setListIdToUpdate] =
     useState<ListSelectVariantPropsType["listIdToUpdate"]>(null);
   const [userListsWithMovieStatus, updateUserListsWithMovieStatus] =
     useImmer<UserListsWithMovieStatusResponseType>([]);
@@ -50,22 +51,21 @@ const ActionButtons = ({ movieId }: ActionButtonsPropsType) => {
       return;
     }
 
+    setIsFetchingUserLists(true);
+
     const getAllUserListsWithMovieStatusFn =
       type === "favoritelists"
         ? getUserFavoritelistsWithMovieStatus
         : getUserWatchlistsWithMovieStatus;
 
     const response = await getAllUserListsWithMovieStatusFn(movieId);
-
+    setIsFetchingUserLists(false);
+    setIsUserListDialogOpen(true);
     if (response.status === "error") {
       return setErrorMessage(serializeMessage("error", response.message));
     }
 
     updateUserListsWithMovieStatus(response.data);
-  };
-
-  const handleOpenUserListDialog = () => {
-    setIsUserListDialogOpen(true);
   };
 
   const handleCloseUserListDialog = () => {
@@ -78,11 +78,11 @@ const ActionButtons = ({ movieId }: ActionButtonsPropsType) => {
         ? addMovieToUserFavoritelist
         : addMovieToUserWatchlist;
 
-    setlistIdToUpdate(listId);
+    setListIdToUpdate(listId);
 
     const response = await addMovieToUserListFn(listId, movieId);
 
-    setlistIdToUpdate(null);
+    setListIdToUpdate(null);
 
     if (response.status === "error") {
       return setErrorMessage(serializeMessage("error", response.message));
@@ -104,11 +104,11 @@ const ActionButtons = ({ movieId }: ActionButtonsPropsType) => {
         ? deleteMovieFromUserFavoritelist
         : deleteMovieFromUserWatchlist;
 
-    setlistIdToUpdate(listId);
+    setListIdToUpdate(listId);
 
     const response = await deleteMovieFromUserListFn(listId, movieId);
 
-    setlistIdToUpdate(null);
+    setListIdToUpdate(null);
 
     if (response.status === "error") {
       return setErrorMessage(serializeMessage("error", response.message));
@@ -129,14 +129,16 @@ const ActionButtons = ({ movieId }: ActionButtonsPropsType) => {
       <div className={styles.actions}>
         <ToggleUserListStatusButton
           userListType="favoritelists"
-          onDeferOpenDialog={handleOpenUserListDialog}
+          disabled={userListType === "watchlists" && isFetchingUserLists}
+          isLoading={userListType === "favoritelists" && isFetchingUserLists}
           onFetchUserListsWithMovieStatus={
             handleOpenUserListDialogVariantForMovieToggle
           }
         />
         <ToggleUserListStatusButton
           userListType="watchlists"
-          onDeferOpenDialog={handleOpenUserListDialog}
+          disabled={userListType === "favoritelists" && isFetchingUserLists}
+          isLoading={userListType === "watchlists" && isFetchingUserLists}
           onFetchUserListsWithMovieStatus={
             handleOpenUserListDialogVariantForMovieToggle
           }
