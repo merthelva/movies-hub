@@ -25,10 +25,7 @@ const login = async (
   });
 
   if (response.status === "error") {
-    return {
-      ...response,
-      message: serializeMessage("error", response.message),
-    };
+    return response;
   }
 
   const cookieStore = await cookies();
@@ -54,10 +51,7 @@ const register = async (
   });
 
   if (response.status === "error") {
-    return {
-      ...response,
-      message: serializeMessage("error", response.message),
-    };
+    return response;
   }
 
   return {
