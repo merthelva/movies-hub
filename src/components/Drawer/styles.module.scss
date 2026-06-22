@@ -19,8 +19,7 @@
 
 .drawer {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0 auto auto 0;
   height: 100%;
   width: min(320px, 60%);
   background-color: var(--color-surface);

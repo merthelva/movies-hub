@@ -85,7 +85,7 @@
 .detailsMeta {
   display: flex;
   gap: var(--spacing-sm);
-  margin-top: var(--spacing-md);
+  margin-block-start: var(--spacing-md);
 }
 
 .metaItem {
@@ -97,7 +97,7 @@
 // MovieCategorySection skeleton
 .categorySectionHeader {
   @include m.flex-between;
-  margin-bottom: var(--spacing-lg);
+  margin-block-end: var(--spacing-lg);
 }
 
 .categorySectionTitle {

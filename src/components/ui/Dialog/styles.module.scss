@@ -31,15 +31,11 @@
 }
 
 .closeBtn {
-  @include m.flex-center;
   background: transparent;
-  border: none;
   color: var(--color-text);
-  cursor: pointer;
   padding: var(--spacing-xs);
   border-radius: var(--radius-sm);
-  margin-left: auto;
-  transition: color var(--transition-fast);
+  margin-inline-start: auto;
 
   &:hover {
     color: var(--color-accent);
