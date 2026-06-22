@@ -1,29 +1,25 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
 import { useRouter } from "@/i18n/navigation";
 import { AuthForm } from "@/features/auth/components/AuthForm";
-import styles from "./styles.module.scss";
 import type { AuthModalPropsType } from "./component.type";
+import { Dialog } from "@/components/ui/Dialog";
 
 const AuthModal = ({ mode, redirectTo }: AuthModalPropsType) => {
-  const dialogRef = useRef<HTMLDialogElement>(null);
+  const dialogRef = useRef<HTMLDialogElement | null>(null);
   const router = useRouter();
 
-  useEffect(() => {
-    dialogRef.current?.showModal();
-  }, []);
-
   return (
-    <dialog
+    <Dialog
       ref={dialogRef}
-      className={styles.dialog}
-      onClose={router.back}
       aria-label={mode === "login" ? "Login" : "Register"}
+      isOpen
+      onClose={router.back}
     >
       <AuthForm mode={mode} redirectTo={redirectTo} />
-    </dialog>
+    </Dialog>
   );
 };
 
