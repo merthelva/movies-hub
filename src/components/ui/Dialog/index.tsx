@@ -6,11 +6,16 @@ import { Button } from "@/components/ui/Button";
 import type { DialogPropsType } from "./component.type";
 import styles from "./styles.module.scss";
 
-const Dialog = ({ children, isOpen, onClose, title }: DialogPropsType) => {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-
+const Dialog = ({
+  children,
+  isOpen,
+  onClose,
+  title,
+  ref: dialogRef,
+  ...props
+}: DialogPropsType) => {
   useEffect(() => {
-    const dialog = dialogRef.current;
+    const dialog = dialogRef?.current;
     if (!dialog) {
       return;
     }
@@ -24,7 +29,7 @@ const Dialog = ({ children, isOpen, onClose, title }: DialogPropsType) => {
   }, [isOpen]);
 
   const handleBackdropClick = ({ target }: MouseEvent<HTMLDialogElement>) => {
-    if (target !== dialogRef.current) {
+    if (!dialogRef || target !== dialogRef.current) {
       return;
     }
 
@@ -37,6 +42,7 @@ const Dialog = ({ children, isOpen, onClose, title }: DialogPropsType) => {
       className={styles.dialog}
       onClick={handleBackdropClick}
       onClose={onClose}
+      {...props}
     >
       <div className={styles.container}>
         <header className={styles.header}>

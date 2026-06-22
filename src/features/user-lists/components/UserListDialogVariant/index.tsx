@@ -1,5 +1,8 @@
-import type { UserListDialogVariantPropsType } from "./component.type";
+"use client";
 
+import { useRef } from "react";
+
+import type { UserListDialogVariantPropsType } from "./component.type";
 import { Dialog } from "@/components/ui/Dialog";
 import { ErrorVariant } from "@/features/user-lists/components/ErrorVariant";
 import { ListSelectVariant } from "@/features/user-lists/components/ListSelectVariant";
@@ -11,8 +14,10 @@ const UserListDialogVariant = ({
   onClose,
   ...rest
 }: UserListDialogVariantPropsType) => {
+  const dialogRef = useRef<HTMLDialogElement | null>(null);
+
   return (
-    <Dialog isOpen={isOpen} title={title} onClose={onClose}>
+    <Dialog ref={dialogRef} isOpen={isOpen} title={title} onClose={onClose}>
       {rest.variant === "error" && (
         <ErrorVariant message={rest.message} onClose={onClose} />
       )}

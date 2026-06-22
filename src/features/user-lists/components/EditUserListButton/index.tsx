@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { Edit } from "lucide-react";
 import { useTranslations } from "next-intl";
 
@@ -20,6 +20,7 @@ const EditUserListButton = ({
   userListType,
 }: EditUserListButtonPropsType) => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const dialogRef = useRef<HTMLDialogElement | null>(null);
   const tLists = useTranslations("Lists");
   const tCommon = useTranslations("Common");
 
@@ -49,6 +50,7 @@ const EditUserListButton = ({
         {isPending ? <LoadingIndicator /> : <Edit size={20} />}
       </Button>
       <Dialog
+        ref={dialogRef}
         isOpen={isEditDialogOpen}
         title={tLists("editList")}
         onClose={handleCloseEditDialog}
