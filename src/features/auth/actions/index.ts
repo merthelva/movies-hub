@@ -12,29 +12,27 @@ import type {
 import type { GenericResponseType } from "@/common/types/generic-response.type";
 import { HttpStatusCodes } from "@/common/constants/http-status-codes.constant";
 import { serializeMessage } from "@/common/utils/serialize-message.util";
-import { API_BASE_URL } from "@/common/constants/api-base-url.constant";
 import type { SuccessResponseType } from "@/common/types/success-response.type";
 import { getAccessToken } from "@/common/utils/get-access-token.util";
+import { apiService } from "@/services/api";
 
-// TODO: Replace `fetch` call with `apiService`
 const login = async (
   credentials: LoginCredentialsType,
 ): Promise<GenericResponseType<LoginResponseType>> => {
-  const response = await fetch(`${API_BASE_URL}/auth/login`, {
+  const response = await apiService<LoginResponseType>("/auth/login", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(credentials),
+    body: credentials,
   });
-  const jsonResp = await response.json();
-  if (jsonResp?.status === "error") {
+
+  if (response.status === "error") {
     return {
-      ...jsonResp,
-      message: serializeMessage("error", jsonResp.message),
+      ...response,
+      message: serializeMessage("error", response.message),
     };
   }
 
   const cookieStore = await cookies();
-  cookieStore.set("accessToken", jsonResp.accessToken, {
+  cookieStore.set("accessToken", response.data.accessToken, {
     httpOnly: true,
     secure: true,
     sameSite: "lax",
@@ -43,29 +41,28 @@ const login = async (
 
   return {
     status: "success",
-    data: jsonResp,
+    data: response.data,
   };
 };
 
 const register = async (
   credentials: RegisterCredentialsType,
 ): Promise<GenericResponseType<RegisterResponseType>> => {
-  const response = await fetch(`${API_BASE_URL}/auth/register`, {
+  const response = await apiService<RegisterResponseType>("/auth/register", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(credentials),
+    body: credentials,
   });
-  const jsonResp = await response.json();
-  if (jsonResp?.status === "error") {
+
+  if (response.status === "error") {
     return {
-      ...jsonResp,
-      message: serializeMessage("error", jsonResp.message),
+      ...response,
+      message: serializeMessage("error", response.message),
     };
   }
 
   return {
     status: "success",
-    data: jsonResp,
+    data: response.data,
   };
 };
 
@@ -79,18 +76,15 @@ const logout = async (): Promise<GenericResponseType<SuccessResponseType>> => {
     };
   }
 
-  const response = await fetch(`${API_BASE_URL}/auth/logout`, {
+  const response = await apiService<SuccessResponseType>("/auth/logout", {
     method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
+    withAuth: true,
   });
-  const jsonResp = await response.json();
-  if (jsonResp?.status === "error") {
+
+  if (response.status === "error") {
     return {
-      ...jsonResp,
-      message: serializeMessage("error", jsonResp.message),
+      ...response,
+      message: serializeMessage("error", response.message),
     };
   }
 
@@ -98,7 +92,7 @@ const logout = async (): Promise<GenericResponseType<SuccessResponseType>> => {
   cookieStore.delete("accessToken");
   return {
     status: "success",
-    data: jsonResp,
+    data: response.data,
   };
 };
 
@@ -114,23 +108,24 @@ const removeAccount = async (
     };
   }
 
-  const response = await fetch(`${API_BASE_URL}/auth/remove/${userId}`, {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${token}`,
+  const response = await apiService<SuccessResponseType>(
+    `/auth/remove/${userId}`,
+    {
+      method: "DELETE",
+      withAuth: true,
     },
-  });
-  const jsonResp = await response.json();
-  if (jsonResp?.status === "error") {
+  );
+
+  if (response.status === "error") {
     return {
-      ...jsonResp,
-      message: serializeMessage("error", jsonResp.message),
+      ...response,
+      message: serializeMessage("error", response.message),
     };
   }
 
   const cookieStore = await cookies();
   cookieStore.delete("accessToken");
-  return jsonResp;
+  return response;
 };
 
 const getCurrentUser = async (): Promise<AuthContextValueType["user"]> => {
@@ -141,19 +136,20 @@ const getCurrentUser = async (): Promise<AuthContextValueType["user"]> => {
       return null;
     }
 
-    const response = await fetch(`${API_BASE_URL}/users/me`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
+    const response = await apiService<AuthContextValueType["user"]>(
+      "/users/me",
+      {
+        method: "GET",
+        withAuth: true,
       },
-    });
-    if (!response.ok) {
+    );
+
+    if (response.status === "error" || response.data === null) {
       return null;
     }
 
-    const jsonResp = (await response.json()) as AuthContextValueType["user"];
-    return jsonResp;
-  } catch (error: unknown) {
+    return response.data;
+  } catch {
     return null;
   }
 };
