@@ -1,8 +1,10 @@
-const safeParseFormBody = <TSchema, TFormBody>(
-  schema: TSchema,
+import { type ZodType } from "zod";
+
+const safeParseFormBody = <TFormBody>(
+  schema: ZodType<TFormBody>,
   formBody: TFormBody,
 ) => {
-  const parsed = (schema as any).safeParse(formBody); // TODO: Get rid of `any` type
+  const parsed = schema.safeParse(formBody);
 
   if (!parsed.success) {
     return {
@@ -13,7 +15,7 @@ const safeParseFormBody = <TSchema, TFormBody>(
 
   return {
     status: "success",
-    data: parsed.data as TFormBody,
+    data: parsed.data,
   } as const;
 };
 
