@@ -30,10 +30,9 @@ export default async function TrailerPage({
       <h2 className={styles.title}>Trailer</h2>
       <div className={styles.embedWrapper}>
         <iframe
-          src={`https://www.youtube.com/embed/${key}`}
+          src={`https://www.youtube.com/embed/${key}?playsinline=1`}
           title="Movie Trailer"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
           className={styles.embed}
         />
       </div>
