@@ -83,8 +83,11 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       return;
     }
 
-    const { accessToken, ...user } = response.data;
-    setUser(user);
+    setUser({
+      id: response.data.id,
+      name: response.data.name,
+      email: response.data.email,
+    });
   };
 
   const handleLogout = async () => {
