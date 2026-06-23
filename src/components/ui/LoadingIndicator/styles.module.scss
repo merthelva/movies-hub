@@ -8,7 +8,7 @@
   display: inline-block;
   border-radius: 50%;
   border-style: solid;
-  border-color: var(--color-surface) transparent transparent transparent;
+  border-color: currentColor transparent transparent transparent;
   animation: spin 0.7s linear infinite;
 }
 
