@@ -4,9 +4,11 @@ const useIsFirstRender = () => {
   const isFirstRender = useRef(true);
 
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-    }
+    isFirstRender.current = false;
+
+    return () => {
+      isFirstRender.current = true;
+    };
   }, []);
 
   return isFirstRender.current;
