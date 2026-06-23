@@ -1,4 +1,4 @@
-import type { StateVariantType } from "../types/state-variant.type";
+import type { StateVariantType } from "@/common/types/state-variant.type";
 
 const serializeMessage = (
   variant: StateVariantType,

@@ -1,9 +1,10 @@
 import { getTranslations } from "next-intl/server";
 
+import styles from "./styles.module.scss";
+
 import { Alert } from "@/components/ui/Alert";
 import { MovieStar } from "@/features/movies/components/MovieStar";
 import { getMovieCast } from "@/features/movies/services";
-import styles from "./styles.module.scss";
 
 export default async function CastPage({
   params,

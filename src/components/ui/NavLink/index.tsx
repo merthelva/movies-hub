@@ -1,11 +1,11 @@
 "use client";
 
-import { Link, usePathname } from "@/i18n/navigation";
-import { joinClassNames } from "@/common/utils/join-classnames.util";
-
 import type { NavLinkPropsType } from "./component.type";
 import styles from "./styles.module.scss";
 import { checkIsLinkActive } from "./check-is-link-active.util";
+
+import { Link, usePathname } from "@/i18n/navigation";
+import { joinClassNames } from "@/common/utils/join-classnames.util";
 
 const NavLink = ({
   children,

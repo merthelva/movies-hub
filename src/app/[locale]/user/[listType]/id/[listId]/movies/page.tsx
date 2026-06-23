@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { Plus } from "lucide-react";
 
+import styles from "./styles.module.scss";
+
 import { Alert } from "@/components/ui/Alert";
 import { MovieCard } from "@/features/movies/components/MovieCard";
 import {
@@ -12,8 +14,7 @@ import {
 } from "@/features/user-lists/services";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { UrlPagination } from "@/components/UrlPagination";
-import styles from "./styles.module.scss";
-import pageStyles from "../../../styles.module.scss";
+import pageStyles from "@/app/[locale]/user/[listType]/styles.module.scss";
 import type { UserListType } from "@/features/user-lists/types/user-list.type";
 import { userLists } from "@/features/user-lists/constants/user-lists.constant";
 import { checkIsNumberString } from "@/common/utils/check-is-number-string.util";

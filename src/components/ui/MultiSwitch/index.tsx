@@ -3,11 +3,11 @@
 import { useRef } from "react";
 import type { KeyboardEvent } from "react";
 
-import { joinClassNames } from "@/common/utils/join-classnames.util";
-import { Button } from "@/components/ui/Button";
-
 import type { MultiSwitchPropsType } from "./component.type";
 import styles from "./styles.module.scss";
+
+import { joinClassNames } from "@/common/utils/join-classnames.util";
+import { Button } from "@/components/ui/Button";
 
 const MultiSwitch = ({
   options,

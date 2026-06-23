@@ -2,6 +2,11 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useImmer } from "use-immer";
+
+import type { ActionButtonsPropsType } from "./component.type";
+import styles from "./styles.module.scss";
+import ToggleUserListStatusButton from "./ToggleUserListStatusButton";
 
 import { useAuth } from "@/features/auth/context";
 import { UserListDialogVariant } from "@/features/user-lists/components/UserListDialogVariant";
@@ -14,13 +19,9 @@ import {
   getUserWatchlistsWithMovieStatus,
 } from "@/features/user-lists/services";
 import type { UserListType } from "@/features/user-lists/types/user-list.type";
-import type { ActionButtonsPropsType } from "./component.type";
-import styles from "./styles.module.scss";
 import { serializeMessage } from "@/common/utils/serialize-message.util";
 import type { UserListsWithMovieStatusResponseType } from "@/features/user-lists/types/service-response.type";
-import { useImmer } from "use-immer";
 import type { ListSelectVariantPropsType } from "@/features/user-lists/components/ListSelectVariant/component.type";
-import ToggleUserListStatusButton from "./ToggleUserListStatusButton";
 
 const ActionButtons = ({ movieId }: ActionButtonsPropsType) => {
   const { user } = useAuth();

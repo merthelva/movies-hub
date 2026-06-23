@@ -1,4 +1,4 @@
-import type { UserListsWithMovieStatusResponseType } from "../../types/service-response.type";
+import type { UserListsWithMovieStatusResponseType } from "@/features/user-lists/types/service-response.type";
 
 type ListSelectVariantPropsType = {
   lists: UserListsWithMovieStatusResponseType;

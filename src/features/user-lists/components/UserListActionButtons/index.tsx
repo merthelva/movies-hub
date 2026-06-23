@@ -1,7 +1,8 @@
-import { DeleteUserListButton } from "../DeleteUserListButton";
-import { EditUserListButton } from "../EditUserListButton";
 import type { UserListActionButtonsPropsType } from "./component.type";
 import styles from "./styles.module.scss";
+
+import { DeleteUserListButton } from "@/features/user-lists/components/DeleteUserListButton";
+import { EditUserListButton } from "@/features/user-lists/components/EditUserListButton";
 
 const UserListActionButtons = ({
   listId,

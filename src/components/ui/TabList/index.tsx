@@ -2,11 +2,11 @@
 
 import { useRef, type KeyboardEvent } from "react";
 
-import { joinClassNames } from "@/common/utils/join-classnames.util";
-
 import type { TabListPropsType } from "./component.type";
 import styles from "./styles.module.scss";
-import { Button } from "../Button";
+
+import { joinClassNames } from "@/common/utils/join-classnames.util";
+import { Button } from "@/components/ui/Button";
 
 const TabList = ({
   tabs,

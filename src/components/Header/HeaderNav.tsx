@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Menu } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+import styles from "./styles.module.scss";
+
 import { useAuth } from "@/features/auth/context";
 import { useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/Button";
@@ -12,8 +14,6 @@ import { NavLink } from "@/components/ui/NavLink";
 import { Drawer } from "@/components/Drawer";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
-
-import styles from "./styles.module.scss";
 
 const HeaderNav = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);

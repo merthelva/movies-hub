@@ -1,4 +1,4 @@
-import type { UserListType } from "../../types/user-list.type";
+import type { UserListType } from "@/features/user-lists/types/user-list.type";
 
 type CreateUserListButtonPropsType = {
   userListType: UserListType;

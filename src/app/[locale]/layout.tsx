@@ -2,13 +2,14 @@ import { Roboto } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 
-import "../globals.scss";
+import type { LocaleLayoutPropsType } from "./props.type";
+import styles from "./styles.module.scss";
+
+import "@/app/globals.scss";
 import { AuthProvider } from "@/features/auth/context";
 import { ThemeProvider } from "@/context/theme";
 import { Header } from "@/components/Header";
 import { routing } from "@/i18n/routing";
-import type { LocaleLayoutPropsType } from "./props.type";
-import styles from "./styles.module.scss";
 import { joinClassNames } from "@/common/utils/join-classnames.util";
 
 const roboto = Roboto({

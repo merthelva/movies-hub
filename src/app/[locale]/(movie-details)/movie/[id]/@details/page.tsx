@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
 import styles from "./styles.module.scss";
+
 import { TMDB_IMAGE_BASE_URL } from "@/common/constants/tmdb-image-base-url.constant";
 import { Alert } from "@/components/ui/Alert";
 import { getMovieDetails } from "@/features/movies/services";

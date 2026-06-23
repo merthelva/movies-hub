@@ -1,10 +1,11 @@
 "use server";
 
+import type { ApiErrorDataType, FetchOptionsType } from "./api.type";
+
 import { API_BASE_URL } from "@/common/constants/api-base-url.constant";
 import { HttpStatusCodes } from "@/common/constants/http-status-codes.constant";
 import type { GenericResponseType } from "@/common/types/generic-response.type";
 import { getAccessToken } from "@/common/utils/get-access-token.util";
-import type { ApiErrorDataType, FetchOptionsType } from "./api.type";
 
 const apiService = async <TResponse>(
   endpoint: string,

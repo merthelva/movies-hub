@@ -2,9 +2,11 @@
 
 import { useEffect, useRef, type MouseEvent } from "react";
 import { X } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+
 import type { DialogPropsType } from "./component.type";
 import styles from "./styles.module.scss";
+
+import { Button } from "@/components/ui/Button";
 
 const Dialog = ({
   children,

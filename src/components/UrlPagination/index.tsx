@@ -3,10 +3,11 @@
 import { useRef } from "react";
 import { useSearchParams } from "next/navigation";
 
+import type { UrlPaginationPropsType } from "./component.type";
+
 import { checkIsNumberString } from "@/common/utils/check-is-number-string.util";
 import { Pagination } from "@/components/ui/Pagination";
 import { usePathname, useRouter } from "@/i18n/navigation";
-import type { UrlPaginationPropsType } from "./component.type";
 
 const UrlPagination = ({ totalPages }: UrlPaginationPropsType) => {
   const router = useRouter();

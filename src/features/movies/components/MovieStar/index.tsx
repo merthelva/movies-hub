@@ -1,9 +1,10 @@
 import Image from "next/image";
 
-import { TMDB_IMAGE_BASE_URL } from "@/common/constants/tmdb-image-base-url.constant";
 import type { MovieStarPropsType } from "./component.type";
 import styles from "./styles.module.scss";
 import { PersonAvatar } from "./PersonAvatar";
+
+import { TMDB_IMAGE_BASE_URL } from "@/common/constants/tmdb-image-base-url.constant";
 
 const MovieStar = ({ name, character, profilePath }: MovieStarPropsType) => {
   return (

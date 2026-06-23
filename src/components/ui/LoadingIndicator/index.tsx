@@ -1,6 +1,7 @@
-import { joinClassNames } from "@/common/utils/join-classnames.util";
 import type { LoadingIndicatorPropsType } from "./component.type";
 import styles from "./styles.module.scss";
+
+import { joinClassNames } from "@/common/utils/join-classnames.util";
 
 const LoadingIndicator = ({
   size = "md",

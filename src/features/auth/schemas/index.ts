@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 import { serializeMessage } from "@/common/utils/serialize-message.util";
 
 const loginSchema = z.object({

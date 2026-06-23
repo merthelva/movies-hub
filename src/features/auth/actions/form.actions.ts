@@ -1,9 +1,10 @@
 "use server";
 
 import { login, register } from ".";
+
 import { loginSchema, registerSchema } from "@/features/auth/schemas";
 import { serializeMessage } from "@/common/utils/serialize-message.util";
-import { safeParseFormBody } from "../utils/safe-parse-form-body.util";
+import { safeParseFormBody } from "@/features/auth/utils/safe-parse-form-body.util";
 import type { FormActionStateType } from "@/common/types/form-action-state.type";
 import type {
   LoginCredentialsType,

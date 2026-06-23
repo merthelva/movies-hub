@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
+import styles from "./styles.module.scss";
+
 import { Alert } from "@/components/ui/Alert";
 import { UserListCard } from "@/features/user-lists/components/UserListCard";
 import {
@@ -11,7 +13,6 @@ import type { UserListType } from "@/features/user-lists/types/user-list.type";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { UrlPagination } from "@/components/UrlPagination";
 import { checkIsNumberString } from "@/common/utils/check-is-number-string.util";
-import styles from "./styles.module.scss";
 import { userLists } from "@/features/user-lists/constants/user-lists.constant";
 import { CreateUserListButton } from "@/features/user-lists/components/CreateUserListButton";
 

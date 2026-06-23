@@ -4,9 +4,10 @@ import { useState } from "react";
 import { Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-import { Button } from "@/components/ui/Button";
 import type { CreateUserListButtonPropsType } from "./component.type";
-import { UserListDialogVariant } from "../UserListDialogVariant";
+
+import { Button } from "@/components/ui/Button";
+import { UserListDialogVariant } from "@/features/user-lists/components/UserListDialogVariant";
 
 const CreateUserListButton = ({
   userListType,

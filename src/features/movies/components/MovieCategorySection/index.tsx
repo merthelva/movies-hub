@@ -1,7 +1,8 @@
-import { NavLink } from "@/components/ui/NavLink";
-import { MovieCard } from "@/features/movies/components/MovieCard";
 import type { MovieCategorySectionPropsType } from "./component.type";
 import styles from "./styles.module.scss";
+
+import { NavLink } from "@/components/ui/NavLink";
+import { MovieCard } from "@/features/movies/components/MovieCard";
 
 const MovieCategorySection = ({
   title,

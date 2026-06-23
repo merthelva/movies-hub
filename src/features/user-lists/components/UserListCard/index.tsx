@@ -1,8 +1,9 @@
-import styles from "./styles.module.scss";
 import type { UserListCardPropsType } from "./component.type";
+import styles from "./styles.module.scss";
+
 import { NavLink } from "@/components/ui/NavLink";
-import { deleteUserFavoritelist, deleteUserWatchlist } from "../../services";
-import { UserListActionButtons } from "../UserListActionButtons";
+import { deleteUserFavoritelist, deleteUserWatchlist } from "@/features/user-lists/services";
+import { UserListActionButtons } from "@/features/user-lists/components/UserListActionButtons";
 
 const UserListCard = ({
   id,

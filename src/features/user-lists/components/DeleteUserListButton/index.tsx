@@ -1,10 +1,11 @@
 "use client";
 
+import { useTransition } from "react";
 import { Trash } from "lucide-react";
 
-import { Button } from "@/components/ui/Button";
 import type { DeleteUserListButtonPropsType } from "./component.type";
-import { useTransition } from "react";
+
+import { Button } from "@/components/ui/Button";
 import { LoadingIndicator } from "@/components/ui/LoadingIndicator";
 
 const DeleteUserListButton = ({

@@ -1,24 +1,24 @@
 "use client";
 
 import { useActionState, useEffect } from "react";
-import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import styles from "./styles.module.scss";
+
 import {
   loginFormAction,
   registerFormAction,
 } from "@/features/auth/actions/form.actions";
-import { Link } from "@/i18n/navigation";
-import { Button } from "@/components/ui/Button";
 import type { AuthFormPropsType } from "@/features/auth/types/component.type";
+import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Message } from "@/components/ui/Message";
+import { NavLink } from "@/components/ui/NavLink";
 import {
   LOGIN_INITIAL_STATE,
   REGISTER_INITIAL_STATE,
 } from "@/features/auth/constants/form-initial-state.constant";
-import { NavLink } from "@/components/ui/NavLink";
 
 const AuthForm = ({ mode, redirectTo }: AuthFormPropsType) => {
   const t = useTranslations("Auth");

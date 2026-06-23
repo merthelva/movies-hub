@@ -1,9 +1,11 @@
 "use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
+
 import type { PaginationPropsType } from "./component.type";
 import { getPageNumbers } from "./get-page-numbers.util";
 import styles from "./styles.module.scss";
+
 import { Button } from "@/components/ui/Button";
 import { joinClassNames } from "@/common/utils/join-classnames.util";
 

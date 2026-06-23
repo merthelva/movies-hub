@@ -4,6 +4,9 @@ import { useActionState, useEffect, useRef, useState } from "react";
 import { Edit } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+import type { EditUserListButtonPropsType } from "./component.type";
+import styles from "./styles.module.scss";
+
 import { Button } from "@/components/ui/Button";
 import { Dialog } from "@/components/ui/Dialog";
 import { Input } from "@/components/ui/Input";
@@ -11,8 +14,6 @@ import { LoadingIndicator } from "@/components/ui/LoadingIndicator";
 import { Message } from "@/components/ui/Message";
 import { listEditFormAction } from "@/features/user-lists/actions/form.actions";
 import { INITIAL_STATE } from "@/features/user-lists/constants/form-initial-state.constant";
-import type { EditUserListButtonPropsType } from "./component.type";
-import styles from "./styles.module.scss";
 
 const EditUserListButton = ({
   listId,

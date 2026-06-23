@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { serializeMessage } from "@/common/utils/serialize-message.util";
+import { X } from "lucide-react";
+
 import type { AlertPropsType } from "./component.type";
 import styles from "./styles.module.scss";
+
+import { serializeMessage } from "@/common/utils/serialize-message.util";
 import { Message } from "@/components/ui/Message";
 import { joinClassNames } from "@/common/utils/join-classnames.util";
-import { Button } from "../Button";
-import { X } from "lucide-react";
+import { Button } from "@/components/ui/Button";
 
 // Note: If `hasAutoDismiss` prop is passed, make sure to pass a stable `key` prop value to the component as well.
 // Otherwise, once the component is dismissed, it will not be visible again, since the component is NOT unmounted

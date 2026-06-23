@@ -3,6 +3,7 @@
 import Image from "next/image";
 
 import styles from "./styles.module.scss";
+
 import { useTheme } from "@/hooks/useTheme.hook";
 
 const HeaderLogo = () => {

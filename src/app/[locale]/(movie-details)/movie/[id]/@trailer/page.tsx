@@ -1,4 +1,5 @@
 import styles from "./styles.module.scss";
+
 import { Alert } from "@/components/ui/Alert";
 import { getMovieTrailer } from "@/features/movies/services";
 

@@ -3,18 +3,18 @@
 import { useEffect } from "react";
 import { useTranslations } from "next-intl";
 
+import type { DrawerPropsType } from "./component.type";
+import styles from "./styles.module.scss";
+
 import { useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/Button";
 import { LoadingIndicator } from "@/components/ui/LoadingIndicator";
 import { NavLink } from "@/components/ui/NavLink";
 import { joinClassNames } from "@/common/utils/join-classnames.util";
-
-import type { DrawerPropsType } from "./component.type";
-import styles from "./styles.module.scss";
 import { useAuth } from "@/features/auth/context";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
-import HeaderLogo from "../Header/HeaderLogo";
+import HeaderLogo from "@/components/Header/HeaderLogo";
 
 const Drawer = ({ isOpen, onClose }: DrawerPropsType) => {
   const router = useRouter();

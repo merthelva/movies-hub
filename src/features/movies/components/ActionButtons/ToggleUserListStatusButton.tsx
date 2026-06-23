@@ -3,11 +3,12 @@
 import { Bookmark, Heart } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+import type { ToggleUserListStatusButtonPropsType } from "./component.type";
 import styles from "./styles.module.scss";
+
 import { Button } from "@/components/ui/Button";
 import { LoadingIndicator } from "@/components/ui/LoadingIndicator";
 import { joinClassNames } from "@/common/utils/join-classnames.util";
-import type { ToggleUserListStatusButtonPropsType } from "./component.type";
 
 const ToggleUserListStatusButton = ({
   className,

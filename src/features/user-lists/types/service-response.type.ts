@@ -1,6 +1,7 @@
-import type { MovieDetailsType } from "@/features/movies/types/movie.type";
 import type { ListCreateResponseType } from "./actions.type";
 import type { PaginatedResponseType } from "./paginated-response.type";
+
+import type { MovieDetailsType } from "@/features/movies/types/movie.type";
 
 type PaginatedUserListsResponseType =
   PaginatedResponseType<ListCreateResponseType>;

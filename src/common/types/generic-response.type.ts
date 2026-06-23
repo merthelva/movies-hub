@@ -1,5 +1,6 @@
-import { HttpStatusCodes } from "@/common/constants/http-status-codes.constant";
 import type { ObjectValuesType } from "./object-values.type";
+
+import { HttpStatusCodes } from "@/common/constants/http-status-codes.constant";
 
 type GenericResponseType<TData = undefined> =
   | {

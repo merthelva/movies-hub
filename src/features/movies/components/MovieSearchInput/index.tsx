@@ -4,10 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 
+import styles from "./styles.module.scss";
+
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { useDebounce } from "@/hooks/useDebounce.hook";
 import { Input } from "@/components/ui/Input";
-import styles from "./styles.module.scss";
 import { useIsFirstRender } from "@/hooks/useIsFirstRender.hook";
 
 const MovieSearchInput = () => {

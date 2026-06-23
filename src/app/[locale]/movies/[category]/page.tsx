@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
+import styles from "./styles.module.scss";
+
 import { checkIsNumberString } from "@/common/utils/check-is-number-string.util";
 import { Alert } from "@/components/ui/Alert";
 import { MovieCard } from "@/features/movies/components/MovieCard";
@@ -9,7 +11,6 @@ import { getMoviesByCategory } from "@/features/movies/services";
 import type { MovieCategoryType } from "@/features/movies/types/movie-category.type";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { UrlPagination } from "@/components/UrlPagination";
-import styles from "./styles.module.scss";
 
 const CATEGORY_I18N_KEY_MAP = {
   popular: "popular",

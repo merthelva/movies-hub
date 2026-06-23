@@ -1,6 +1,7 @@
-import { joinClassNames } from "@/common/utils/join-classnames.util";
 import type { InputPropsType } from "./component.type";
 import styles from "./styles.module.scss";
+
+import { joinClassNames } from "@/common/utils/join-classnames.util";
 
 const Input = ({
   componentSize = "md",

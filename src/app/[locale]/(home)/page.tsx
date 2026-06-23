@@ -1,11 +1,12 @@
-import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
+import { getTranslations } from "next-intl/server";
+
+import styles from "./styles.module.scss";
 
 import { MovieCategorySectionSkeleton } from "@/components/ui/Skeleton";
 import { MovieCard } from "@/features/movies/components/MovieCard";
 import { MovieSearchInput } from "@/features/movies/components/MovieSearchInput";
 import { searchMovies } from "@/features/movies/services";
-import styles from "./styles.module.scss";
 import { Alert } from "@/components/ui/Alert";
 import { UrlPagination } from "@/components/UrlPagination";
 import { checkIsNumberString } from "@/common/utils/check-is-number-string.util";
