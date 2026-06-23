@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type MouseEvent } from "react";
+import { useEffect, type MouseEvent } from "react";
 import { X } from "lucide-react";
 
 import type { DialogPropsType } from "./component.type";
@@ -24,10 +24,14 @@ const Dialog = ({
 
     if (isOpen) {
       dialog.showModal();
-      return;
+    } else {
+      dialog.close();
     }
+    document.body.style.overflow = isOpen ? "hidden" : "";
 
-    dialog.close();
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isOpen]);
 
   const handleBackdropClick = ({ target }: MouseEvent<HTMLDialogElement>) => {
