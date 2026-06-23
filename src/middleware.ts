@@ -13,6 +13,10 @@ const authMiddleware = (request: NextRequest) => {
 
   const [, locale] = pathname.split("/");
 
+  if (!locale) {
+    return NextResponse.next();
+  }
+
   const isProtectedPath = protectedPaths.some((path) =>
     pathname.toLowerCase().startsWith(`/${locale}${path}`.toLowerCase()),
   );
