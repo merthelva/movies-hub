@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { useSearchParams } from "next/navigation";
 
+import { MAX_PAGEABLE_PAGES } from "./component.constant";
 import type { UrlPaginationPropsType } from "./component.type";
 
 import { checkIsNumberString } from "@/common/utils/check-is-number-string.util";
@@ -31,7 +32,7 @@ const UrlPagination = ({ totalPages }: UrlPaginationPropsType) => {
   return (
     <Pagination
       currentPage={currentPage}
-      totalPages={Math.min(totalPages, 500)}
+      totalPages={Math.min(totalPages, MAX_PAGEABLE_PAGES)}
       onPageChange={handleChangePage}
     />
   );

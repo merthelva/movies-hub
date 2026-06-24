@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 
+import { AUTO_DISMISS_TIMEOUT_MS } from "./component.constant";
 import type { AlertPropsType } from "./component.type";
 import styles from "./styles.module.scss";
 
@@ -45,7 +46,7 @@ const Alert = ({
 
     const timeout = setTimeout(() => {
       setIsVisible(false);
-    }, 5000);
+    }, AUTO_DISMISS_TIMEOUT_MS);
 
     return () => {
       clearTimeout(timeout);

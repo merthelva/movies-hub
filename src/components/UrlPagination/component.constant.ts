@@ -1,0 +1,3 @@
+const MAX_PAGEABLE_PAGES = 500;
+
+export { MAX_PAGEABLE_PAGES };

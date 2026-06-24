@@ -2,8 +2,9 @@
 
 import { useRef, type KeyboardEvent } from "react";
 
-import type { TabListPropsType } from "./component.type";
 import styles from "./styles.module.scss";
+import type { TabListPropsType } from "./component.type";
+import { TAB_SCROLL_THRESHOLD } from "./component.constant";
 
 import { joinClassNames } from "@/common/utils/join-classnames.util";
 import { Button } from "@/components/ui/Button";
@@ -16,7 +17,7 @@ const TabList = ({
   ...rest
 }: TabListPropsType) => {
   const tablistRef = useRef<HTMLDivElement>(null);
-  const isScrollable = tabs.length > 4;
+  const isScrollable = tabs.length > TAB_SCROLL_THRESHOLD;
 
   const getTabId = (id: string) => `tab-${id}`;
   const getPanelId = (id: string) => `panel-${id}`;

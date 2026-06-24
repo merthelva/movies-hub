@@ -21,6 +21,7 @@ import type {
   LoginCredentialsType,
   RegisterCredentialsType,
 } from "@/features/auth/types/actions.type";
+import { TOKEN_REFRESH_INTERVAL_MS } from "@/features/auth/constants/token-refresh-interval.constant";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -38,14 +39,11 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
 
     initializeAuth();
 
-    const intervalId = setInterval(
-      () => {
-        getCurrentUser().then((currentUser) => {
-          setUser(currentUser ?? null);
-        });
-      },
-      5 * 60 * 1_000,
-    );
+    const intervalId = setInterval(() => {
+      getCurrentUser().then((currentUser) => {
+        setUser(currentUser ?? null);
+      });
+    }, TOKEN_REFRESH_INTERVAL_MS);
 
     const controller = new AbortController();
     document.addEventListener(

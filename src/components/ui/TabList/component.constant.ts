@@ -1,0 +1,3 @@
+const TAB_SCROLL_THRESHOLD = 4;
+
+export { TAB_SCROLL_THRESHOLD };

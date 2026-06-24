@@ -9,6 +9,7 @@ import type {
   RegisterCredentialsType,
   RegisterResponseType,
 } from "@/features/auth/types/actions.type";
+import { ACCESS_TOKEN_EXPIRY_SECONDS } from "@/features/auth/constants/access-token-expiry.constant";
 import type { GenericResponseType } from "@/common/types/generic-response.type";
 import { HttpStatusCodes } from "@/common/constants/http-status-codes.constant";
 import { serializeMessage } from "@/common/utils/serialize-message.util";
@@ -33,7 +34,7 @@ const login = async (
     httpOnly: true,
     secure: true,
     sameSite: "lax",
-    maxAge: 15 * 60,
+    maxAge: ACCESS_TOKEN_EXPIRY_SECONDS,
   });
 
   return {
