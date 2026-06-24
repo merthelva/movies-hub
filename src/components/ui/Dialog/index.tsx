@@ -52,9 +52,7 @@ const Dialog = ({
     >
       <div className={styles.container}>
         <header className={styles.header}>
-          {!new Set([null, undefined, ""]).has(title) && (
-            <h2 className={styles.title}>{title}</h2>
-          )}
+          {!!title && <h2 className={styles.title}>{title}</h2>}
           <Button
             aria-label="Close dialog"
             className={styles.closeBtn}
