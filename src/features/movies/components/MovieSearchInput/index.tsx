@@ -18,7 +18,7 @@ const MovieSearchInput = () => {
   const searchParams = useSearchParams();
   const searchParamsRef = useRef(searchParams);
   const [value, setValue] = useState(searchParams.get("query") ?? "");
-  const debouncedValue = useDebounce(value, 500);
+  const debouncedValue = useDebounce(value);
   const isFirstRender = useIsFirstRender();
 
   searchParamsRef.current = searchParams;
