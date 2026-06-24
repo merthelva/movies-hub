@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 
 import styles from "./styles.module.scss";
 
+import { generateNavLinks } from "@/common/utils/generate-nav-links.util";
 import { useAuth } from "@/features/auth/context";
 import { useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/Button";
@@ -22,17 +23,7 @@ const HeaderNav = () => {
   const t = useTranslations("Common");
   const isAuthenticated = user != null;
 
-  const authenticatedNavLinks = [
-    { href: "/", label: t("home") },
-    { href: "/user/watchlists", label: t("watchlists") },
-    { href: "/user/favoritelists", label: t("favoritelists") },
-  ];
-
-  const unauthenticatedNavLinks = [{ href: "/", label: t("home") }];
-
-  const navLinks = isAuthenticated
-    ? authenticatedNavLinks
-    : unauthenticatedNavLinks;
+  const navLinks = generateNavLinks(isAuthenticated, t);
 
   const handleOpenDrawer = () => {
     setIsDrawerOpen(true);

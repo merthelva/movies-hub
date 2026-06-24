@@ -10,6 +10,7 @@ import { useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/Button";
 import { LoadingIndicator } from "@/components/ui/LoadingIndicator";
 import { NavLink } from "@/components/ui/NavLink";
+import { generateNavLinks } from "@/common/utils/generate-nav-links.util";
 import { joinClassNames } from "@/common/utils/join-classnames.util";
 import { useAuth } from "@/features/auth/context";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
@@ -21,14 +22,6 @@ const Drawer = ({ isOpen, onClose }: DrawerPropsType) => {
   const { user, isLoading, logout } = useAuth();
   const t = useTranslations("Common");
   const isAuthenticated = user != null;
-
-  const authenticatedNavLinks = [
-    { href: "/", label: t("home") },
-    { href: "/user/watchlists", label: t("watchlists") },
-    { href: "/user/favoritelists", label: t("favoritelists") },
-  ];
-
-  const unauthenticatedNavLinks = [{ href: "/", label: t("home") }];
 
   useEffect(() => {
     const controller = new AbortController();
@@ -50,9 +43,7 @@ const Drawer = ({ isOpen, onClose }: DrawerPropsType) => {
     };
   }, [isOpen, onClose]);
 
-  const navLinks = isAuthenticated
-    ? authenticatedNavLinks
-    : unauthenticatedNavLinks;
+  const navLinks = generateNavLinks(isAuthenticated, t);
 
   const handleLogout = async () => {
     await logout();
