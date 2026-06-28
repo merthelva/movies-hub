@@ -38,7 +38,9 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
     };
 
     initializeAuth();
+  }, []);
 
+  useEffect(() => {
     const intervalId = setInterval(() => {
       getCurrentUser().then((currentUser) => {
         setUser(currentUser ?? null);
