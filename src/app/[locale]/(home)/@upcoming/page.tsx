@@ -18,7 +18,10 @@ export default async function UpcomingPage({
   if (response.status === "error") {
     return (
       <Alert
-        content='An error occurred while fetching movies for "Upcoming" category'
+        content={
+          response.message ||
+          'An error occurred while fetching movies for "Upcoming" category'
+        }
         variant="error"
       />
     );

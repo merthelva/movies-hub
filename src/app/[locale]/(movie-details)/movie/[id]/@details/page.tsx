@@ -26,7 +26,12 @@ export default async function DetailsPage({
   const response = await getMovieDetails(+id, Language[locale as LocaleType]);
 
   if (response.status === "error") {
-    return <Alert content={t("fetchDetailsError")} variant="error" />;
+    return (
+      <Alert
+        content={response.message || t("fetchDetailsError")}
+        variant="error"
+      />
+    );
   }
 
   const movie = response.data;

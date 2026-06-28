@@ -18,7 +18,10 @@ export default async function TopRatedPage({
   if (response.status === "error") {
     return (
       <Alert
-        content='An error occurred while fetching movies for "Top Rated" category'
+        content={
+          response.message ||
+          'An error occurred while fetching movies for "Top Rated" category'
+        }
         variant="error"
       />
     );

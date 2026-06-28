@@ -39,7 +39,12 @@ export default async function UserListsPage({
   const response = await fetchUserListsFn({ page: currentPage, limit: 10 });
 
   if (response.status === "error") {
-    return <Alert content={t("fetchListsError")} variant="error" />;
+    return (
+      <Alert
+        content={response.message || t("fetchListsError")}
+        variant="error"
+      />
+    );
   }
 
   return (

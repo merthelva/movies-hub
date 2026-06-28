@@ -54,7 +54,12 @@ export default async function UserListMoviesPage({
       : deleteMovieFromUserWatchlist;
 
   if (response.status === "error") {
-    return <Alert content={t("fetchMoviesError")} variant="error" />;
+    return (
+      <Alert
+        content={response.message || t("fetchMoviesError")}
+        variant="error"
+      />
+    );
   }
 
   return (

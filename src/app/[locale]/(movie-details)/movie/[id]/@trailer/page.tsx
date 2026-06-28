@@ -10,7 +10,19 @@ export default async function TrailerPage({
 
   const response = await getMovieTrailer(+id);
 
-  if (response.status === "error" || !response.data) {
+  if (response.status === "error") {
+    return (
+      <Alert
+        content={
+          response.message ||
+          "An error occurred, while trying to fetch movie trailer."
+        }
+        variant="error"
+      />
+    );
+  }
+
+  if (!response.data) {
     return (
       <Alert
         content="An error occurred, while trying to fetch movie trailer."

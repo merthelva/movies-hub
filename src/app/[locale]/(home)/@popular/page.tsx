@@ -20,7 +20,10 @@ export default async function PopularPage({
   if (response.status === "error") {
     return (
       <Alert
-        content='An error occurred while fetching movies for "Popular" category'
+        content={
+          response.message ||
+          'An error occurred while fetching movies for "Popular" category'
+        }
         variant="error"
       />
     );

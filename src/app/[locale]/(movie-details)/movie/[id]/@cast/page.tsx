@@ -15,7 +15,12 @@ export default async function CastPage({
   const response = await getMovieCast(+id);
 
   if (response.status === "error") {
-    return <Alert content={t("fetchCastError")} variant="error" />;
+    return (
+      <Alert
+        content={response.message || t("fetchCastError")}
+        variant="error"
+      />
+    );
   }
 
   if (response.data.length === 0) {

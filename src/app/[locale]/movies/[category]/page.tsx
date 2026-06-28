@@ -43,7 +43,10 @@ export default async function MovieCategoryPage({
   if (response.status === "error") {
     return (
       <Alert
-        content={t("categoryFetchError", { category: categoryTitle })}
+        content={
+          response.message ||
+          t("categoryFetchError", { category: categoryTitle })
+        }
         variant="error"
       />
     );

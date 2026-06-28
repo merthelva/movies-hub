@@ -20,7 +20,10 @@ export default async function NowPlayingPage({
   if (response.status === "error") {
     return (
       <Alert
-        content='An error occurred while fetching movies for "Now Playing" category'
+        content={
+          response.message ||
+          'An error occurred while fetching movies for "Now Playing" category'
+        }
         variant="error"
       />
     );
