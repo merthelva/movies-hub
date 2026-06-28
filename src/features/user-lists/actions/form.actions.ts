@@ -20,14 +20,14 @@ const listCreateFormAction = async (
   formData: FormData,
 ): Promise<FormActionStateType<ListCreateBodyType>> => {
   const parsedListCreateForm = safeParseFormBody(listCreateSchema, {
-    name: formData.get("list-name") as string,
+    name: String(formData.get("list-name") ?? ""),
   });
 
   if (parsedListCreateForm.status === "error") {
     return {
       ...parsedListCreateForm,
       formFields: {
-        name: formData.get("list-name") as string,
+        name: String(formData.get("list-name") ?? ""),
       },
     };
   }
@@ -42,7 +42,7 @@ const listCreateFormAction = async (
     return {
       status: "error",
       formFields: {
-        name: formData.get("list-name") as string,
+        name: String(formData.get("list-name") ?? ""),
       },
       message: serializeMessage("error", response.message),
     };
@@ -68,7 +68,7 @@ const listCreateFormAction = async (
     return {
       status: "error",
       formFields: {
-        name: formData.get("list-name") as string,
+        name: String(formData.get("list-name") ?? ""),
       },
       message: serializeMessage("error", movieAddToListResponse.message),
     };
@@ -84,14 +84,14 @@ const listEditFormAction = async (
   formData: FormData,
 ): Promise<FormActionStateType<ListCreateBodyType>> => {
   const parsedListEditForm = safeParseFormBody(listCreateSchema, {
-    name: formData.get("list-name") as string,
+    name: String(formData.get("list-name") ?? ""),
   });
 
   if (parsedListEditForm.status === "error") {
     return {
       ...parsedListEditForm,
       formFields: {
-        name: formData.get("list-name") as string,
+        name: String(formData.get("list-name") ?? ""),
       },
     };
   }
@@ -106,7 +106,7 @@ const listEditFormAction = async (
     return {
       status: "error",
       formFields: {
-        name: formData.get("list-name") as string,
+        name: String(formData.get("list-name") ?? ""),
       },
       message: serializeMessage("error", response.message),
     };

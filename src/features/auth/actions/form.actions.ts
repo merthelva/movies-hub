@@ -16,16 +16,16 @@ const loginFormAction = async (
   formData: FormData,
 ): Promise<FormActionStateType<LoginCredentialsType>> => {
   const parsedLoginForm = safeParseFormBody(loginSchema, {
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
+    email: String(formData.get("email") ?? ""),
+    password: String(formData.get("password") ?? ""),
   });
 
   if (parsedLoginForm.status === "error") {
     return {
       ...parsedLoginForm,
       formFields: {
-        email: formData.get("email") as string,
-        password: formData.get("password") as string,
+        email: String(formData.get("email") ?? ""),
+        password: String(formData.get("password") ?? ""),
       },
     };
   }
@@ -35,8 +35,8 @@ const loginFormAction = async (
     return {
       status: "error",
       formFields: {
-        email: formData.get("email") as string,
-        password: formData.get("password") as string,
+        email: String(formData.get("email") ?? ""),
+        password: String(formData.get("password") ?? ""),
       },
       message: serializeMessage("error", response.message),
     };
@@ -50,18 +50,18 @@ const registerFormAction = async (
   formData: FormData,
 ): Promise<FormActionStateType<RegisterCredentialsType>> => {
   const parsedRegisterForm = safeParseFormBody(registerSchema, {
-    name: formData.get("name") as string,
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
+    name: String(formData.get("name") ?? ""),
+    email: String(formData.get("email") ?? ""),
+    password: String(formData.get("password") ?? ""),
   });
 
   if (parsedRegisterForm.status === "error") {
     return {
       ...parsedRegisterForm,
       formFields: {
-        name: formData.get("name") as string,
-        email: formData.get("email") as string,
-        password: formData.get("password") as string,
+        name: String(formData.get("name") ?? ""),
+        email: String(formData.get("email") ?? ""),
+        password: String(formData.get("password") ?? ""),
       },
     };
   }
@@ -71,9 +71,9 @@ const registerFormAction = async (
     return {
       status: "error",
       formFields: {
-        name: formData.get("name") as string,
-        email: formData.get("email") as string,
-        password: formData.get("password") as string,
+        name: String(formData.get("name") ?? ""),
+        email: String(formData.get("email") ?? ""),
+        password: String(formData.get("password") ?? ""),
       },
       message: serializeMessage("error", response.message),
     };
