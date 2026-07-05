@@ -15,12 +15,14 @@ const apiService = async <TResponse>(
     body,
     method = "GET",
     withAuth = false,
+    language = "en-US",
     headers: extraHeaders,
     ...restOptions
   } = options;
 
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
+    "Accept-Language": language,
     ...(extraHeaders as Record<string, string>),
   };
 
