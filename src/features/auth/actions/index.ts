@@ -15,14 +15,17 @@ import { HttpStatusCodes } from "@/common/constants/http-status-codes.constant";
 import { serializeMessage } from "@/common/utils/serialize-message.util";
 import type { SuccessResponseType } from "@/common/types/success-response.type";
 import { getAccessToken } from "@/common/utils/get-access-token.util";
+import type { LanguageType } from "@/common/types/language.type";
 import { apiService } from "@/services/api";
 
 const login = async (
   credentials: LoginCredentialsType,
+  language?: LanguageType,
 ): Promise<GenericResponseType<LoginResponseType>> => {
   const response = await apiService<LoginResponseType>("/auth/login", {
     method: "POST",
     body: credentials,
+    language,
   });
 
   if (response.status === "error") {
@@ -45,10 +48,12 @@ const login = async (
 
 const register = async (
   credentials: RegisterCredentialsType,
+  language?: LanguageType,
 ): Promise<GenericResponseType<RegisterResponseType>> => {
   const response = await apiService<RegisterResponseType>("/auth/register", {
     method: "POST",
     body: credentials,
+    language,
   });
 
   if (response.status === "error") {
@@ -61,7 +66,9 @@ const register = async (
   };
 };
 
-const logout = async (): Promise<GenericResponseType<SuccessResponseType>> => {
+const logout = async (
+  language?: LanguageType,
+): Promise<GenericResponseType<SuccessResponseType>> => {
   const token = await getAccessToken();
   if (!token) {
     return {
@@ -74,6 +81,7 @@ const logout = async (): Promise<GenericResponseType<SuccessResponseType>> => {
   const response = await apiService<SuccessResponseType>("/auth/logout", {
     method: "POST",
     withAuth: true,
+    language,
   });
 
   if (response.status === "error") {
@@ -93,6 +101,7 @@ const logout = async (): Promise<GenericResponseType<SuccessResponseType>> => {
 
 const removeAccount = async (
   userId: number,
+  language?: LanguageType,
 ): Promise<GenericResponseType<SuccessResponseType>> => {
   const token = await getAccessToken();
   if (!token) {
@@ -108,6 +117,7 @@ const removeAccount = async (
     {
       method: "DELETE",
       withAuth: true,
+      language,
     },
   );
 
@@ -123,7 +133,9 @@ const removeAccount = async (
   return response;
 };
 
-const getCurrentUser = async (): Promise<AuthContextValueType["user"]> => {
+const getCurrentUser = async (
+  language?: LanguageType,
+): Promise<AuthContextValueType["user"]> => {
   try {
     const token = await getAccessToken();
 
@@ -136,6 +148,7 @@ const getCurrentUser = async (): Promise<AuthContextValueType["user"]> => {
       {
         method: "GET",
         withAuth: true,
+        language,
       },
     );
 

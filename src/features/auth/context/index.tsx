@@ -8,6 +8,8 @@ import {
   type PropsWithChildren,
 } from "react";
 
+import { useLocale } from "next-intl";
+
 import { useRouter } from "@/i18n/navigation";
 import {
   getCurrentUser,
@@ -22,6 +24,8 @@ import type {
   RegisterCredentialsType,
 } from "@/features/auth/types/actions.type";
 import { TOKEN_REFRESH_INTERVAL_MS } from "@/features/auth/constants/token-refresh-interval.constant";
+import { Language } from "@/common/constants/language.constant";
+import type { LocaleType } from "@/common/types/locale.type";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -29,20 +33,22 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   const [user, setUser] = useState<AuthContextType["user"]>(null);
   const [isLoading, setIsLoading] = useState(true);
   const { push } = useRouter();
+  const locale = useLocale() as LocaleType;
+  const language = Language[locale];
 
   useEffect(() => {
     const initializeAuth = async () => {
-      const currentUser = await getCurrentUser();
+      const currentUser = await getCurrentUser(language);
       setUser(currentUser ?? null);
       setIsLoading(false);
     };
 
     initializeAuth();
-  }, []);
+  }, [language]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      getCurrentUser().then((currentUser) => {
+      getCurrentUser(language).then((currentUser) => {
         setUser(currentUser ?? null);
       });
     }, TOKEN_REFRESH_INTERVAL_MS);
@@ -55,7 +61,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
           return;
         }
 
-        getCurrentUser().then((currentUser) => {
+        getCurrentUser(language).then((currentUser) => {
           setUser(currentUser ?? null);
         });
       },
@@ -66,10 +72,10 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       clearInterval(intervalId);
       controller.abort();
     };
-  }, []);
+  }, [language]);
 
   const handleRegister = async (credentials: RegisterCredentialsType) => {
-    const response = await register(credentials);
+    const response = await register(credentials, language);
     if (response.status === "error") {
       return;
     }
@@ -78,7 +84,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   };
 
   const handleLogin = async (credentials: LoginCredentialsType) => {
-    const response = await login(credentials);
+    const response = await login(credentials, language);
     if (response.status === "error") {
       return;
     }
@@ -92,7 +98,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
 
   const handleLogout = async () => {
     setIsLoading(true);
-    const response = await logout();
+    const response = await logout(language);
     setIsLoading(false);
     if (response.status === "error") {
       return;
@@ -103,7 +109,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   };
 
   const handleRemoveAccount = async (userId: number) => {
-    const response = await removeAccount(userId);
+    const response = await removeAccount(userId, language);
     if (response.status === "error") {
       return;
     }

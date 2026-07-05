@@ -1,8 +1,12 @@
 "use server";
 
+import { getLocale } from "next-intl/server";
+
 import { login, register } from ".";
 
 import { loginSchema, registerSchema } from "@/features/auth/schemas";
+import { Language } from "@/common/constants/language.constant";
+import type { LocaleType } from "@/common/types/locale.type";
 import { serializeMessage } from "@/common/utils/serialize-message.util";
 import { safeParseFormBody } from "@/features/auth/utils/safe-parse-form-body.util";
 import type { FormActionStateType } from "@/common/types/form-action-state.type";
@@ -30,7 +34,8 @@ const loginFormAction = async (
     };
   }
 
-  const response = await login(parsedLoginForm.data);
+  const locale = (await getLocale()) as LocaleType;
+  const response = await login(parsedLoginForm.data, Language[locale]);
   if (response.status === "error") {
     return {
       status: "error",
@@ -66,7 +71,8 @@ const registerFormAction = async (
     };
   }
 
-  const response = await register(parsedRegisterForm.data);
+  const locale = (await getLocale()) as LocaleType;
+  const response = await register(parsedRegisterForm.data, Language[locale]);
   if (response.status === "error") {
     return {
       status: "error",
