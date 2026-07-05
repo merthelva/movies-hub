@@ -15,8 +15,8 @@ const UserListCard = ({
 
   const deleteUserListFn =
     userListType === "favoritelists"
-      ? deleteUserFavoritelist.bind(null, id)
-      : deleteUserWatchlist.bind(null, id);
+      ? deleteUserFavoritelist
+      : deleteUserWatchlist;
 
   return (
     <article className={styles.card}>

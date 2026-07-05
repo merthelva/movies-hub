@@ -11,14 +11,16 @@ import type {
 import type { ListCreateResponseType } from "@/features/user-lists/types/actions.type";
 import type { SuccessResponseType } from "@/common/types/success-response.type";
 import type { QueryParamsType } from "@/features/movies/types/query-params.type";
+import type { LanguageType } from "@/common/types/language.type";
 
-const createUserFavoritelist = async (name: string) => {
+const createUserFavoritelist = async (name: string, language?: LanguageType) => {
   const response = await apiService<ListCreateResponseType>(
     "/favoritelists/create",
     {
       method: "POST",
       withAuth: true,
       body: { name },
+      language,
     },
   );
 
@@ -29,7 +31,7 @@ const createUserFavoritelist = async (name: string) => {
   return response;
 };
 
-const createUserWatchlist = async (name: string) => {
+const createUserWatchlist = async (name: string, language?: LanguageType) => {
   const response = await apiService<ListCreateResponseType>(
     "/watchlists/create",
     {
@@ -38,6 +40,7 @@ const createUserWatchlist = async (name: string) => {
       body: {
         name,
       },
+      language,
     },
   );
 
@@ -50,6 +53,7 @@ const createUserWatchlist = async (name: string) => {
 
 const getAllUserFavoritelists = async (
   params: QueryParamsType = { page: 1, limit: 10 },
+  language?: LanguageType,
 ) => {
   const queryParams = new URLSearchParams();
   queryParams.set("page", String(params.page));
@@ -58,12 +62,13 @@ const getAllUserFavoritelists = async (
 
   return await apiService<PaginatedUserListsResponseType>(
     `/favoritelists/all${queryString ? `?${queryString}` : ""}`,
-    { withAuth: true },
+    { withAuth: true, language },
   );
 };
 
 const getAllUserWatchlists = async (
   params: QueryParamsType = { page: 1, limit: 10 },
+  language?: LanguageType,
 ) => {
   const queryParams = new URLSearchParams();
   queryParams.set("page", String(params.page));
@@ -74,6 +79,7 @@ const getAllUserWatchlists = async (
     `/watchlists/all${queryString ? `?${queryString}` : ""}`,
     {
       withAuth: true,
+      language,
     },
   );
 };
@@ -81,6 +87,7 @@ const getAllUserWatchlists = async (
 const getAllUserFavoritelistMovies = async (
   params: QueryParamsType = { page: 1, limit: 10 },
   listId: number,
+  language?: LanguageType,
 ) => {
   const queryParams = new URLSearchParams();
   queryParams.set("page", String(params.page));
@@ -89,13 +96,14 @@ const getAllUserFavoritelistMovies = async (
 
   return await apiService<PaginatedUserListMoviesResponseType>(
     `/favoritelists/${listId}${queryString ? `?${queryString}` : ""}`,
-    { withAuth: true },
+    { withAuth: true, language },
   );
 };
 
 const getAllUserWatchlistMovies = async (
   params: QueryParamsType = { page: 1, limit: 10 },
   listId: number,
+  language?: LanguageType,
 ) => {
   const queryParams = new URLSearchParams();
   queryParams.set("page", String(params.page));
@@ -104,14 +112,17 @@ const getAllUserWatchlistMovies = async (
 
   return await apiService<PaginatedUserListMoviesResponseType>(
     `/watchlists/${listId}${queryString ? `?${queryString}` : ""}`,
-    { withAuth: true },
+    { withAuth: true, language },
   );
 };
 
-const deleteUserFavoritelist = async (listId: number) => {
+const deleteUserFavoritelist = async (
+  listId: number,
+  language?: LanguageType,
+) => {
   const response = await apiService<SuccessResponseType>(
     `/favoritelists/delete/${listId}`,
-    { method: "DELETE", withAuth: true },
+    { method: "DELETE", withAuth: true, language },
   );
 
   if (response.status === "success") {
@@ -121,12 +132,16 @@ const deleteUserFavoritelist = async (listId: number) => {
   return response;
 };
 
-const deleteUserWatchlist = async (listId: number) => {
+const deleteUserWatchlist = async (
+  listId: number,
+  language?: LanguageType,
+) => {
   const response = await apiService<SuccessResponseType>(
     `/watchlists/delete/${listId}`,
     {
       method: "DELETE",
       withAuth: true,
+      language,
     },
   );
 
@@ -137,7 +152,11 @@ const deleteUserWatchlist = async (listId: number) => {
   return response;
 };
 
-const updateUserFavoritelist = async (listId: number, name: string) => {
+const updateUserFavoritelist = async (
+  listId: number,
+  name: string,
+  language?: LanguageType,
+) => {
   const response = await apiService<SuccessResponseType>(
     `/favoritelists/${listId}`,
     {
@@ -146,6 +165,7 @@ const updateUserFavoritelist = async (listId: number, name: string) => {
       body: {
         name,
       },
+      language,
     },
   );
 
@@ -156,7 +176,11 @@ const updateUserFavoritelist = async (listId: number, name: string) => {
   return response;
 };
 
-const updateUserWatchlist = async (listId: number, name: string) => {
+const updateUserWatchlist = async (
+  listId: number,
+  name: string,
+  language?: LanguageType,
+) => {
   const response = await apiService<SuccessResponseType>(
     `/watchlists/${listId}`,
     {
@@ -165,6 +189,7 @@ const updateUserWatchlist = async (listId: number, name: string) => {
       body: {
         name,
       },
+      language,
     },
   );
 
@@ -175,7 +200,11 @@ const updateUserWatchlist = async (listId: number, name: string) => {
   return response;
 };
 
-const addMovieToUserFavoritelist = async (listId: number, tmdbId: number) => {
+const addMovieToUserFavoritelist = async (
+  listId: number,
+  tmdbId: number,
+  language?: LanguageType,
+) => {
   const response = await apiService<SuccessResponseType>(
     `/favoritelists/${listId}/addMovie`,
     {
@@ -184,6 +213,7 @@ const addMovieToUserFavoritelist = async (listId: number, tmdbId: number) => {
       body: {
         tmdbId,
       },
+      language,
     },
   );
 
@@ -194,7 +224,11 @@ const addMovieToUserFavoritelist = async (listId: number, tmdbId: number) => {
   return response;
 };
 
-const addMovieToUserWatchlist = async (listId: number, tmdbId: number) => {
+const addMovieToUserWatchlist = async (
+  listId: number,
+  tmdbId: number,
+  language?: LanguageType,
+) => {
   const response = await apiService<SuccessResponseType>(
     `/watchlists/${listId}/addMovie`,
     {
@@ -203,6 +237,7 @@ const addMovieToUserWatchlist = async (listId: number, tmdbId: number) => {
       body: {
         tmdbId,
       },
+      language,
     },
   );
 
@@ -216,12 +251,14 @@ const addMovieToUserWatchlist = async (listId: number, tmdbId: number) => {
 const deleteMovieFromUserFavoritelist = async (
   listId: number,
   tmdbId: number,
+  language?: LanguageType,
 ) => {
   const response = await apiService<SuccessResponseType>(
     `/favoritelists/${listId}/deleteMovie/${tmdbId}`,
     {
       method: "DELETE",
       withAuth: true,
+      language,
     },
   );
 
@@ -232,12 +269,17 @@ const deleteMovieFromUserFavoritelist = async (
   return response;
 };
 
-const deleteMovieFromUserWatchlist = async (listId: number, tmdbId: number) => {
+const deleteMovieFromUserWatchlist = async (
+  listId: number,
+  tmdbId: number,
+  language?: LanguageType,
+) => {
   const response = await apiService<SuccessResponseType>(
     `/watchlists/${listId}/deleteMovie/${tmdbId}`,
     {
       method: "DELETE",
       withAuth: true,
+      language,
     },
   );
 
@@ -248,20 +290,28 @@ const deleteMovieFromUserWatchlist = async (listId: number, tmdbId: number) => {
   return response;
 };
 
-const getUserFavoritelistsWithMovieStatus = async (tmdbId: number) => {
+const getUserFavoritelistsWithMovieStatus = async (
+  tmdbId: number,
+  language?: LanguageType,
+) => {
   return await apiService<UserListsWithMovieStatusResponseType>(
     `/favoritelists/movieStatus/${tmdbId}`,
     {
       withAuth: true,
+      language,
     },
   );
 };
 
-const getUserWatchlistsWithMovieStatus = async (tmdbId: number) => {
+const getUserWatchlistsWithMovieStatus = async (
+  tmdbId: number,
+  language?: LanguageType,
+) => {
   return await apiService<UserListsWithMovieStatusResponseType>(
     `/watchlists/movieStatus/${tmdbId}`,
     {
       withAuth: true,
+      language,
     },
   );
 };
