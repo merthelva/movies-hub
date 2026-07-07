@@ -76,46 +76,38 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
 
   const handleRegister = async (credentials: RegisterCredentialsType) => {
     const response = await register(credentials, language);
-    if (response.status === "error") {
-      return;
-    }
-
-    setUser(response.data);
+    setUser(response.status === "success" ? response.data : null);
   };
 
   const handleLogin = async (credentials: LoginCredentialsType) => {
     const response = await login(credentials, language);
-    if (response.status === "error") {
-      return;
-    }
-
-    setUser({
-      id: response.data.id,
-      name: response.data.name,
-      email: response.data.email,
-    });
+    setUser(
+      response.status === "success"
+        ? {
+            id: response.data.id,
+            name: response.data.name,
+            email: response.data.email,
+          }
+        : null,
+    );
   };
 
   const handleLogout = async () => {
     setIsLoading(true);
     const response = await logout(language);
     setIsLoading(false);
-    if (response.status === "error") {
-      return;
+    if (response.status === "success") {
+      setUser(null);
+      push("/");
     }
-
-    setUser(null);
-    push("/");
   };
 
   const handleRemoveAccount = async (userId: number) => {
     const response = await removeAccount(userId, language);
-    if (response.status === "error") {
-      return;
+    if (response.status === "success") {
+      setUser(null);
+      push("/");
     }
-
-    setUser(null);
-    push("/");
   };
 
   const value: AuthContextType = {
