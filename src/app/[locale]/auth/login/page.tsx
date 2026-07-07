@@ -10,9 +10,9 @@ export default async function LoginPage({
   searchParams,
 }: PageProps<"/[locale]/auth/login">) {
   const { locale } = await params;
-  const currentUser = await getCurrentUser(Language[locale as LocaleType]);
+  const response = await getCurrentUser(Language[locale as LocaleType]);
 
-  if (currentUser != null) {
+  if (response.ok) {
     redirect({
       href: "/",
       locale,

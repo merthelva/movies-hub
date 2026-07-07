@@ -1,9 +1,10 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { getTranslations } from "next-intl/server";
 
 import type {
-  AuthContextValueType,
+  GetCurrentUserResponseType,
   LoginCredentialsType,
   LoginResponseType,
   RegisterCredentialsType,
@@ -133,33 +134,50 @@ const removeAccount = async (
   return response;
 };
 
+// TODO: add error.tsx under src/app/[locale]/ so an uncaught cookies()
+// context-misuse error here renders a graceful fallback instead of the
+// default Next.js error page.
 const getCurrentUser = async (
   language?: LanguageType,
-): Promise<AuthContextValueType["user"]> => {
-  try {
-    const token = await getAccessToken();
+): Promise<GetCurrentUserResponseType> => {
+  const token = await getAccessToken();
+  const t = await getTranslations("Errors");
 
-    if (!token) {
-      return null;
-    }
-
-    const response = await apiService<AuthContextValueType["user"]>(
-      "/users/me",
-      {
-        method: "GET",
-        withAuth: true,
-        language,
-      },
-    );
-
-    if (response.status === "error" || response.data === null) {
-      return null;
-    }
-
-    return response.data;
-  } catch {
-    return null;
+  if (!token) {
+    return {
+      ok: false,
+      reason: "auth",
+      message: t("unauthorized"),
+    };
   }
+
+  const response = await apiService<GetCurrentUserResponseType>("/users/me", {
+    method: "GET",
+    withAuth: true,
+    language,
+  });
+
+  if (response.status === "error") {
+    const isAuthError =
+      response.code >= HttpStatusCodes.BAD_REQUEST &&
+      response.code < HttpStatusCodes.INTERNAL_SERVER_ERROR;
+
+    return {
+      ok: false,
+      reason: isAuthError ? "auth" : "network",
+      message: isAuthError ? t("unauthorized") : t("networkError"),
+    };
+  }
+
+  if (response.data === null) {
+    return {
+      ok: false,
+      reason: "auth",
+      message: t("unauthorized"),
+    };
+  }
+
+  return response.data;
 };
 
 export { login, register, logout, removeAccount, getCurrentUser };

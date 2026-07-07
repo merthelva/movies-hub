@@ -17,10 +17,16 @@ type LoginResponseType = RegisterResponseType & {
   accessToken: string;
 };
 
-type GetCurrentUserResponseType = RegisterResponseType;
+type GetCurrentUserResponseType =
+  | { ok: true; user: RegisterResponseType }
+  | {
+      ok: false;
+      reason: "auth" | "network";
+      message?: string;
+    };
 
 type AuthContextValueType = {
-  user: GetCurrentUserResponseType | null;
+  user: RegisterResponseType | null;
   isLoading: boolean;
 };
 

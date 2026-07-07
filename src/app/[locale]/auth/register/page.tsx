@@ -8,9 +8,9 @@ export default async function RegisterPage({
   params,
 }: PageProps<"/[locale]/auth/register">) {
   const { locale } = await params;
-  const currentUser = await getCurrentUser(Language[locale as LocaleType]);
+  const response = await getCurrentUser(Language[locale as LocaleType]);
 
-  if (currentUser != null) {
+  if (response.ok) {
     redirect({
       href: "/",
       locale,

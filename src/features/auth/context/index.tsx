@@ -38,8 +38,8 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     const initializeAuth = async () => {
-      const currentUser = await getCurrentUser(language);
-      setUser(currentUser ?? null);
+      const response = await getCurrentUser(language);
+      setUser(response.ok ? response.user : null);
       setIsLoading(false);
     };
 
@@ -48,8 +48,8 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      getCurrentUser(language).then((currentUser) => {
-        setUser(currentUser ?? null);
+      getCurrentUser(language).then((response) => {
+        setUser(response.ok ? response.user : null);
       });
     }, TOKEN_REFRESH_INTERVAL_MS);
 
@@ -61,8 +61,8 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
           return;
         }
 
-        getCurrentUser(language).then((currentUser) => {
-          setUser(currentUser ?? null);
+        getCurrentUser(language).then((response) => {
+          setUser(response.ok ? response.user : null);
         });
       },
       { signal: controller.signal },
