@@ -151,7 +151,7 @@ const getCurrentUser = async (
     };
   }
 
-  const response = await apiService<GetCurrentUserResponseType>("/users/me", {
+  const response = await apiService<RegisterResponseType>("/users/me", {
     method: "GET",
     withAuth: true,
     language,
@@ -177,7 +177,10 @@ const getCurrentUser = async (
     };
   }
 
-  return response.data;
+  return {
+    ok: true,
+    user: response.data,
+  };
 };
 
 export { login, register, logout, removeAccount, getCurrentUser };
