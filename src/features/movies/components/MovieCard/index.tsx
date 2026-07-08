@@ -20,7 +20,7 @@ const MovieCard = ({
   const movieHref = `/movie/${tmdbId}`;
 
   return (
-    <article className={styles.card}>
+    <article aria-label={title} className={styles.card}>
       <div className={styles.posterContainer}>
         <NavLink href={movieHref} label={title} className={styles.posterLink}>
           <div className={styles.posterWrapper}>
