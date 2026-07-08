@@ -37,6 +37,7 @@ const Pagination = ({
       {pages[0] > 1 && (
         <>
           <Button
+            aria-label="Go to page 1"
             className={styles.pageBtn}
             onClick={onPageChange.bind(null, 1)}
           >
@@ -49,12 +50,13 @@ const Pagination = ({
       {pages.map((page) => (
         <Button
           key={page}
+          aria-current={page === currentPage ? "page" : undefined}
+          aria-label={`Go to page ${page}`}
           className={joinClassNames(
             styles.pageBtn,
             page === currentPage ? styles.active : "",
           )}
           onClick={onPageChange.bind(null, page)}
-          aria-current={page === currentPage ? "page" : undefined}
         >
           {page}
         </Button>
@@ -66,6 +68,7 @@ const Pagination = ({
             <span className={styles.ellipsis}>…</span>
           )}
           <Button
+            aria-label={`Go to page ${totalPages}`}
             className={styles.pageBtn}
             onClick={onPageChange.bind(null, totalPages)}
           >
