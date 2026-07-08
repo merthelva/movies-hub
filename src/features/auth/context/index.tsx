@@ -74,24 +74,6 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
     };
   }, [language]);
 
-  const handleRegister = async (credentials: RegisterCredentialsType) => {
-    const response = await register(credentials, language);
-    setUser(response.status === "success" ? response.data : null);
-  };
-
-  const handleLogin = async (credentials: LoginCredentialsType) => {
-    const response = await login(credentials, language);
-    setUser(
-      response.status === "success"
-        ? {
-            id: response.data.id,
-            name: response.data.name,
-            email: response.data.email,
-          }
-        : null,
-    );
-  };
-
   const handleLogout = async () => {
     setIsLoading(true);
     const response = await logout(language);
@@ -113,9 +95,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   const value: AuthContextType = {
     user,
     isLoading,
-    login: handleLogin,
     logout: handleLogout,
-    register: handleRegister,
     removeAccount: handleRemoveAccount,
   };
 
