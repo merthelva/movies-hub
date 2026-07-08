@@ -17,6 +17,7 @@ const AuthModal = ({ mode, redirectTo }: AuthModalPropsType) => {
       ref={dialogRef}
       aria-label={mode === "login" ? "Login" : "Register"}
       isOpen
+      isDismissible={false}
       onClose={router.back}
     >
       <AuthForm mode={mode} redirectTo={redirectTo} />

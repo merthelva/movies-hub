@@ -10,6 +10,7 @@ type DialogPropsType = ComponentPropsWithoutRef<"dialog"> &
     isOpen: boolean;
     onClose: VoidFunction;
     title?: string;
+    isDismissible?: boolean;
   }>;
 
 export type { DialogPropsType };
