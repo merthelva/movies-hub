@@ -1,6 +1,7 @@
 "use server";
 
 import { getLocale } from "next-intl/server";
+import type { ZodType } from "zod";
 
 import { login, register } from ".";
 
@@ -11,81 +12,64 @@ import { serializeMessage } from "@/common/utils/serialize-message.util";
 import { safeParseFormBody } from "@/features/auth/utils/safe-parse-form-body.util";
 import type { FormActionStateType } from "@/common/types/form-action-state.type";
 import type {
+  AuthServerActionCallbackType,
   LoginCredentialsType,
   RegisterCredentialsType,
 } from "@/features/auth/types/actions.type";
 
-const loginFormAction = async (
-  _prevState: FormActionStateType,
-  formData: FormData,
-): Promise<FormActionStateType<LoginCredentialsType>> => {
-  const parsedLoginForm = safeParseFormBody(loginSchema, {
-    email: String(formData.get("email") ?? ""),
-    password: String(formData.get("password") ?? ""),
-  });
+const authFormActionFactory = <TCredentials extends Record<string, string>>(
+  authSchema: ZodType<TCredentials>,
+  fields: Array<keyof TCredentials & string>,
+  authServerAction: AuthServerActionCallbackType<TCredentials>,
+) => {
+  return async (
+    _prevState: FormActionStateType,
+    formData: FormData,
+  ): Promise<FormActionStateType<TCredentials>> => {
+    const formFields = fields.reduce((acc, field) => {
+      acc[field] = String(
+        formData.get(field) ?? "",
+      ) as TCredentials[typeof field];
+      return acc;
+    }, {} as TCredentials);
 
-  if (parsedLoginForm.status === "error") {
-    return {
-      ...parsedLoginForm,
-      formFields: {
-        email: String(formData.get("email") ?? ""),
-        password: String(formData.get("password") ?? ""),
-      },
-    };
-  }
+    const parsedAuthForm = safeParseFormBody(authSchema, formFields);
 
-  const locale = (await getLocale()) as LocaleType;
-  const response = await login(parsedLoginForm.data, Language[locale]);
-  if (response.status === "error") {
-    return {
-      status: "error",
-      formFields: {
-        email: String(formData.get("email") ?? ""),
-        password: String(formData.get("password") ?? ""),
-      },
-      message: serializeMessage("error", response.message),
-    };
-  }
+    if (parsedAuthForm.status === "error") {
+      return {
+        ...parsedAuthForm,
+        formFields,
+      } as FormActionStateType<TCredentials>;
+    }
 
-  return { status: response.status };
+    const locale = (await getLocale()) as LocaleType;
+    const response = await authServerAction(
+      parsedAuthForm.data,
+      Language[locale],
+    );
+
+    if (response.status === "error") {
+      return {
+        status: "error",
+        formFields,
+        message: serializeMessage("error", response.message),
+      } as FormActionStateType<TCredentials>;
+    }
+
+    return { status: response.status };
+  };
 };
 
-const registerFormAction = async (
-  _prevState: FormActionStateType,
-  formData: FormData,
-): Promise<FormActionStateType<RegisterCredentialsType>> => {
-  const parsedRegisterForm = safeParseFormBody(registerSchema, {
-    name: String(formData.get("name") ?? ""),
-    email: String(formData.get("email") ?? ""),
-    password: String(formData.get("password") ?? ""),
-  });
+const loginFormAction = authFormActionFactory<LoginCredentialsType>(
+  loginSchema,
+  ["email", "password"],
+  login,
+);
 
-  if (parsedRegisterForm.status === "error") {
-    return {
-      ...parsedRegisterForm,
-      formFields: {
-        name: String(formData.get("name") ?? ""),
-        email: String(formData.get("email") ?? ""),
-        password: String(formData.get("password") ?? ""),
-      },
-    };
-  }
-
-  const locale = (await getLocale()) as LocaleType;
-  const response = await register(parsedRegisterForm.data, Language[locale]);
-  if (response.status === "error") {
-    return {
-      status: "error",
-      formFields: {
-        name: String(formData.get("name") ?? ""),
-        email: String(formData.get("email") ?? ""),
-        password: String(formData.get("password") ?? ""),
-      },
-      message: serializeMessage("error", response.message),
-    };
-  }
-
-  return { status: response.status };
-};
+const registerFormAction = authFormActionFactory<RegisterCredentialsType>(
+  registerSchema,
+  ["name", "email", "password"],
+  register,
+);
 
 export { loginFormAction, registerFormAction };
