@@ -6,4 +6,8 @@ type EditUserListButtonPropsType = {
   userListType: UserListType;
 };
 
-export type { EditUserListButtonPropsType };
+type EditUserListFormPropsType = EditUserListButtonPropsType & {
+  onCloseEditDialog: VoidFunction;
+};
+
+export type { EditUserListButtonPropsType, EditUserListFormPropsType };
