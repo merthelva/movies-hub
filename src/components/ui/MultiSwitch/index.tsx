@@ -19,13 +19,14 @@ const MultiSwitch = ({
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
-    e.preventDefault();
     const currentIndex = options.findIndex((opt) => opt.value === value);
     let nextIndex = currentIndex;
 
     if (new Set(["ArrowRight", "ArrowDown"]).has(e.key)) {
+      e.preventDefault();
       nextIndex = (currentIndex + 1) % options.length;
     } else if (new Set(["ArrowLeft", "ArrowUp"]).has(e.key)) {
+      e.preventDefault();
       nextIndex = (currentIndex - 1 + options.length) % options.length;
     } else {
       return;
