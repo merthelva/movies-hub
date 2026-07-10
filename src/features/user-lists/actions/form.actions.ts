@@ -33,6 +33,7 @@ const listCreateFormAction = async (
       formFields: {
         name: String(formData.get("list-name") ?? ""),
       },
+      message: parsedListCreateForm.message.join("\n"),
     };
   }
 
@@ -97,6 +98,7 @@ const listEditFormAction = async (
       formFields: {
         name: String(formData.get("list-name") ?? ""),
       },
+      message: parsedListEditForm.message.join("\n"),
     };
   }
 
