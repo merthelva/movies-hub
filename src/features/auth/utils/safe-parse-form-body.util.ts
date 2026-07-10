@@ -9,7 +9,7 @@ const safeParseFormBody = <TFormBody>(
   if (!parsed.success) {
     return {
       status: "error",
-      message: parsed.error.issues[0].message,
+      message: parsed.error.issues.map(({ message }) => message),
     } as const;
   }
 

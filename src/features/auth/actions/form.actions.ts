@@ -39,6 +39,7 @@ const authFormActionFactory = <TCredentials extends Record<string, string>>(
       return {
         ...parsedAuthForm,
         formFields,
+        message: parsedAuthForm.message.join("\n"),
       } as FormActionStateType<TCredentials>;
     }
 
