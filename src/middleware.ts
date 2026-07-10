@@ -5,7 +5,7 @@ import { routing } from "@/i18n/routing";
 
 const intlMiddleware = createMiddleware(routing);
 
-const protectedPaths = ["/lists"];
+const protectedPaths = ["/user"];
 
 const authMiddleware = (request: NextRequest) => {
   const { pathname } = request.nextUrl;
