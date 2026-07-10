@@ -39,8 +39,6 @@ const ListCreateVariant = ({
       toast.success(state.message);
       return;
     }
-
-    toast.error(state.message);
   }, [state]);
 
   return (
