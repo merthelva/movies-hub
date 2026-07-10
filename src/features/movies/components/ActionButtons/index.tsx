@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useImmer } from "use-immer";
+import { toast } from "sonner";
 
 import type { ActionButtonsPropsType } from "./component.type";
 import styles from "./styles.module.scss";
@@ -86,6 +87,7 @@ const ActionButtons = ({ movieId }: ActionButtonsPropsType) => {
     setListIdToUpdate(null);
 
     if (response.status === "error") {
+      toast.error(response.message);
       return setErrorMessage(serializeMessage("error", response.message));
     }
 
@@ -97,6 +99,7 @@ const ActionButtons = ({ movieId }: ActionButtonsPropsType) => {
 
       draft[matchedUserListIndex].hasMovie = true;
     });
+    toast.success(response.data.message);
   };
 
   const handleDeleteMovieFromUserList = async (listId: number) => {
@@ -112,6 +115,7 @@ const ActionButtons = ({ movieId }: ActionButtonsPropsType) => {
     setListIdToUpdate(null);
 
     if (response.status === "error") {
+      toast.error(response.message);
       return setErrorMessage(serializeMessage("error", response.message));
     }
 
@@ -123,6 +127,7 @@ const ActionButtons = ({ movieId }: ActionButtonsPropsType) => {
 
       draft[matchedUserListIndex].hasMovie = false;
     });
+    toast.success(response.data.message);
   };
 
   return (

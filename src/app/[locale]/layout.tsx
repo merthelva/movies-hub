@@ -1,6 +1,7 @@
 import { Roboto } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { Toaster } from "sonner";
 
 import type { LocaleLayoutPropsType } from "./props.type";
 import styles from "./styles.module.scss";
@@ -37,6 +38,7 @@ export default async function LocaleLayout({
               <main className={joinClassNames("fluid-wrapper", styles.main)}>
                 {children}
               </main>
+              <Toaster position="top-right" richColors />
               {modal}
             </ThemeProvider>
           </AuthProvider>

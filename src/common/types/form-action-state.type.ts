@@ -1,6 +1,10 @@
 type FormActionStateType<TFormFields = undefined> =
   | {
-      status: "idle" | "success";
+      status: "idle";
+    }
+  | {
+      status: "success";
+      message?: string;
     }
   | ({
       status: "error";

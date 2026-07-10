@@ -1,5 +1,7 @@
 "use server";
 
+import { getTranslations } from "next-intl/server";
+
 import { listCreateSchema } from "@/features/user-lists/schemas";
 import { safeParseFormBody } from "@/features/auth/utils/safe-parse-form-body.util";
 import { serializeMessage } from "@/common/utils/serialize-message.util";
@@ -19,6 +21,8 @@ const listCreateFormAction = async (
   _prevState: FormActionStateType<ListCreateBodyType>,
   formData: FormData,
 ): Promise<FormActionStateType<ListCreateBodyType>> => {
+  const t = await getTranslations("Lists");
+
   const parsedListCreateForm = safeParseFormBody(listCreateSchema, {
     name: String(formData.get("list-name") ?? ""),
   });
@@ -49,7 +53,7 @@ const listCreateFormAction = async (
   }
 
   if (movieId === null) {
-    return { status: "success" };
+    return { status: "success", message: t("listCreated") };
   }
 
   const { addMovieToUserFavoritelist, addMovieToUserWatchlist } =
@@ -74,7 +78,7 @@ const listCreateFormAction = async (
     };
   }
 
-  return { status: "success" };
+  return { status: "success", message: movieAddToListResponse.data.message };
 };
 
 const listEditFormAction = async (
@@ -112,7 +116,7 @@ const listEditFormAction = async (
     };
   }
 
-  return { status: "success" };
+  return { status: "success", message: response.data.message };
 };
 
 export { listCreateFormAction, listEditFormAction };

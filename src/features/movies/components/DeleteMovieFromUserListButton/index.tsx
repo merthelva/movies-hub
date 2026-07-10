@@ -2,6 +2,7 @@
 
 import { useTransition } from "react";
 import { Trash } from "lucide-react";
+import { toast } from "sonner";
 
 import type { DeleteMovieFromUserListButtonPropsType } from "./component.type";
 
@@ -17,7 +18,13 @@ const DeleteMovieFromUserListButton = ({
 
   const handleDeleteMovieFromUserList = () => {
     startTransition(async () => {
-      onDeleteMovieFromUserList(listId, movieId);
+      const response = await onDeleteMovieFromUserList(listId, movieId);
+      if (response.status === "error") {
+        toast.error(response.message);
+        return;
+      }
+
+      toast.success(response.data.message);
     });
   };
 

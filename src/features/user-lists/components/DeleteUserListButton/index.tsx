@@ -3,6 +3,7 @@
 import { useTransition } from "react";
 import { Trash } from "lucide-react";
 import { useLocale } from "next-intl";
+import { toast } from "sonner";
 
 import type { DeleteUserListButtonPropsType } from "./component.type";
 
@@ -19,8 +20,14 @@ const DeleteUserListButton = ({
   const locale = useLocale() as LocaleType;
 
   const handleDeleteUserList = () => {
-    startTransition(() => {
-      onDeleteUserList(listId, Language[locale]);
+    startTransition(async () => {
+      const response = await onDeleteUserList(listId, Language[locale]);
+      if (response.status === "error") {
+        toast.error(response.message);
+        return;
+      }
+
+      toast.success(response.data.message);
     });
   };
 

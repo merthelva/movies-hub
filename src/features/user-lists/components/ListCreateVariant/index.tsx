@@ -2,6 +2,7 @@
 
 import { useActionState, useEffect } from "react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 
 import type { ListCreateVariantPropsType } from "./component.type";
 import styles from "./styles.module.scss";
@@ -29,11 +30,18 @@ const ListCreateVariant = ({
   );
 
   useEffect(() => {
-    if (state.status !== "success") {
+    if (state.status === "idle") {
       return;
     }
-    onClose();
-  }, [state.status]);
+
+    if (state.status === "success") {
+      onClose();
+      toast.success(state.message);
+      return;
+    }
+
+    toast.error(state.message);
+  }, [state]);
 
   return (
     <form className={styles.listCreateVariant} action={formAction}>

@@ -2,6 +2,7 @@
 
 import { useActionState, useEffect } from "react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 
 import styles from "./styles.module.scss";
 import type { EditUserListFormPropsType } from "./component.type";
@@ -26,11 +27,24 @@ const EditUserListForm = ({
     INITIAL_STATE,
   );
 
+  const handleToastAndCloseEditDialog = () => {
+    if (state.status === "idle") {
+      onCloseEditDialog();
+      return;
+    }
+
+    if (state.status === "success") {
+      toast.success(state.message);
+    }
+
+    onCloseEditDialog();
+  };
+
   useEffect(() => {
     if (state.status !== "success") {
       return;
     }
-    onCloseEditDialog();
+    handleToastAndCloseEditDialog();
   }, [state]);
 
   return (
@@ -58,7 +72,7 @@ const EditUserListForm = ({
           type="button"
           variant="ghost"
           componentSize="md"
-          onClick={onCloseEditDialog}
+          onClick={handleToastAndCloseEditDialog}
         >
           {tCommon("cancel")}
         </Button>
