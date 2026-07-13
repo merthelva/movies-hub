@@ -20,6 +20,8 @@ const securityHeaders = [
       "img-src 'self' data: https://image.tmdb.org",
       "font-src 'self'",
       `connect-src 'self'${apiOrigin ? ` ${apiOrigin}` : ""}`,
+      // Allows embedding YouTube trailers in an <iframe> on movie detail pages.
+      "frame-src https://www.youtube.com",
       "frame-ancestors 'none'",
     ].join("; "),
   },
