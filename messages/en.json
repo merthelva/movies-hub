@@ -24,6 +24,7 @@
     "home": "Home",
     "watchlists": "Watchlists",
     "favoritelists": "Favoritelists",
+    "profile": "Profile",
     "openNavMenu": "Open navigation menu"
   },
   "Home": {
@@ -83,6 +84,22 @@
     "invalidEmail": "Invalid email address",
     "namePlaceholder": "Enter [2-50] characters",
     "passwordPlaceholder": "Enter at least 6 characters"
+  },
+  "Profile": {
+    "title": "Profile",
+    "detailsTitle": "Account Details",
+    "updateTitle": "Update Account",
+    "switchToUpdateField": "Switch to update field",
+    "currentPassword": "Current Password",
+    "currentPasswordPlaceholder": "Enter your current password",
+    "newPassword": "New Password",
+    "newPasswordPlaceholder": "Leave blank to keep current password",
+    "fetchProfileError": "An error occurred while fetching your profile.",
+    "deleteAccountTitle": "Delete Account",
+    "deleteAccountDescription": "Permanently delete your account and all associated data. This action cannot be undone.",
+    "deleteAccount": "Delete Account",
+    "deleteAccountConfirmTitle": "Delete Account?",
+    "deleteAccountConfirmBody": "Are you sure you want to delete your account? This action is permanent and cannot be undone."
   },
   "Lists": {
     "favoritelists": "Favoritelists",

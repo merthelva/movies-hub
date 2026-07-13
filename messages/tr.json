@@ -24,6 +24,7 @@
     "home": "Ana Sayfa",
     "watchlists": "İzleme Listeleri",
     "favoritelists": "Favoriler",
+    "profile": "Profil",
     "openNavMenu": "Navigasyon menüsünü aç"
   },
   "Home": {
@@ -83,6 +84,22 @@
     "invalidEmail": "Geçersiz e-posta adresi",
     "namePlaceholder": "[2-50] karakter girin",
     "passwordPlaceholder": "En az 6 karakter girin"
+  },
+  "Profile": {
+    "title": "Profil",
+    "detailsTitle": "Hesap Bilgileri",
+    "updateTitle": "Hesabı Güncelle",
+    "switchToUpdateField": "Alanı güncellemek için seçin",
+    "currentPassword": "Mevcut Şifre",
+    "currentPasswordPlaceholder": "Mevcut şifrenizi girin",
+    "newPassword": "Yeni Şifre",
+    "newPasswordPlaceholder": "Değiştirmek istemiyorsanız boş bırakın",
+    "fetchProfileError": "Profiliniz getirilirken bir hata oluştu.",
+    "deleteAccountTitle": "Hesabı Sil",
+    "deleteAccountDescription": "Hesabınızı ve tüm ilişkili verileri kalıcı olarak silin. Bu işlem geri alınamaz.",
+    "deleteAccount": "Hesabı Sil",
+    "deleteAccountConfirmTitle": "Hesap Silinsin mi?",
+    "deleteAccountConfirmBody": "Hesabınızı silmek istediğinizden emin misiniz? Bu işlem kalıcıdır ve geri alınamaz."
   },
   "Lists": {
     "favoritelists": "Favoriler",

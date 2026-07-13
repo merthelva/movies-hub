@@ -44,6 +44,32 @@
   list-style: none;
 }
 
+.avatar {
+  --size: 40px;
+  display: none;
+  width: var(--size);
+  height: var(--size);
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+  flex-shrink: 0;
+
+  // Overrides NavLink's shared ".active" class style
+  &.avatar.avatar {
+    color: var(--color-bg);
+  }
+
+  // Overrides NavLink's shared hover-underline pseudo-element, which
+  // doesn't suit a circular avatar. Repeating the class selector bumps
+  // specificity above `.navLink::after` regardless of stylesheet order.
+  &.avatar::after {
+    content: none;
+  }
+
+  @include m.respond-to("md") {
+    @include m.flex-center;
+  }
+}
+
 .burgerBtn[type="button"] {
   color: var(--color-text);
   padding: var(--spacing-xs);

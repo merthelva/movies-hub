@@ -91,6 +91,24 @@ const CastSectionSkeleton = () => (
   </div>
 );
 
+const PROFILE_FIELD_SKELETON_IDS = [1, 2, 3, 4, 5] as const;
+
+const ProfileSkeleton = () => (
+  <div className={styles.profilePage}>
+    <div className={styles.profileTitle} />
+    <div className={styles.profileSection}>
+      <div className={joinClassNames(styles.line, styles.lineShort)} />
+      <div className={joinClassNames(styles.line, styles.lineMid)} />
+    </div>
+    <div className={styles.profileSection}>
+      {PROFILE_FIELD_SKELETON_IDS.map((id) => (
+        <div key={id} className={styles.inputSkeleton} />
+      ))}
+      <div className={styles.buttonSkeleton} />
+    </div>
+  </div>
+);
+
 export {
   MovieCardSkeleton,
   MovieCategorySectionSkeleton,
@@ -100,4 +118,5 @@ export {
   CastSectionSkeleton,
   ListCardSkeleton,
   UserListGridSkeleton,
+  ProfileSkeleton,
 };

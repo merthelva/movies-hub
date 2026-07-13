@@ -100,7 +100,7 @@ const logout = async (
   };
 };
 
-const removeAccount = async (
+const deleteAccount = async (
   userId: number,
   language?: LanguageType,
 ): Promise<GenericResponseType<SuccessResponseType>> => {
@@ -183,4 +183,4 @@ const getCurrentUser = async (
   };
 };
 
-export { login, register, logout, removeAccount, getCurrentUser };
+export { login, register, logout, deleteAccount, getCurrentUser };

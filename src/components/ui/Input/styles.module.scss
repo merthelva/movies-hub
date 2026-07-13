@@ -21,6 +21,10 @@
     outline: none;
     border-color: var(--color-accent);
   }
+
+  &:read-only {
+    background-color: var(--color-disabled);
+  }
 }
 
 .error {

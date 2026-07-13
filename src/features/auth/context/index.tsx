@@ -11,18 +11,8 @@ import {
 import { useLocale } from "next-intl";
 
 import { useRouter } from "@/i18n/navigation";
-import {
-  getCurrentUser,
-  login,
-  logout,
-  register,
-  removeAccount,
-} from "@/features/auth/actions";
+import { getCurrentUser, logout, deleteAccount } from "@/features/auth/actions";
 import type { AuthContextType } from "@/features/auth/types/context.type";
-import type {
-  LoginCredentialsType,
-  RegisterCredentialsType,
-} from "@/features/auth/types/actions.type";
 import { TOKEN_REFRESH_INTERVAL_MS } from "@/features/auth/constants/token-refresh-interval.constant";
 import { Language } from "@/common/constants/language.constant";
 import type { LocaleType } from "@/common/types/locale.type";
@@ -84,19 +74,26 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
-  const handleRemoveAccount = async (userId: number) => {
-    const response = await removeAccount(userId, language);
+  const handleDeleteAccount = async (userId: number) => {
+    const response = await deleteAccount(userId, language);
     if (response.status === "success") {
       setUser(null);
       push("/");
     }
+    return response;
+  };
+
+  const handleRefreshUser = async () => {
+    const response = await getCurrentUser(language);
+    setUser(response.ok ? response.user : null);
   };
 
   const value: AuthContextType = {
     user,
     isLoading,
     logout: handleLogout,
-    removeAccount: handleRemoveAccount,
+    deleteAccount: handleDeleteAccount,
+    refreshUser: handleRefreshUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import styles from "./styles.module.scss";
 
 import { generateNavLinks } from "@/common/utils/generate-nav-links.util";
+import { getInitials } from "@/common/utils/get-initials.util";
 import { useAuth } from "@/features/auth/context";
 import { useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/Button";
@@ -41,11 +42,17 @@ const HeaderNav = () => {
     <>
       <nav className={styles.nav}>
         <ul className={styles.navLinks}>
-          {navLinks.map(({ href, label }) => (
-            <li key={href}>
-              <NavLink href={href} label={label} />
-            </li>
-          ))}
+          {navLinks.map(({ href, label }) => {
+            if (href === "/user/profile") {
+              return null;
+            }
+
+            return (
+              <li key={href}>
+                <NavLink href={href} label={label} />
+              </li>
+            );
+          })}
         </ul>
         <Button
           variant="primary"
@@ -74,6 +81,12 @@ const HeaderNav = () => {
       >
         <Menu />
       </Button>
+
+      {isAuthenticated && (
+        <NavLink href="/user/profile" className={styles.avatar}>
+          {getInitials(user.name)}
+        </NavLink>
+      )}
 
       <Drawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
     </>

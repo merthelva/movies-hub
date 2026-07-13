@@ -12,6 +12,7 @@ const generateNavLinks = (
     { href: "/", label: t("home") },
     { href: "/user/watchlists", label: t("watchlists") },
     { href: "/user/favoritelists", label: t("favoritelists") },
+    { href: "/user/profile", label: t("profile") },
   ];
 };
 

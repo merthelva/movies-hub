@@ -214,3 +214,35 @@
     @include m.grid(3, var(--spacing-md));
   }
 }
+
+// Profile skeleton
+.profilePage {
+  display: grid;
+  justify-items: center;
+  gap: var(--spacing-xl);
+}
+
+.profileTitle {
+  @include skeleton-box;
+  height: 36px;
+  width: 200px;
+  justify-self: start;
+}
+
+.profileSection {
+  display: grid;
+  gap: var(--spacing-md);
+  width: min(400px, 100%);
+}
+
+.inputSkeleton {
+  @include skeleton-box;
+  height: 40px;
+  width: 100%;
+}
+
+.buttonSkeleton {
+  @include skeleton-box;
+  height: 40px;
+  width: 120px;
+}
