@@ -2,7 +2,7 @@
 
 import { getTranslations } from "next-intl/server";
 
-import { listCreateSchema } from "@/features/user-lists/schemas";
+import { createListCreateSchema } from "@/features/user-lists/schemas";
 import { safeParseFormBody } from "@/features/auth/utils/safe-parse-form-body.util";
 import { serializeMessage } from "@/common/utils/serialize-message.util";
 import type { UserListType } from "@/features/user-lists/types/user-list.type";
@@ -22,6 +22,7 @@ const listCreateFormAction = async (
   formData: FormData,
 ): Promise<FormActionStateType<ListCreateBodyType>> => {
   const t = await getTranslations("Lists");
+  const listCreateSchema = createListCreateSchema(t);
 
   const parsedListCreateForm = safeParseFormBody(listCreateSchema, {
     name: String(formData.get("list-name") ?? ""),
@@ -88,6 +89,9 @@ const listEditFormAction = async (
   _prevState: FormActionStateType<ListCreateBodyType>,
   formData: FormData,
 ): Promise<FormActionStateType<ListCreateBodyType>> => {
+  const t = await getTranslations("Lists");
+  const listCreateSchema = createListCreateSchema(t);
+
   const parsedListEditForm = safeParseFormBody(listCreateSchema, {
     name: String(formData.get("list-name") ?? ""),
   });

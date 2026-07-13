@@ -1,13 +1,17 @@
 "use server";
 
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import type { ZodType } from "zod";
 
 import { login, register } from ".";
 
-import { loginSchema, registerSchema } from "@/features/auth/schemas";
+import {
+  createLoginSchema,
+  createRegisterSchema,
+} from "@/features/auth/schemas";
 import { Language } from "@/common/constants/language.constant";
 import type { LocaleType } from "@/common/types/locale.type";
+import type { TranslatorType } from "@/common/types/translator.type";
 import { serializeMessage } from "@/common/utils/serialize-message.util";
 import { safeParseFormBody } from "@/features/auth/utils/safe-parse-form-body.util";
 import type { FormActionStateType } from "@/common/types/form-action-state.type";
@@ -18,7 +22,7 @@ import type {
 } from "@/features/auth/types/actions.type";
 
 const authFormActionFactory = <TCredentials extends Record<string, string>>(
-  authSchema: ZodType<TCredentials>,
+  createAuthSchema: (t: TranslatorType<"Auth">) => ZodType<TCredentials>,
   fields: Array<keyof TCredentials & string>,
   authServerAction: AuthServerActionCallbackType<TCredentials>,
 ) => {
@@ -33,6 +37,8 @@ const authFormActionFactory = <TCredentials extends Record<string, string>>(
       return acc;
     }, {} as TCredentials);
 
+    const t = await getTranslations("Auth");
+    const authSchema = createAuthSchema(t);
     const parsedAuthForm = safeParseFormBody(authSchema, formFields);
 
     if (parsedAuthForm.status === "error") {
@@ -62,13 +68,13 @@ const authFormActionFactory = <TCredentials extends Record<string, string>>(
 };
 
 const loginFormAction = authFormActionFactory<LoginCredentialsType>(
-  loginSchema,
+  createLoginSchema,
   ["email", "password"],
   login,
 );
 
 const registerFormAction = authFormActionFactory<RegisterCredentialsType>(
-  registerSchema,
+  createRegisterSchema,
   ["name", "email", "password"],
   register,
 );

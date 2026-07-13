@@ -83,7 +83,10 @@
     "requiredField": "Bu alan gereklidir",
     "invalidEmail": "Geçersiz e-posta adresi",
     "namePlaceholder": "[2-50] karakter girin",
-    "passwordPlaceholder": "En az 6 karakter girin"
+    "passwordPlaceholder": "En az 6 karakter girin",
+    "nameMinLength": "İsim en az 2 karakter olmalıdır",
+    "nameMaxLength": "İsim en fazla 50 karakter olmalıdır",
+    "passwordMinLength": "Şifre en az 6 karakter uzunluğunda olmalıdır"
   },
   "Profile": {
     "title": "Profil",
@@ -99,7 +102,14 @@
     "deleteAccountDescription": "Hesabınızı ve tüm ilişkili verileri kalıcı olarak silin. Bu işlem geri alınamaz.",
     "deleteAccount": "Hesabı Sil",
     "deleteAccountConfirmTitle": "Hesap Silinsin mi?",
-    "deleteAccountConfirmBody": "Hesabınızı silmek istediğinizden emin misiniz? Bu işlem kalıcıdır ve geri alınamaz."
+    "deleteAccountConfirmBody": "Hesabınızı silmek istediğinizden emin misiniz? Bu işlem kalıcıdır ve geri alınamaz.",
+    "nameMinLength": "İsim en az 2 karakter olmalıdır",
+    "nameMaxLength": "İsim en fazla 50 karakter olmalıdır",
+    "invalidEmail": "Geçersiz e-posta adresi",
+    "newPasswordMinLength": "Yeni şifre en az 6 karakter uzunluğunda olmalıdır",
+    "confirmPasswordMinLength": "Şifre onayı en az 6 karakter uzunluğunda olmalıdır",
+    "currentPasswordRequired": "Yeni şifre belirlemek için mevcut şifrenizi girmeniz gerekir",
+    "passwordMismatch": "Şifreler eşleşmiyor"
   },
   "Lists": {
     "favoritelists": "Favoriler",
@@ -130,7 +140,10 @@
     "addMovieLink": "Film ekle",
     "loginRequired": "Listelerinizi yönetmek için giriş yapmanız gerekiyor.",
     "fetchListsError": "Listeleriniz alınırken bir hata oluştu.",
-    "fetchMoviesError": "Bu listenin filmleri alınırken bir hata oluştu."
+    "fetchMoviesError": "Bu listenin filmleri alınırken bir hata oluştu.",
+    "nameRequired": "İsim gereklidir",
+    "nameMaxLength": "İsim en fazla 50 karakter olmalıdır",
+    "nameInvalidChars": "İsim yalnızca harf, rakam, boşluk ve # . _ - karakterlerini içerebilir"
   },
   "Errors": {
     "notFound": "Sayfa bulunamadı",

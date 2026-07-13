@@ -83,7 +83,10 @@
     "requiredField": "This field is required",
     "invalidEmail": "Invalid email address",
     "namePlaceholder": "Enter [2-50] characters",
-    "passwordPlaceholder": "Enter at least 6 characters"
+    "passwordPlaceholder": "Enter at least 6 characters",
+    "nameMinLength": "Name must be at least 2 characters",
+    "nameMaxLength": "Name must be at most 50 characters",
+    "passwordMinLength": "Password should be at least 6 characters long"
   },
   "Profile": {
     "title": "Profile",
@@ -99,7 +102,14 @@
     "deleteAccountDescription": "Permanently delete your account and all associated data. This action cannot be undone.",
     "deleteAccount": "Delete Account",
     "deleteAccountConfirmTitle": "Delete Account?",
-    "deleteAccountConfirmBody": "Are you sure you want to delete your account? This action is permanent and cannot be undone."
+    "deleteAccountConfirmBody": "Are you sure you want to delete your account? This action is permanent and cannot be undone.",
+    "nameMinLength": "Name must be at least 2 characters",
+    "nameMaxLength": "Name must be at most 50 characters",
+    "invalidEmail": "Invalid email address",
+    "newPasswordMinLength": "New password should be at least 6 characters long",
+    "confirmPasswordMinLength": "Confirm password should be at least 6 characters long",
+    "currentPasswordRequired": "Current password is required to set a new password",
+    "passwordMismatch": "Passwords do not match"
   },
   "Lists": {
     "favoritelists": "Favoritelists",
@@ -130,7 +140,10 @@
     "addMovieLink": "Add movie",
     "loginRequired": "You need to be logged in to manage your lists.",
     "fetchListsError": "An error occurred while fetching your lists.",
-    "fetchMoviesError": "An error occurred while fetching movies for this list."
+    "fetchMoviesError": "An error occurred while fetching movies for this list.",
+    "nameRequired": "Name is required",
+    "nameMaxLength": "Name must be at most 50 characters",
+    "nameInvalidChars": "Name can only contain letters, numbers, spaces, and # . _ -"
   },
   "Errors": {
     "notFound": "Page not found",

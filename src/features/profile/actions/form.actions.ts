@@ -1,8 +1,8 @@
 "use server";
 
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
-import { updateProfileSchema } from "@/features/profile/schemas";
+import { createUpdateProfileSchema } from "@/features/profile/schemas";
 import { updateProfile } from "@/features/profile/services";
 import type { initialReadOnlyFormFields } from "@/features/profile/constants/initial-read-only-form-fields.constant";
 import { safeParseFormBody } from "@/features/auth/utils/safe-parse-form-body.util";
@@ -26,6 +26,9 @@ const updateProfileFormAction = async (
     currentPassword: String(formData.get("currentPassword") ?? ""),
     newPassword: String(formData.get("newPassword") ?? ""),
   };
+
+  const t = await getTranslations("Profile");
+  const updateProfileSchema = createUpdateProfileSchema(t);
 
   const parsedProfileUpdateForm = safeParseFormBody(updateProfileSchema, {
     ...formFields,

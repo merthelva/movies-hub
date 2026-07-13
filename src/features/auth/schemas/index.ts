@@ -1,25 +1,22 @@
 import { z } from "zod";
 
 import { serializeMessage } from "@/common/utils/serialize-message.util";
+import type { TranslatorType } from "@/common/types/translator.type";
 
-const loginSchema = z.object({
-  email: z.email(serializeMessage("error", "Invalid email address")),
-  password: z
-    .string()
-    .min(
-      6,
-      serializeMessage(
-        "error",
-        "Password should be at least 6 characters long",
-      ),
-    ),
-});
+const createLoginSchema = (t: TranslatorType<"Auth">) =>
+  z.object({
+    email: z.email(serializeMessage("error", t("invalidEmail"))),
+    password: z
+      .string()
+      .min(6, serializeMessage("error", t("passwordMinLength"))),
+  });
 
-const registerSchema = loginSchema.extend({
-  name: z
-    .string()
-    .min(2, serializeMessage("error", "Name must be at least 2 characters"))
-    .max(50, serializeMessage("error", "Name must be at most 50 characters")),
-});
+const createRegisterSchema = (t: TranslatorType<"Auth">) =>
+  createLoginSchema(t).extend({
+    name: z
+      .string()
+      .min(2, serializeMessage("error", t("nameMinLength")))
+      .max(50, serializeMessage("error", t("nameMaxLength"))),
+  });
 
-export { loginSchema, registerSchema };
+export { createLoginSchema, createRegisterSchema };
