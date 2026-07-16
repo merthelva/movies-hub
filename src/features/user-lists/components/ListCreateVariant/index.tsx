@@ -2,6 +2,7 @@
 
 import { useActionState, useEffect } from "react";
 import { useTranslations } from "next-intl";
+import { List } from "lucide-react";
 import { toast } from "sonner";
 
 import type { ListCreateVariantPropsType } from "./component.type";
@@ -16,6 +17,7 @@ import { INITIAL_STATE } from "@/features/user-lists/constants/form-initial-stat
 const ListCreateVariant = ({
   userListType,
   onClose,
+  onSwitchToListSelect,
   ...rest
 }: ListCreateVariantPropsType) => {
   const tLists = useTranslations("Lists");
@@ -42,38 +44,56 @@ const ListCreateVariant = ({
   }, [state]);
 
   return (
-    <form className={styles.listCreateVariant} action={formAction}>
-      <Input
-        aria-describedby="list-name-error"
-        id="list-name"
-        name="list-name"
-        label={tLists("listName")}
-        defaultValue={state.status === "error" ? state.formFields.name : ""}
-        hasError={state.status === "error"}
-        placeholder={tLists("listNamePlaceholder")}
-      />
-      {state.status === "error" && state.message && (
-        <Message id="list-name-error" variant="error" content={state.message} />
-      )}
-      <div className={styles.formActions}>
+    <>
+      {onSwitchToListSelect && (
         <Button
           type="button"
+          className={styles.switchButton}
           variant="ghost"
-          componentSize="md"
-          onClick={onClose}
+          componentSize="sm"
+          onClick={onSwitchToListSelect}
         >
-          {tCommon("cancel")}
+          <List size={18} />
+          {tLists("selectList")}
         </Button>
-        <Button
-          type="submit"
-          variant="primary"
-          componentSize="md"
-          disabled={isPending}
-        >
-          {isPending ? tLists("creating") : tCommon("create")}
-        </Button>
-      </div>
-    </form>
+      )}
+      <form className={styles.listCreateVariant} action={formAction}>
+        <Input
+          aria-describedby="list-name-error"
+          id="list-name"
+          name="list-name"
+          label={tLists("listName")}
+          defaultValue={state.status === "error" ? state.formFields.name : ""}
+          hasError={state.status === "error"}
+          placeholder={tLists("listNamePlaceholder")}
+        />
+        {state.status === "error" && state.message && (
+          <Message
+            id="list-name-error"
+            variant="error"
+            content={state.message}
+          />
+        )}
+        <div className={styles.formActions}>
+          <Button
+            type="button"
+            variant="ghost"
+            componentSize="md"
+            onClick={onClose}
+          >
+            {tCommon("cancel")}
+          </Button>
+          <Button
+            type="submit"
+            variant="primary"
+            componentSize="md"
+            disabled={isPending}
+          >
+            {isPending ? tLists("creating") : tCommon("create")}
+          </Button>
+        </div>
+      </form>
+    </>
   );
 };
 

@@ -7,6 +7,7 @@ type DialogListCreateFormType = {
 type ListCreateVariantPropsType = {
   userListType: UserListType;
   onClose: VoidFunction;
+  onSwitchToListSelect?: VoidFunction;
 } & (
   | { option: "with-movie-addition"; movieId: number }
   | { option: "create-only" }

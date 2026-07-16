@@ -1,5 +1,10 @@
 @use "@/styles/mixins" as m;
 
+.switchButton {
+  margin-inline-start: auto;
+  margin-block-end: var(--spacing-sm);
+}
+
 .listSelectVariant {
   display: grid;
   gap: var(--spacing-sm);

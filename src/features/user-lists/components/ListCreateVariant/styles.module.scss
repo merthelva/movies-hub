@@ -8,3 +8,8 @@
   justify-content: flex-end;
   gap: var(--spacing-sm);
 }
+
+.switchButton {
+  margin-inline-start: auto;
+  margin-block-end: var(--spacing-sm);
+}

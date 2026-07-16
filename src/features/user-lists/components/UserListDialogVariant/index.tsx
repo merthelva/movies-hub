@@ -28,6 +28,7 @@ const UserListDialogVariant = ({
           listIdToUpdate={rest.listIdToUpdate}
           onAdd={rest.onAdd}
           onRemove={rest.onRemove}
+          onCreateNew={rest.onCreateNew}
         />
       )}
       {rest.variant === "list-create" && (

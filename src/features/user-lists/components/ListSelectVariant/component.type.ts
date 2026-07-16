@@ -5,6 +5,7 @@ type ListSelectVariantPropsType = {
   listIdToUpdate: number | null;
   onAdd: (listId: number) => void;
   onRemove: (listId: number) => void;
+  onCreateNew: VoidFunction;
 };
 
 type DialogListSelectVariantType = ListSelectVariantPropsType & {

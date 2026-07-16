@@ -28,6 +28,7 @@ const ActionButtons = ({ movieId }: ActionButtonsPropsType) => {
   const { user } = useAuth();
   const t = useTranslations("Lists");
   const [isUserListDialogOpen, setIsUserListDialogOpen] = useState(false);
+  const [dialogMode, setDialogMode] = useState<"select" | "create">("select");
   const [userListType, setUserListType] =
     useState<UserListType>("favoritelists");
   const [isFetchingUserLists, setIsFetchingUserLists] = useState(false);
@@ -43,10 +44,15 @@ const ActionButtons = ({ movieId }: ActionButtonsPropsType) => {
       : "manageWatchlistMoviesTitle",
   );
 
+  const handleSwitchDialogMode = (mode: typeof dialogMode) => {
+    setDialogMode(mode);
+  };
+
   const handleOpenUserListDialogVariantForMovieToggle = async (
     type: UserListType,
   ) => {
     setUserListType(type);
+    setDialogMode("select");
 
     if (user == null) {
       setIsUserListDialogOpen(true);
@@ -72,6 +78,7 @@ const ActionButtons = ({ movieId }: ActionButtonsPropsType) => {
 
   const handleCloseUserListDialog = () => {
     setIsUserListDialogOpen(false);
+    setDialogMode("select");
   };
 
   const handleAddMovieToUserList = async (listId: number) => {
@@ -159,29 +166,38 @@ const ActionButtons = ({ movieId }: ActionButtonsPropsType) => {
           message={errorMessage ?? t("loginRequired")}
         />
       )}
-      {user != null && userListsWithMovieStatus.length > 0 && (
-        <UserListDialogVariant
-          isOpen={isUserListDialogOpen}
-          title={dialogTitle}
-          onClose={handleCloseUserListDialog}
-          variant="list-select"
-          lists={userListsWithMovieStatus}
-          listIdToUpdate={listIdToUpdate}
-          onAdd={handleAddMovieToUserList}
-          onRemove={handleDeleteMovieFromUserList}
-        />
-      )}
-      {user != null && userListsWithMovieStatus.length === 0 && (
-        <UserListDialogVariant
-          isOpen={isUserListDialogOpen}
-          title={dialogTitle}
-          onClose={handleCloseUserListDialog}
-          variant="list-create"
-          option="with-movie-addition"
-          movieId={movieId}
-          userListType={userListType}
-        />
-      )}
+      {user != null &&
+        dialogMode === "select" &&
+        userListsWithMovieStatus.length > 0 && (
+          <UserListDialogVariant
+            isOpen={isUserListDialogOpen}
+            title={dialogTitle}
+            onClose={handleCloseUserListDialog}
+            variant="list-select"
+            lists={userListsWithMovieStatus}
+            listIdToUpdate={listIdToUpdate}
+            onAdd={handleAddMovieToUserList}
+            onRemove={handleDeleteMovieFromUserList}
+            onCreateNew={handleSwitchDialogMode.bind(null, "create")}
+          />
+        )}
+      {user != null &&
+        (dialogMode === "create" || userListsWithMovieStatus.length === 0) && (
+          <UserListDialogVariant
+            isOpen={isUserListDialogOpen}
+            title={dialogTitle}
+            onClose={handleCloseUserListDialog}
+            variant="list-create"
+            option="with-movie-addition"
+            movieId={movieId}
+            userListType={userListType}
+            onSwitchToListSelect={
+              userListsWithMovieStatus.length > 0
+                ? handleSwitchDialogMode.bind(null, "select")
+                : undefined
+            }
+          />
+        )}
     </>
   );
 };
