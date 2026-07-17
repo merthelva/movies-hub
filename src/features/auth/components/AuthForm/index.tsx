@@ -54,7 +54,6 @@ const AuthForm = ({ mode, redirectTo }: AuthFormPropsType) => {
               ? String(state.formFields.name)
               : ""
           }
-          hasError={state.status === "error"}
           placeholder={t("namePlaceholder")}
         />
       )}
@@ -65,7 +64,6 @@ const AuthForm = ({ mode, redirectTo }: AuthFormPropsType) => {
         name="email"
         label={t("email")}
         defaultValue={state.status === "error" ? state.formFields.email : ""}
-        hasError={state.status === "error"}
         placeholder="test@placeholder.com"
       />
       <Input
@@ -75,7 +73,6 @@ const AuthForm = ({ mode, redirectTo }: AuthFormPropsType) => {
         name="password"
         label={t("password")}
         defaultValue={state.status === "error" ? state.formFields.password : ""}
-        hasError={state.status === "error"}
         placeholder={t("passwordPlaceholder")}
       />
       {!isLogin && (
@@ -90,7 +87,6 @@ const AuthForm = ({ mode, redirectTo }: AuthFormPropsType) => {
               ? String(state.formFields.confirmPassword)
               : ""
           }
-          hasError={state.status === "error"}
           placeholder={t("passwordPlaceholder")}
         />
       )}
