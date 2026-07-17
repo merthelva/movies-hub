@@ -28,13 +28,6 @@ const UpdateAccountForm = ({
   const tAuth = useTranslations("Auth");
   const tCommon = useTranslations("Common");
   const { refreshUser, logout } = useAuth();
-  const [formFieldValues, setFormFieldValues] = useImmer(() => {
-    return {
-      ...initialFormFieldValues,
-      name,
-      email,
-    };
-  });
   const [readOnlyFormFields, updateReadOnlyFormFields] = useImmer(
     initialReadOnlyFormFields,
   );
@@ -43,15 +36,6 @@ const UpdateAccountForm = ({
     updateProfileFormAction.bind(null, userId, readOnlyFormFields),
     INITIAL_STATE,
   );
-
-  const handleChangeFormFieldValue = (
-    e: ChangeEvent<HTMLInputElement, HTMLInputElement>,
-  ) => {
-    setFormFieldValues((draft) => {
-      draft[e.target.id as ObjectKeysType<typeof formFieldValues>] =
-        e.target.value;
-    });
-  };
 
   const handleSwitchFieldUpdateStatus = (
     id: ObjectKeysType<typeof readOnlyFormFields>,
@@ -82,7 +66,7 @@ const UpdateAccountForm = ({
       // `refreshUser` updates `user` context value in the background,
       // which means fields like "name" and/or "email" updated in UI.
       await refreshUser();
-      toast.success(state.message);
+      // toast.success(state.message);
     };
 
     updateUserDetails();
@@ -97,12 +81,11 @@ const UpdateAccountForm = ({
           autoComplete="off"
           id="name"
           name="name"
-          value={formFieldValues.name}
+          defaultValue={state.status === "error" ? state.formFields.name : name}
           readOnly={readOnlyFormFields.name}
           label={tAuth("name")}
           shouldFieldUpdated={!readOnlyFormFields.name}
           onSwitch={(yesOrNo) => handleSwitchFieldUpdateStatus("name", yesOrNo)}
-          onChange={handleChangeFormFieldValue}
         />
         <InputWithSwitch
           aria-describedby="update-email-error"
@@ -110,31 +93,29 @@ const UpdateAccountForm = ({
           autoComplete="off"
           id="email"
           name="email"
-          value={formFieldValues.email}
+          defaultValue={
+            state.status === "error" ? state.formFields.email : email
+          }
           readOnly={readOnlyFormFields.email}
           label={tAuth("email")}
           shouldFieldUpdated={!readOnlyFormFields.email}
           onSwitch={(yesOrNo) =>
             handleSwitchFieldUpdateStatus("email", yesOrNo)
           }
-          onChange={handleChangeFormFieldValue}
         />
         <Input
           aria-describedby="update-currentPassword-error"
           type="password"
           id="currentPassword"
           name="currentPassword"
-          value={formFieldValues.currentPassword}
           label={tProfile("currentPassword")}
           placeholder={tProfile("currentPasswordPlaceholder")}
-          onChange={handleChangeFormFieldValue}
         />
         <InputWithSwitch
           aria-describedby="update-newPassword-error"
           type="password"
           id="newPassword"
           name="newPassword"
-          value={formFieldValues.newPassword}
           readOnly={readOnlyFormFields.newPassword}
           label={tProfile("newPassword")}
           placeholder={tProfile("newPasswordPlaceholder")}
@@ -142,17 +123,14 @@ const UpdateAccountForm = ({
           onSwitch={(yesOrNo) =>
             handleSwitchFieldUpdateStatus("newPassword", yesOrNo)
           }
-          onChange={handleChangeFormFieldValue}
         />
         <Input
           aria-describedby="update-confirmPassword-error"
           type="password"
           id="confirmPassword"
           name="confirmPassword"
-          value={formFieldValues.confirmPassword}
           readOnly={readOnlyFormFields.newPassword}
           label={tAuth("confirmPassword")}
-          onChange={handleChangeFormFieldValue}
         />
         {state.status === "error" && state.message && (
           <Message
