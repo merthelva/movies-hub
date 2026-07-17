@@ -33,7 +33,6 @@ export default async function ProfilePage({
       <h1 className={styles.title}>{t("title")}</h1>
       <ProfileDetails email={response.user.email} name={response.user.name} />
       <UpdateAccountForm
-        key={`${response.user.name}-${response.user.email}`}
         id={response.user.id}
         email={response.user.email}
         name={response.user.name}
