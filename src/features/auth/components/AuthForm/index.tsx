@@ -78,6 +78,22 @@ const AuthForm = ({ mode, redirectTo }: AuthFormPropsType) => {
         hasError={state.status === "error"}
         placeholder={t("passwordPlaceholder")}
       />
+      {!isLogin && (
+        <Input
+          aria-describedby="auth-form-error"
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          label={t("confirmPassword")}
+          defaultValue={
+            state.status === "error" && "confirmPassword" in state.formFields
+              ? String(state.formFields.confirmPassword)
+              : ""
+          }
+          hasError={state.status === "error"}
+          placeholder={t("passwordPlaceholder")}
+        />
+      )}
       {state.status === "error" && state.message && (
         <Message
           id="auth-form-error"

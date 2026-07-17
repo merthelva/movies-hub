@@ -86,7 +86,8 @@
     "passwordPlaceholder": "Enter at least 6 characters",
     "nameMinLength": "Name must be at least 2 characters",
     "nameMaxLength": "Name must be at most 50 characters",
-    "passwordMinLength": "Password should be at least 6 characters long"
+    "passwordMinLength": "Password should be at least 6 characters long",
+    "confirmPasswordMinLength": "Confirm password should be at least 6 characters long"
   },
   "Profile": {
     "title": "Profile",

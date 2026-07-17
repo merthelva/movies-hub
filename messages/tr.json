@@ -86,7 +86,8 @@
     "passwordPlaceholder": "En az 6 karakter girin",
     "nameMinLength": "İsim en az 2 karakter olmalıdır",
     "nameMaxLength": "İsim en fazla 50 karakter olmalıdır",
-    "passwordMinLength": "Şifre en az 6 karakter uzunluğunda olmalıdır"
+    "passwordMinLength": "Şifre en az 6 karakter uzunluğunda olmalıdır",
+    "confirmPasswordMinLength": "Şifre onayı en az 6 karakter uzunluğunda olmalıdır"
   },
   "Profile": {
     "title": "Profil",

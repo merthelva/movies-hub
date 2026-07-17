@@ -21,21 +21,26 @@ import type {
   RegisterCredentialsType,
 } from "@/features/auth/types/actions.type";
 
-const authFormActionFactory = <TCredentials extends Record<string, string>>(
-  createAuthSchema: (t: TranslatorType<"Auth">) => ZodType<TCredentials>,
-  fields: Array<keyof TCredentials & string>,
+const authFormActionFactory = <
+  TFormFields extends Record<string, string>,
+  TCredentials extends Record<string, string> = TFormFields,
+>(
+  createAuthSchema: (t: TranslatorType<"Auth">) => ZodType<TFormFields>,
+  fields: Array<keyof TFormFields & string>,
   authServerAction: AuthServerActionCallbackType<TCredentials>,
+  toCredentials: (formFields: TFormFields) => TCredentials = (formFields) =>
+    formFields as unknown as TCredentials,
 ) => {
   return async (
     _prevState: FormActionStateType,
     formData: FormData,
-  ): Promise<FormActionStateType<TCredentials>> => {
+  ): Promise<FormActionStateType<TFormFields>> => {
     const formFields = fields.reduce((acc, field) => {
       acc[field] = String(
         formData.get(field) ?? "",
-      ) as TCredentials[typeof field];
+      ) as TFormFields[typeof field];
       return acc;
-    }, {} as TCredentials);
+    }, {} as TFormFields);
 
     const t = await getTranslations("Auth");
     const authSchema = createAuthSchema(t);
@@ -46,21 +51,20 @@ const authFormActionFactory = <TCredentials extends Record<string, string>>(
         ...parsedAuthForm,
         formFields,
         message: parsedAuthForm.message.join("\n"),
-      } as FormActionStateType<TCredentials>;
+      } as FormActionStateType<TFormFields>;
     }
 
     const locale = (await getLocale()) as LocaleType;
-    const response = await authServerAction(
-      parsedAuthForm.data,
-      Language[locale],
-    );
+    const credentials = toCredentials(parsedAuthForm.data);
+
+    const response = await authServerAction(credentials, Language[locale]);
 
     if (response.status === "error") {
       return {
         status: "error",
         formFields,
         message: serializeMessage("error", response.message),
-      } as FormActionStateType<TCredentials>;
+      } as FormActionStateType<TFormFields>;
     }
 
     return { status: response.status };
@@ -73,10 +77,14 @@ const loginFormAction = authFormActionFactory<LoginCredentialsType>(
   login,
 );
 
-const registerFormAction = authFormActionFactory<RegisterCredentialsType>(
+const registerFormAction = authFormActionFactory<
+  RegisterCredentialsType & { confirmPassword: string },
+  RegisterCredentialsType
+>(
   createRegisterSchema,
-  ["name", "email", "password"],
+  ["name", "email", "password", "confirmPassword"],
   register,
+  ({ confirmPassword: _confirmPassword, ...credentials }) => credentials,
 );
 
 export { loginFormAction, registerFormAction };
