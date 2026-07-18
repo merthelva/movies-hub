@@ -9,7 +9,7 @@ const getInitials = (name: string) => {
     return tokens[0][0].toUpperCase();
   }
 
-  let initials: Array<string> = [];
+  const initials: Array<string> = [];
   let initialsCounter = 0;
   for (const token of tokens) {
     if (initialsCounter === 2) {

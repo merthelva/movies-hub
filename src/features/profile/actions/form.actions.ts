@@ -60,7 +60,7 @@ const updateProfileFormAction = async (
 
   // The service does not expect a field with empty string value. If a field has so,
   // it should rather not be sent to the service within request payload/body at all.
-  let payload: UpdateProfilePayloadType = {
+  const payload: UpdateProfilePayloadType = {
     currentPassword,
   };
   if (

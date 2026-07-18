@@ -12,6 +12,6 @@ type FormActionStateType<TFormFields = undefined> =
       errorFields?: Set<string>;
     } & (TFormFields extends Record<infer K, infer V>
       ? Record<"formFields", Record<K, V>>
-      : {}));
+      : Record<string, unknown>));
 
 export type { FormActionStateType };

@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, type ChangeEvent } from "react";
+import { useActionState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useImmer } from "use-immer";
 import { toast } from "sonner";
@@ -12,7 +12,6 @@ import type { ObjectKeysType } from "@/common/types/object-keys.type";
 import { updateProfileFormAction } from "@/features/profile/actions/form.actions";
 import { INITIAL_STATE } from "@/features/profile/constants/form-initial-state.constant";
 import { initialReadOnlyFormFields } from "@/features/profile/constants/initial-read-only-form-fields.constant";
-import { initialFormFieldValues } from "@/features/profile/constants/initial-form-field-values.constant";
 import { InputWithSwitch } from "@/features/profile/components/InputWithSwitch";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
