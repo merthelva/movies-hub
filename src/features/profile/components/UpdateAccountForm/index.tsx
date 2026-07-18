@@ -66,7 +66,7 @@ const UpdateAccountForm = ({
       // `refreshUser` updates `user` context value in the background,
       // which means fields like "name" and/or "email" updated in UI.
       await refreshUser();
-      // toast.success(state.message);
+      toast.success(state.message);
     };
 
     updateUserDetails();

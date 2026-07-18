@@ -28,7 +28,7 @@ const updateProfileFormAction = async (
   };
 
   const t = await getTranslations("Profile");
-  const updateProfileSchema = createUpdateProfileSchema(t);
+  const updateProfileSchema = createUpdateProfileSchema(t, readOnlyFormFields);
 
   const parsedProfileUpdateForm = safeParseFormBody(updateProfileSchema, {
     ...formFields,

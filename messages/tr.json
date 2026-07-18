@@ -109,7 +109,7 @@
     "invalidEmail": "Geçersiz e-posta adresi",
     "newPasswordMinLength": "Yeni şifre en az 6 karakter uzunluğunda olmalıdır",
     "confirmPasswordMinLength": "Şifre onayı en az 6 karakter uzunluğunda olmalıdır",
-    "currentPasswordRequired": "Yeni şifre belirlemek için mevcut şifrenizi girmeniz gerekir",
+    "currentPasswordRequired": "Profil detaylarını güncellemek için mevcut şifrenizi girmeniz gerekir",
     "passwordMismatch": "Şifreler eşleşmiyor"
   },
   "Lists": {

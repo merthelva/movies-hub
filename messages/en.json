@@ -109,7 +109,7 @@
     "invalidEmail": "Invalid email address",
     "newPasswordMinLength": "New password should be at least 6 characters long",
     "confirmPasswordMinLength": "Confirm password should be at least 6 characters long",
-    "currentPasswordRequired": "Current password is required to set a new password",
+    "currentPasswordRequired": "Current password is required to update profile details",
     "passwordMismatch": "Passwords do not match"
   },
   "Lists": {
