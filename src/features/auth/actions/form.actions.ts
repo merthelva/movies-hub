@@ -13,7 +13,7 @@ import { Language } from "@/common/constants/language.constant";
 import type { LocaleType } from "@/common/types/locale.type";
 import type { TranslatorType } from "@/common/types/translator.type";
 import { serializeMessage } from "@/common/utils/serialize-message.util";
-import { safeParseFormBody } from "@/features/auth/utils/safe-parse-form-body.util";
+import { safeParseFormBody } from "@/common/utils/safe-parse-form-body.util";
 import type { FormActionStateType } from "@/common/types/form-action-state.type";
 import type {
   AuthServerActionCallbackType,

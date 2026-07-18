@@ -5,7 +5,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { createUpdateProfileSchema } from "@/features/profile/schemas";
 import { updateProfile } from "@/features/profile/services";
 import type { initialReadOnlyFormFields } from "@/features/profile/constants/initial-read-only-form-fields.constant";
-import { safeParseFormBody } from "@/features/auth/utils/safe-parse-form-body.util";
+import { safeParseFormBody } from "@/common/utils/safe-parse-form-body.util";
 import { serializeMessage } from "@/common/utils/serialize-message.util";
 import type { FormActionStateType } from "@/common/types/form-action-state.type";
 import type { ProfileUpdateBodyType } from "@/features/profile/types/actions.type";

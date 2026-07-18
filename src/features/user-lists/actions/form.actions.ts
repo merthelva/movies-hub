@@ -3,7 +3,7 @@
 import { getTranslations } from "next-intl/server";
 
 import { createListCreateSchema } from "@/features/user-lists/schemas";
-import { safeParseFormBody } from "@/features/auth/utils/safe-parse-form-body.util";
+import { safeParseFormBody } from "@/common/utils/safe-parse-form-body.util";
 import { serializeMessage } from "@/common/utils/serialize-message.util";
 import type { UserListType } from "@/features/user-lists/types/user-list.type";
 import type { FormActionStateType } from "@/common/types/form-action-state.type";
