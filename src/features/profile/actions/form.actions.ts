@@ -39,6 +39,7 @@ const updateProfileFormAction = async (
     return {
       status: "error",
       formFields,
+      errorFields: parsedProfileUpdateForm.path,
       message: parsedProfileUpdateForm.message.join("\n"),
     };
   }

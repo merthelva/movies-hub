@@ -50,6 +50,7 @@ const authFormActionFactory = <
       return {
         ...parsedAuthForm,
         formFields,
+        errorFields: parsedAuthForm.path,
         message: parsedAuthForm.message.join("\n"),
       } as FormActionStateType<TFormFields>;
     }

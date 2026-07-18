@@ -84,6 +84,7 @@ const UpdateAccountForm = ({
           defaultValue={state.status === "error" ? state.formFields.name : name}
           readOnly={readOnlyFormFields.name}
           label={tAuth("name")}
+          hasError={state.status === "error" && state.errorFields?.has("name")}
           shouldFieldUpdated={!readOnlyFormFields.name}
           onSwitch={(yesOrNo) => handleSwitchFieldUpdateStatus("name", yesOrNo)}
         />
@@ -98,6 +99,7 @@ const UpdateAccountForm = ({
           }
           readOnly={readOnlyFormFields.email}
           label={tAuth("email")}
+          hasError={state.status === "error" && state.errorFields?.has("email")}
           shouldFieldUpdated={!readOnlyFormFields.email}
           onSwitch={(yesOrNo) =>
             handleSwitchFieldUpdateStatus("email", yesOrNo)
@@ -109,6 +111,10 @@ const UpdateAccountForm = ({
           id="currentPassword"
           name="currentPassword"
           label={tProfile("currentPassword")}
+          hasError={
+            state.status === "error" &&
+            state.errorFields?.has("currentPassword")
+          }
           placeholder={tProfile("currentPasswordPlaceholder")}
         />
         <InputWithSwitch
@@ -118,6 +124,9 @@ const UpdateAccountForm = ({
           name="newPassword"
           readOnly={readOnlyFormFields.newPassword}
           label={tProfile("newPassword")}
+          hasError={
+            state.status === "error" && state.errorFields?.has("newPassword")
+          }
           placeholder={tProfile("newPasswordPlaceholder")}
           shouldFieldUpdated={!readOnlyFormFields.newPassword}
           onSwitch={(yesOrNo) =>
@@ -131,6 +140,10 @@ const UpdateAccountForm = ({
           name="confirmPassword"
           readOnly={readOnlyFormFields.newPassword}
           label={tAuth("confirmPassword")}
+          hasError={
+            state.status === "error" &&
+            state.errorFields?.has("confirmPassword")
+          }
         />
         {state.status === "error" && state.message && (
           <Message
