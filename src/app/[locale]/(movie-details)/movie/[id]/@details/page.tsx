@@ -73,7 +73,9 @@ export default async function DetailsPage({
           <span className={styles.separator}>•</span>
           <span className={styles.year}>{year}</span>
           <span className={styles.separator}>•</span>
-          <span className={styles.runtime}>{formatRuntime(movie.runtime)}</span>
+          <span className={styles.runtime}>
+            {formatRuntime(movie.runtime, locale as LocaleType)}
+          </span>
         </div>
         <div className={styles.genres}>
           {movie.genres.map((genre) => (
