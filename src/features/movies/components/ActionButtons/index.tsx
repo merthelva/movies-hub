@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useImmer } from "use-immer";
 import { toast } from "sonner";
 
@@ -20,12 +20,15 @@ import {
   getUserWatchlistsWithMovieStatus,
 } from "@/features/user-lists/services";
 import type { UserListType } from "@/features/user-lists/types/user-list.type";
+import { Language } from "@/common/constants/language.constant";
+import type { LocaleType } from "@/common/types/locale.type";
 import { serializeMessage } from "@/common/utils/serialize-message.util";
 import type { UserListsWithMovieStatusResponseType } from "@/features/user-lists/types/service-response.type";
 import type { ListSelectVariantPropsType } from "@/features/user-lists/components/ListSelectVariant/component.type";
 
 const ActionButtons = ({ movieId }: ActionButtonsPropsType) => {
   const { user } = useAuth();
+  const locale = useLocale() as LocaleType;
   const t = useTranslations("Lists");
   const [isUserListDialogOpen, setIsUserListDialogOpen] = useState(false);
   const [dialogMode, setDialogMode] = useState<"select" | "create">("select");
@@ -89,7 +92,11 @@ const ActionButtons = ({ movieId }: ActionButtonsPropsType) => {
 
     setListIdToUpdate(listId);
 
-    const response = await addMovieToUserListFn(listId, movieId);
+    const response = await addMovieToUserListFn(
+      listId,
+      movieId,
+      Language[locale],
+    );
 
     setListIdToUpdate(null);
 
@@ -117,7 +124,11 @@ const ActionButtons = ({ movieId }: ActionButtonsPropsType) => {
 
     setListIdToUpdate(listId);
 
-    const response = await deleteMovieFromUserListFn(listId, movieId);
+    const response = await deleteMovieFromUserListFn(
+      listId,
+      movieId,
+      Language[locale],
+    );
 
     setListIdToUpdate(null);
 

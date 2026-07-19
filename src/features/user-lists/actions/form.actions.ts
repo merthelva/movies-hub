@@ -1,12 +1,14 @@
 "use server";
 
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { createListCreateSchema } from "@/features/user-lists/schemas";
+import { Language } from "@/common/constants/language.constant";
 import { safeParseFormBody } from "@/common/utils/safe-parse-form-body.util";
 import { serializeMessage } from "@/common/utils/serialize-message.util";
 import type { UserListType } from "@/features/user-lists/types/user-list.type";
 import type { FormActionStateType } from "@/common/types/form-action-state.type";
+import type { LocaleType } from "@/common/types/locale.type";
 import type { ListCreateBodyType } from "@/features/user-lists/types/actions.type";
 import {
   createUserFavoritelist,
@@ -39,12 +41,17 @@ const listCreateFormAction = async (
     };
   }
 
+  const locale = (await getLocale()) as LocaleType;
+
   const createUserListFn =
     userListType === "favoritelists"
       ? createUserFavoritelist
       : createUserWatchlist;
 
-  const response = await createUserListFn(parsedListCreateForm.data.name);
+  const response = await createUserListFn(
+    parsedListCreateForm.data.name,
+    Language[locale],
+  );
   if (response.status === "error") {
     return {
       status: "error",
@@ -69,6 +76,7 @@ const listCreateFormAction = async (
   const movieAddToListResponse = await addMovieToUserListFn(
     response.data.id,
     movieId,
+    Language[locale],
   );
 
   if (movieAddToListResponse.status === "error") {
@@ -108,12 +116,18 @@ const listEditFormAction = async (
     };
   }
 
+  const locale = (await getLocale()) as LocaleType;
+
   const updateUserListFn =
     userListType === "favoritelists"
       ? updateUserFavoritelist
       : updateUserWatchlist;
 
-  const response = await updateUserListFn(listId, parsedListEditForm.data.name);
+  const response = await updateUserListFn(
+    listId,
+    parsedListEditForm.data.name,
+    Language[locale],
+  );
   if (response.status === "error") {
     return {
       status: "error",
