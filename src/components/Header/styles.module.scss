@@ -25,6 +25,10 @@
 
 .logo {
   margin-inline-end: auto;
+
+  &:hover::after {
+    content: none;
+  }
 }
 
 .nav {
