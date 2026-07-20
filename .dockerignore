@@ -1,0 +1,9 @@
+node_modules
+.next
+.git
+.gitignore
+*.md
+tsconfig.tsbuildinfo
+.env*.local
+.vercel
+coverage

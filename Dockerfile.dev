@@ -1,0 +1,21 @@
+FROM node:22-alpine
+
+# Standard fix for Next.js SWC binary loading on Alpine (musl vs glibc)
+RUN apk add --no-cache libc6-compat
+
+WORKDIR /app
+
+RUN corepack enable && corepack prepare pnpm@10.18.1 --activate
+
+# Install deps first so cached layer survives source changes
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
+
+COPY . .
+
+ENV NODE_ENV=development
+ENV WATCHPACK_POLLING=true
+
+EXPOSE 3000
+
+CMD ["pnpm", "dev"]
