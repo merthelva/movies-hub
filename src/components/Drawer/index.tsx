@@ -88,9 +88,9 @@ const Drawer = ({ isOpen, onClose }: DrawerPropsType) => {
             {isLoading ? (
               <LoadingIndicator />
             ) : isAuthenticated ? (
-              "Logout"
+              t("logout")
             ) : (
-              "Login"
+              t("login")
             )}
           </Button>
         </div>
