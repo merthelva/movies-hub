@@ -25,7 +25,8 @@
     "watchlists": "Watchlists",
     "favoritelists": "Favoritelists",
     "profile": "Profile",
-    "openNavMenu": "Open navigation menu"
+    "openNavMenu": "Open navigation menu",
+    "skipToMainContent": "Skip to main content"
   },
   "Home": {
     "title": "Movies Hub",

@@ -1,6 +1,7 @@
 import { Roboto } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Toaster } from "sonner";
 
 import type { LocaleLayoutPropsType } from "./props.type";
@@ -27,6 +28,7 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+  const t = await getTranslations("Common");
 
   return (
     <html lang={locale} data-theme="dark">
@@ -34,8 +36,14 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           <AuthProvider>
             <ThemeProvider>
+              <a href="#main-content" className={styles.skipLink}>
+                {t("skipToMainContent")}
+              </a>
               <Header />
-              <main className={joinClassNames("fluid-wrapper", styles.main)}>
+              <main
+                id="main-content"
+                className={joinClassNames("fluid-wrapper", styles.main)}
+              >
                 {children}
               </main>
               <Toaster position="top-right" richColors />
