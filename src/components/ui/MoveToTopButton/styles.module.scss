@@ -1,0 +1,15 @@
+@use "@/styles/mixins" as m;
+
+.button {
+  --size: 44px;
+  @include m.flex-center;
+
+  position: fixed;
+  bottom: var(--spacing-lg);
+  right: var(--spacing-lg);
+  z-index: var(--z-fixed);
+  width: var(--size);
+  height: var(--size);
+  padding: 0;
+  border-radius: var(--radius-full);
+}

@@ -11,6 +11,7 @@ import "@/app/globals.scss";
 import { AuthProvider } from "@/features/auth/context";
 import { ThemeProvider } from "@/context/theme";
 import { Header } from "@/components/Header";
+import { MoveToTopButton } from "@/components/ui/MoveToTopButton";
 import { routing } from "@/i18n/routing";
 import { joinClassNames } from "@/common/utils/join-classnames.util";
 
@@ -47,6 +48,7 @@ export default async function LocaleLayout({
                 {children}
               </main>
               <Toaster position="top-right" richColors />
+              <MoveToTopButton />
               {modal}
             </ThemeProvider>
           </AuthProvider>
