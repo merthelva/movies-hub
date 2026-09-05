@@ -11,10 +11,10 @@
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
     "lucide-react": "^1.16.0",
-    "next": "15.5.18",
+    "next": "15.5.24",
     "next-intl": "^4.12.0",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "react-hook-form": "^7.76.1",
     "server-only": "^0.0.1",
     "sonner": "^2.0.7",
@@ -24,10 +24,10 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
     "eslint": "^9",
-    "eslint-config-next": "15.5.18",
+    "eslint-config-next": "15.5.24",
     "sass": "^1.100.0",
     "typescript": "^5"
   }
