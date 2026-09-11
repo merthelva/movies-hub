@@ -11,10 +11,10 @@ const authMiddleware = (request: NextRequest) => {
   const { pathname } = request.nextUrl;
   const accessToken = request.cookies.get("accessToken");
 
-  const [, locale] = pathname.split("/");
+  const [path, locale] = pathname.split("/");
 
   if (!locale) {
-    return NextResponse.next();
+    return NextResponse.redirect(new URL(`/en/${path}`, request.url));
   }
 
   const isProtectedPath = protectedPaths.some((path) =>
