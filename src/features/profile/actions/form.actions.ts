@@ -7,7 +7,9 @@ import { updateProfile } from "@/features/profile/services";
 import type { initialReadOnlyFormFields } from "@/features/profile/constants/initial-read-only-form-fields.constant";
 import { safeParseFormBody } from "@/common/utils/safe-parse-form-body.util";
 import { serializeMessage } from "@/common/utils/serialize-message.util";
+import { omitSensitiveFormFields } from "@/common/utils/omit-sensitive-form-fields.util";
 import type { FormActionStateType } from "@/common/types/form-action-state.type";
+import type { WithoutSensitiveFormFieldsType } from "@/common/types/sensitive-form-field.type";
 import type { ProfileUpdateBodyType } from "@/features/profile/types/actions.type";
 import { Language } from "@/common/constants/language.constant";
 import type { LocaleType } from "@/common/types/locale.type";
@@ -17,15 +19,20 @@ import { getCurrentUser } from "@/features/auth/actions";
 const updateProfileFormAction = async (
   userId: number,
   readOnlyFormFields: typeof initialReadOnlyFormFields,
-  _prevState: FormActionStateType<ProfileUpdateBodyType>,
+  _prevState: FormActionStateType<
+    WithoutSensitiveFormFieldsType<ProfileUpdateBodyType>
+  >,
   formData: FormData,
-): Promise<FormActionStateType<ProfileUpdateBodyType>> => {
+): Promise<
+  FormActionStateType<WithoutSensitiveFormFieldsType<ProfileUpdateBodyType>>
+> => {
   const formFields: ProfileUpdateBodyType = {
     name: String(formData.get("name") ?? ""),
     email: String(formData.get("email") ?? ""),
     currentPassword: String(formData.get("currentPassword") ?? ""),
     newPassword: String(formData.get("newPassword") ?? ""),
   };
+  const echoedFormFields = omitSensitiveFormFields(formFields);
 
   const t = await getTranslations("Profile");
   const updateProfileSchema = createUpdateProfileSchema(t, readOnlyFormFields);
@@ -38,7 +45,7 @@ const updateProfileFormAction = async (
   if (parsedProfileUpdateForm.status === "error") {
     return {
       status: "error",
-      formFields,
+      formFields: echoedFormFields,
       errorFields: parsedProfileUpdateForm.path,
       message: parsedProfileUpdateForm.message.join("\n"),
     };
@@ -51,7 +58,7 @@ const updateProfileFormAction = async (
   if (!currentUserResponse.ok) {
     return {
       status: "error",
-      formFields,
+      formFields: echoedFormFields,
       message: "User is not authenticated or token expired", // TODO: Add translation
     };
   }
@@ -83,7 +90,7 @@ const updateProfileFormAction = async (
   if (response.status === "error") {
     return {
       status: "error",
-      formFields,
+      formFields: echoedFormFields,
       message: serializeMessage("error", response.message),
     };
   }

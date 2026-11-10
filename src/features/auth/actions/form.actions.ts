@@ -14,7 +14,9 @@ import type { LocaleType } from "@/common/types/locale.type";
 import type { TranslatorType } from "@/common/types/translator.type";
 import { serializeMessage } from "@/common/utils/serialize-message.util";
 import { safeParseFormBody } from "@/common/utils/safe-parse-form-body.util";
+import { omitSensitiveFormFields } from "@/common/utils/omit-sensitive-form-fields.util";
 import type { FormActionStateType } from "@/common/types/form-action-state.type";
+import type { WithoutSensitiveFormFieldsType } from "@/common/types/sensitive-form-field.type";
 import type {
   AuthServerActionCallbackType,
   LoginCredentialsType,
@@ -34,13 +36,16 @@ const authFormActionFactory = <
   return async (
     _prevState: FormActionStateType,
     formData: FormData,
-  ): Promise<FormActionStateType<TFormFields>> => {
+  ): Promise<
+    FormActionStateType<WithoutSensitiveFormFieldsType<TFormFields>>
+  > => {
     const formFields = fields.reduce((acc, field) => {
       acc[field] = String(
         formData.get(field) ?? "",
       ) as TFormFields[typeof field];
       return acc;
     }, {} as TFormFields);
+    const echoedFormFields = omitSensitiveFormFields(formFields);
 
     const t = await getTranslations("Auth");
     const authSchema = createAuthSchema(t);
@@ -49,10 +54,10 @@ const authFormActionFactory = <
     if (parsedAuthForm.status === "error") {
       return {
         ...parsedAuthForm,
-        formFields,
+        formFields: echoedFormFields,
         errorFields: parsedAuthForm.path,
         message: parsedAuthForm.message.join("\n"),
-      } as FormActionStateType<TFormFields>;
+      } as FormActionStateType<WithoutSensitiveFormFieldsType<TFormFields>>;
     }
 
     const locale = (await getLocale()) as LocaleType;
@@ -63,9 +68,9 @@ const authFormActionFactory = <
     if (response.status === "error") {
       return {
         status: "error",
-        formFields,
+        formFields: echoedFormFields,
         message: serializeMessage("error", response.message),
-      } as FormActionStateType<TFormFields>;
+      } as FormActionStateType<WithoutSensitiveFormFieldsType<TFormFields>>;
     }
 
     return { status: response.status };

@@ -74,7 +74,6 @@ const AuthForm = ({ mode, redirectTo }: AuthFormPropsType) => {
         id="password"
         name="password"
         label={t("password")}
-        defaultValue={state.status === "error" ? state.formFields.password : ""}
         hasError={
           state.status === "error" && state.errorFields?.has("password")
         }
@@ -87,11 +86,6 @@ const AuthForm = ({ mode, redirectTo }: AuthFormPropsType) => {
           id="confirmPassword"
           name="confirmPassword"
           label={t("confirmPassword")}
-          defaultValue={
-            state.status === "error" && "confirmPassword" in state.formFields
-              ? String(state.formFields.confirmPassword)
-              : ""
-          }
           hasError={
             state.status === "error" &&
             state.errorFields?.has("confirmPassword")
