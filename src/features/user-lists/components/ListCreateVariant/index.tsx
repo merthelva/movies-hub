@@ -65,7 +65,7 @@ const ListCreateVariant = ({
           label={tLists("listName")}
           defaultValue={state.status === "error" ? state.formFields.name : ""}
           hasError={
-            state.status === "error" && state.errorFields?.has("list-name")
+            state.status === "error" && state.errorFields?.has("name")
           }
           placeholder={tLists("listNamePlaceholder")}
         />
