@@ -13,308 +13,231 @@ import type { SuccessResponseType } from "@/common/types/success-response.type";
 import type { QueryParamsType } from "@/features/movies/types/query-params.type";
 import type { LanguageType } from "@/common/types/language.type";
 
-const createUserFavoritelist = async (name: string, language?: LanguageType) => {
+// Favorite lists and watchlists share the exact same API shape; only the
+// endpoint prefix differs. Everything below is written once and parametrized by
+// this prefix. Non-exported helpers are allowed in a "use server" file, only
+// exports must be async functions (and become callable endpoints).
+type ListKindType = "favoritelists" | "watchlists";
+
+const DEFAULT_QUERY_PARAMS: QueryParamsType = { page: 1, limit: 10 };
+
+const LIST_PAGE_PATTERN = "/[locale]/user/[listType]";
+const LIST_MOVIES_PAGE_PATTERN = "/[locale]/user/[listType]/id/[listId]/movies";
+
+const buildPaginationQuery = ({ page, limit }: QueryParamsType) => {
+  const queryParams = new URLSearchParams();
+  queryParams.set("page", String(page));
+  queryParams.set("limit", String(limit));
+  return queryParams.toString();
+};
+
+const createList = async (
+  kind: ListKindType,
+  name: string,
+  language?: LanguageType,
+) => {
   const response = await apiService<ListCreateResponseType>(
-    "/favoritelists/create",
-    {
-      method: "POST",
-      withAuth: true,
-      body: { name },
-      language,
-    },
+    `/${kind}/create`,
+    { method: "POST", withAuth: true, body: { name }, language },
   );
 
   if (response.status === "success") {
-    revalidatePath("/[locale]/user/[listType]", "page");
+    revalidatePath(LIST_PAGE_PATTERN, "page");
   }
 
   return response;
 };
 
-const createUserWatchlist = async (name: string, language?: LanguageType) => {
-  const response = await apiService<ListCreateResponseType>(
-    "/watchlists/create",
-    {
-      method: "POST",
-      withAuth: true,
-      body: {
-        name,
-      },
-      language,
-    },
-  );
-
-  if (response.status === "success") {
-    revalidatePath("/[locale]/user/[listType]", "page");
-  }
-
-  return response;
-};
-
-const getAllUserFavoritelists = async (
-  params: QueryParamsType = { page: 1, limit: 10 },
+const getAllLists = async (
+  kind: ListKindType,
+  params: QueryParamsType,
   language?: LanguageType,
 ) => {
-  const queryParams = new URLSearchParams();
-  queryParams.set("page", String(params.page));
-  queryParams.set("limit", String(params.limit));
-  const queryString = queryParams.toString();
-
   return await apiService<PaginatedUserListsResponseType>(
-    `/favoritelists/all${queryString ? `?${queryString}` : ""}`,
+    `/${kind}/all?${buildPaginationQuery(params)}`,
     { withAuth: true, language },
   );
 };
 
-const getAllUserWatchlists = async (
-  params: QueryParamsType = { page: 1, limit: 10 },
-  language?: LanguageType,
-) => {
-  const queryParams = new URLSearchParams();
-  queryParams.set("page", String(params.page));
-  queryParams.set("limit", String(params.limit));
-  const queryString = queryParams.toString();
-
-  return await apiService<PaginatedUserListsResponseType>(
-    `/watchlists/all${queryString ? `?${queryString}` : ""}`,
-    {
-      withAuth: true,
-      language,
-    },
-  );
-};
-
-const getAllUserFavoritelistMovies = async (
-  params: QueryParamsType = { page: 1, limit: 10 },
+const getListMovies = async (
+  kind: ListKindType,
+  params: QueryParamsType,
   listId: number,
   language?: LanguageType,
 ) => {
-  const queryParams = new URLSearchParams();
-  queryParams.set("page", String(params.page));
-  queryParams.set("limit", String(params.limit));
-  const queryString = queryParams.toString();
-
   return await apiService<PaginatedUserListMoviesResponseType>(
-    `/favoritelists/${listId}${queryString ? `?${queryString}` : ""}`,
+    `/${kind}/${listId}?${buildPaginationQuery(params)}`,
     { withAuth: true, language },
   );
 };
 
-const getAllUserWatchlistMovies = async (
-  params: QueryParamsType = { page: 1, limit: 10 },
-  listId: number,
-  language?: LanguageType,
-) => {
-  const queryParams = new URLSearchParams();
-  queryParams.set("page", String(params.page));
-  queryParams.set("limit", String(params.limit));
-  const queryString = queryParams.toString();
-
-  return await apiService<PaginatedUserListMoviesResponseType>(
-    `/watchlists/${listId}${queryString ? `?${queryString}` : ""}`,
-    { withAuth: true, language },
-  );
-};
-
-const deleteUserFavoritelist = async (
+const deleteList = async (
+  kind: ListKindType,
   listId: number,
   language?: LanguageType,
 ) => {
   const response = await apiService<SuccessResponseType>(
-    `/favoritelists/delete/${listId}`,
+    `/${kind}/delete/${listId}`,
     { method: "DELETE", withAuth: true, language },
   );
 
   if (response.status === "success") {
-    revalidatePath("/[locale]/user/[listType]", "page");
+    revalidatePath(LIST_PAGE_PATTERN, "page");
   }
 
   return response;
 };
 
-const deleteUserWatchlist = async (
+const updateList = async (
+  kind: ListKindType,
   listId: number,
+  name: string,
+  language?: LanguageType,
+) => {
+  const response = await apiService<SuccessResponseType>(`/${kind}/${listId}`, {
+    method: "PATCH",
+    withAuth: true,
+    body: { name },
+    language,
+  });
+
+  if (response.status === "success") {
+    revalidatePath(LIST_PAGE_PATTERN, "page");
+  }
+
+  return response;
+};
+
+const addMovieToList = async (
+  kind: ListKindType,
+  listId: number,
+  tmdbId: number,
   language?: LanguageType,
 ) => {
   const response = await apiService<SuccessResponseType>(
-    `/watchlists/delete/${listId}`,
-    {
-      method: "DELETE",
-      withAuth: true,
-      language,
-    },
+    `/${kind}/${listId}/addMovie`,
+    { method: "POST", withAuth: true, body: { tmdbId }, language },
   );
 
   if (response.status === "success") {
-    revalidatePath("/[locale]/user/[listType]", "page");
+    revalidatePath(LIST_MOVIES_PAGE_PATTERN, "page");
   }
 
   return response;
 };
+
+const deleteMovieFromList = async (
+  kind: ListKindType,
+  listId: number,
+  tmdbId: number,
+  language?: LanguageType,
+) => {
+  const response = await apiService<SuccessResponseType>(
+    `/${kind}/${listId}/deleteMovie/${tmdbId}`,
+    { method: "DELETE", withAuth: true, language },
+  );
+
+  if (response.status === "success") {
+    revalidatePath(LIST_MOVIES_PAGE_PATTERN, "page");
+  }
+
+  return response;
+};
+
+const getListsWithMovieStatus = async (
+  kind: ListKindType,
+  tmdbId: number,
+  language?: LanguageType,
+) => {
+  return await apiService<UserListsWithMovieStatusResponseType>(
+    `/${kind}/movieStatus/${tmdbId}`,
+    { withAuth: true, language },
+  );
+};
+
+// Public API: names and signatures are unchanged, so no caller needs editing.
+// `typeof deleteUserFavoritelist` is used as a prop type elsewhere, so the two
+// variants of each operation must keep identical signatures.
+
+const createUserFavoritelist = async (name: string, language?: LanguageType) =>
+  createList("favoritelists", name, language);
+
+const createUserWatchlist = async (name: string, language?: LanguageType) =>
+  createList("watchlists", name, language);
+
+const getAllUserFavoritelists = async (
+  params: QueryParamsType = DEFAULT_QUERY_PARAMS,
+  language?: LanguageType,
+) => getAllLists("favoritelists", params, language);
+
+const getAllUserWatchlists = async (
+  params: QueryParamsType = DEFAULT_QUERY_PARAMS,
+  language?: LanguageType,
+) => getAllLists("watchlists", params, language);
+
+const getAllUserFavoritelistMovies = async (
+  params: QueryParamsType = DEFAULT_QUERY_PARAMS,
+  listId: number,
+  language?: LanguageType,
+) => getListMovies("favoritelists", params, listId, language);
+
+const getAllUserWatchlistMovies = async (
+  params: QueryParamsType = DEFAULT_QUERY_PARAMS,
+  listId: number,
+  language?: LanguageType,
+) => getListMovies("watchlists", params, listId, language);
+
+const deleteUserFavoritelist = async (listId: number, language?: LanguageType) =>
+  deleteList("favoritelists", listId, language);
+
+const deleteUserWatchlist = async (listId: number, language?: LanguageType) =>
+  deleteList("watchlists", listId, language);
 
 const updateUserFavoritelist = async (
   listId: number,
   name: string,
   language?: LanguageType,
-) => {
-  const response = await apiService<SuccessResponseType>(
-    `/favoritelists/${listId}`,
-    {
-      method: "PATCH",
-      withAuth: true,
-      body: {
-        name,
-      },
-      language,
-    },
-  );
-
-  if (response.status === "success") {
-    revalidatePath("/[locale]/user/[listType]", "page");
-  }
-
-  return response;
-};
+) => updateList("favoritelists", listId, name, language);
 
 const updateUserWatchlist = async (
   listId: number,
   name: string,
   language?: LanguageType,
-) => {
-  const response = await apiService<SuccessResponseType>(
-    `/watchlists/${listId}`,
-    {
-      method: "PATCH",
-      withAuth: true,
-      body: {
-        name,
-      },
-      language,
-    },
-  );
-
-  if (response.status === "success") {
-    revalidatePath("/[locale]/user/[listType]", "page");
-  }
-
-  return response;
-};
+) => updateList("watchlists", listId, name, language);
 
 const addMovieToUserFavoritelist = async (
   listId: number,
   tmdbId: number,
   language?: LanguageType,
-) => {
-  const response = await apiService<SuccessResponseType>(
-    `/favoritelists/${listId}/addMovie`,
-    {
-      method: "POST",
-      withAuth: true,
-      body: {
-        tmdbId,
-      },
-      language,
-    },
-  );
-
-  if (response.status === "success") {
-    revalidatePath("/[locale]/user/[listType]/id/[listId]/movies", "page");
-  }
-
-  return response;
-};
+) => addMovieToList("favoritelists", listId, tmdbId, language);
 
 const addMovieToUserWatchlist = async (
   listId: number,
   tmdbId: number,
   language?: LanguageType,
-) => {
-  const response = await apiService<SuccessResponseType>(
-    `/watchlists/${listId}/addMovie`,
-    {
-      method: "POST",
-      withAuth: true,
-      body: {
-        tmdbId,
-      },
-      language,
-    },
-  );
-
-  if (response.status === "success") {
-    revalidatePath("/[locale]/user/[listType]/id/[listId]/movies", "page");
-  }
-
-  return response;
-};
+) => addMovieToList("watchlists", listId, tmdbId, language);
 
 const deleteMovieFromUserFavoritelist = async (
   listId: number,
   tmdbId: number,
   language?: LanguageType,
-) => {
-  const response = await apiService<SuccessResponseType>(
-    `/favoritelists/${listId}/deleteMovie/${tmdbId}`,
-    {
-      method: "DELETE",
-      withAuth: true,
-      language,
-    },
-  );
-
-  if (response.status === "success") {
-    revalidatePath("/[locale]/user/[listType]/id/[listId]/movies", "page");
-  }
-
-  return response;
-};
+) => deleteMovieFromList("favoritelists", listId, tmdbId, language);
 
 const deleteMovieFromUserWatchlist = async (
   listId: number,
   tmdbId: number,
   language?: LanguageType,
-) => {
-  const response = await apiService<SuccessResponseType>(
-    `/watchlists/${listId}/deleteMovie/${tmdbId}`,
-    {
-      method: "DELETE",
-      withAuth: true,
-      language,
-    },
-  );
-
-  if (response.status === "success") {
-    revalidatePath("/[locale]/user/[listType]/id/[listId]/movies", "page");
-  }
-
-  return response;
-};
+) => deleteMovieFromList("watchlists", listId, tmdbId, language);
 
 const getUserFavoritelistsWithMovieStatus = async (
   tmdbId: number,
   language?: LanguageType,
-) => {
-  return await apiService<UserListsWithMovieStatusResponseType>(
-    `/favoritelists/movieStatus/${tmdbId}`,
-    {
-      withAuth: true,
-      language,
-    },
-  );
-};
+) => getListsWithMovieStatus("favoritelists", tmdbId, language);
 
 const getUserWatchlistsWithMovieStatus = async (
   tmdbId: number,
   language?: LanguageType,
-) => {
-  return await apiService<UserListsWithMovieStatusResponseType>(
-    `/watchlists/movieStatus/${tmdbId}`,
-    {
-      withAuth: true,
-      language,
-    },
-  );
-};
+) => getListsWithMovieStatus("watchlists", tmdbId, language);
 
 export {
   createUserFavoritelist,
