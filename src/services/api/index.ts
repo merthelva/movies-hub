@@ -2,7 +2,7 @@ import "server-only";
 
 import type { ApiErrorDataType, FetchOptionsType } from "./api.type";
 
-import { API_BASE_URL } from "@/common/constants/api-base-url.constant";
+import { getApiBaseUrl } from "@/common/utils/get-api-base-url.util";
 import { HttpStatusCodes } from "@/common/constants/http-status-codes.constant";
 import type { GenericResponseType } from "@/common/types/generic-response.type";
 import { getAccessToken } from "@/common/utils/get-access-token.util";
@@ -21,6 +21,9 @@ const apiService = async <TResponse>(
     ...restOptions
   } = options;
 
+  // Outside the try/catch on purpose: a missing env var is a deploy bug and must fail loudly.
+  const apiBaseUrl = getApiBaseUrl();
+
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
     "Accept-Language": language,
@@ -35,7 +38,7 @@ const apiService = async <TResponse>(
   }
 
   try {
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    const response = await fetch(`${apiBaseUrl}${endpoint}`, {
       ...restOptions,
       method,
       headers,

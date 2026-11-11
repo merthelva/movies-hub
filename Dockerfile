@@ -16,10 +16,6 @@ RUN corepack enable && corepack prepare pnpm@10.18.1 --activate
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# NEXT_PUBLIC_* vars are inlined into the client bundle at build time,
-# so they must be passed here, not at `docker run`.
-ARG NEXT_PUBLIC_API_BASE_URL
-ENV NEXT_PUBLIC_API_BASE_URL=$NEXT_PUBLIC_API_BASE_URL
 ENV NODE_ENV=production
 
 RUN pnpm build
@@ -31,6 +27,7 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
+# API_BASE_URL is read at runtime (server-only); pass it with `docker run -e API_BASE_URL=...`.
 
 RUN addgroup --system --gid 1001 nodejs \
   && adduser --system --uid 1001 nextjs

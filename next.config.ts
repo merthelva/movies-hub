@@ -1,9 +1,6 @@
 import { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
-const apiOrigin = process.env.NEXT_PUBLIC_API_BASE_URL
-  ? new URL(process.env.NEXT_PUBLIC_API_BASE_URL).origin
-  : "";
 const isDev = process.env.NODE_ENV !== "production";
 
 const securityHeaders = [
@@ -19,7 +16,9 @@ const securityHeaders = [
       `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
       "img-src 'self' data: https://image.tmdb.org",
       "font-src 'self'",
-      `connect-src 'self'${apiOrigin ? ` ${apiOrigin}` : ""}`,
+      // The browser never calls the backend directly (all API calls are server-side),
+      // so no external origin is allowed here.
+      "connect-src 'self'",
       // Allows embedding YouTube trailers in an <iframe> on movie detail pages.
       "frame-src https://www.youtube.com",
       "frame-ancestors 'none'",
