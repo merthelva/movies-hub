@@ -72,10 +72,11 @@ const logout = async (
 ): Promise<GenericResponseType<SuccessResponseType>> => {
   const token = await getAccessToken();
   if (!token) {
+    const t = await getTranslations("Errors");
     return {
       status: "error",
       code: HttpStatusCodes.UNAUTHORIZED,
-      message: "User is not authenticated",
+      message: serializeMessage("error", t("unauthorized")),
     };
   }
 
@@ -106,10 +107,11 @@ const deleteAccount = async (
 ): Promise<GenericResponseType<SuccessResponseType>> => {
   const token = await getAccessToken();
   if (!token) {
+    const t = await getTranslations("Errors");
     return {
       status: "error",
       code: HttpStatusCodes.UNAUTHORIZED,
-      message: "User is not authenticated",
+      message: serializeMessage("error", t("unauthorized")),
     };
   }
 

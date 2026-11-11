@@ -56,10 +56,22 @@ const updateProfileFormAction = async (
 
   const currentUserResponse = await getCurrentUser();
   if (!currentUserResponse.ok) {
+    const tErrors = await getTranslations("Errors");
     return {
       status: "error",
       formFields: echoedFormFields,
-      message: "User is not authenticated or token expired", // TODO: Add translation
+      message: serializeMessage("error", tErrors("unauthorized")),
+    };
+  }
+
+  // `userId` is bound on the client, so it is untrusted input. Only allow
+  // updating the account that owns the session token.
+  if (currentUserResponse.user.id !== userId) {
+    const tErrors = await getTranslations("Errors");
+    return {
+      status: "error",
+      formFields: echoedFormFields,
+      message: serializeMessage("error", tErrors("forbidden")),
     };
   }
 
