@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 
 import styles from "./styles.module.scss";
@@ -11,7 +12,7 @@ import { formatRuntime } from "@/features/movies/utils/format-runtime.util";
 import { formatCurrency } from "@/features/movies/utils/format-currency.util";
 import { ActionButtons } from "@/features/movies/components/ActionButtons";
 import { Language } from "@/common/constants/language.constant";
-import type { LocaleType } from "@/common/types/locale.type";
+import { routing } from "@/i18n/routing";
 
 export default async function DetailsPage({
   params,
@@ -19,11 +20,11 @@ export default async function DetailsPage({
   const { id, locale } = await params;
   const t = await getTranslations("Movie");
 
-  if (isNaN(Number(id))) {
+  if (!hasLocale(routing.locales, locale) || isNaN(Number(id))) {
     notFound();
   }
 
-  const response = await getMovieDetails(+id, Language[locale as LocaleType]);
+  const response = await getMovieDetails(+id, Language[locale]);
 
   if (response.status === "error") {
     return (
@@ -74,7 +75,7 @@ export default async function DetailsPage({
           <span className={styles.year}>{year}</span>
           <span className={styles.separator}>•</span>
           <span className={styles.runtime}>
-            {formatRuntime(movie.runtime, locale as LocaleType)}
+            {formatRuntime(movie.runtime, locale)}
           </span>
         </div>
         <div className={styles.genres}>

@@ -1,3 +1,5 @@
+import { notFound } from "next/navigation";
+import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 
 import styles from "./styles.module.scss";
@@ -9,14 +11,18 @@ import { ProfileDetails } from "@/features/profile/components/ProfileDetails";
 import { UpdateAccountForm } from "@/features/profile/components/UpdateAccountForm";
 import { DeleteAccountSection } from "@/features/profile/components/DeleteAccountSection";
 import { Language } from "@/common/constants/language.constant";
-import type { LocaleType } from "@/common/types/locale.type";
+import { routing } from "@/i18n/routing";
 
 export default async function ProfilePage({
   params,
 }: PageProps<"/[locale]/user/profile">) {
   const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
   const t = await getTranslations("Profile");
-  const response = await getCurrentUser(Language[locale as LocaleType]);
+  const response = await getCurrentUser(Language[locale]);
 
   if (!response.ok) {
     return (
