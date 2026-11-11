@@ -6,6 +6,10 @@ import type { MovieCastType } from "@/features/movies/types/movie-cast.type";
 import type { MovieTrailerType } from "@/features/movies/types/movie-trailer.type";
 import type { PaginatedMoviesResponseType } from "@/features/movies/types/service-response.type";
 import type { LanguageType } from "@/common/types/language.type";
+import {
+  MOVIE_CACHE_TAGS,
+  MOVIE_REVALIDATE_SECONDS,
+} from "@/features/movies/constants/movie-cache.constant";
 
 const getMoviesByCategory = async (
   category: MovieCategoryType,
@@ -19,6 +23,12 @@ const getMoviesByCategory = async (
 
   return await apiService<PaginatedMoviesResponseType>(
     `/movies/${category}${queryString ? `?${queryString}` : ""}`,
+    {
+      next: {
+        revalidate: MOVIE_REVALIDATE_SECONDS,
+        tags: [MOVIE_CACHE_TAGS.all, MOVIE_CACHE_TAGS.category(category)],
+      },
+    },
   );
 };
 
@@ -42,15 +52,31 @@ const getMovieDetails = async (
 ) => {
   return await apiService<MovieDetailsType>(
     `/movies/${movieId}/details?language=${language}`,
+    {
+      next: {
+        revalidate: MOVIE_REVALIDATE_SECONDS,
+        tags: [MOVIE_CACHE_TAGS.all, MOVIE_CACHE_TAGS.movie(movieId)],
+      },
+    },
   );
 };
 
 const getMovieCast = async (movieId: number) => {
-  return await apiService<Array<MovieCastType>>(`/movies/${movieId}/cast`);
+  return await apiService<Array<MovieCastType>>(`/movies/${movieId}/cast`, {
+    next: {
+      revalidate: MOVIE_REVALIDATE_SECONDS,
+      tags: [MOVIE_CACHE_TAGS.all, MOVIE_CACHE_TAGS.movie(movieId)],
+    },
+  });
 };
 
 const getMovieTrailer = async (movieId: number) => {
-  return await apiService<MovieTrailerType>(`/movies/${movieId}/trailer`);
+  return await apiService<MovieTrailerType>(`/movies/${movieId}/trailer`, {
+    next: {
+      revalidate: MOVIE_REVALIDATE_SECONDS,
+      tags: [MOVIE_CACHE_TAGS.all, MOVIE_CACHE_TAGS.movie(movieId)],
+    },
+  });
 };
 
 export {
