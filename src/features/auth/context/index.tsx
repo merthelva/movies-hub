@@ -15,7 +15,6 @@ import { getCurrentUser, logout, deleteAccount } from "@/features/auth/actions";
 import type { AuthContextType } from "@/features/auth/types/context.type";
 import { TOKEN_REFRESH_INTERVAL_MS } from "@/features/auth/constants/token-refresh-interval.constant";
 import { Language } from "@/common/constants/language.constant";
-import type { LocaleType } from "@/common/types/locale.type";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -23,7 +22,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   const [user, setUser] = useState<AuthContextType["user"]>(null);
   const [isLoading, setIsLoading] = useState(true);
   const { push } = useRouter();
-  const locale = useLocale() as LocaleType;
+  const locale = useLocale();
   const language = Language[locale];
 
   useEffect(() => {

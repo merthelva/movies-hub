@@ -14,7 +14,9 @@ const authMiddleware = (request: NextRequest) => {
   const [path, locale] = pathname.split("/");
 
   if (!locale) {
-    return NextResponse.redirect(new URL(`/en/${path}`, request.url));
+    return NextResponse.redirect(
+      new URL(`/${routing.defaultLocale}/${path}`, request.url),
+    );
   }
 
   const isProtectedPath = protectedPaths.some((path) =>

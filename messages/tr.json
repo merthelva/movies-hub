@@ -154,6 +154,7 @@
     "forbidden": "Erişim reddedildi",
     "serverError": "Sunucu hatası oluştu",
     "networkError": "Ağ hatası oluştu",
-    "tryAgain": "Lütfen tekrar deneyin"
+    "tryAgain": "Lütfen tekrar deneyin",
+    "unexpected": "Beklenmeyen bir hata oluştu. Lütfen daha sonra tekrar deneyin."
   }
 }

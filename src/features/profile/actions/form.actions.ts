@@ -12,7 +12,6 @@ import type { FormActionStateType } from "@/common/types/form-action-state.type"
 import type { WithoutSensitiveFormFieldsType } from "@/common/types/sensitive-form-field.type";
 import type { ProfileUpdateBodyType } from "@/features/profile/types/actions.type";
 import { Language } from "@/common/constants/language.constant";
-import type { LocaleType } from "@/common/types/locale.type";
 import type { UpdateProfilePayloadType } from "../types/update-profile-payload.type";
 import { getCurrentUser } from "@/features/auth/actions";
 
@@ -75,7 +74,7 @@ const updateProfileFormAction = async (
     };
   }
 
-  const locale = (await getLocale()) as LocaleType;
+  const locale = await getLocale();
 
   // The service does not expect a field with empty string value. If a field has so,
   // it should rather not be sent to the service within request payload/body at all.

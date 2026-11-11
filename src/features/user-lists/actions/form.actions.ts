@@ -8,7 +8,6 @@ import { safeParseFormBody } from "@/common/utils/safe-parse-form-body.util";
 import { serializeMessage } from "@/common/utils/serialize-message.util";
 import type { UserListType } from "@/features/user-lists/types/user-list.type";
 import type { FormActionStateType } from "@/common/types/form-action-state.type";
-import type { LocaleType } from "@/common/types/locale.type";
 import type { ListCreateBodyType } from "@/features/user-lists/types/actions.type";
 import {
   createUserFavoritelist,
@@ -41,7 +40,7 @@ const listCreateFormAction = async (
     };
   }
 
-  const locale = (await getLocale()) as LocaleType;
+  const locale = await getLocale();
 
   const createUserListFn =
     userListType === "favoritelists"
@@ -116,7 +115,7 @@ const listEditFormAction = async (
     };
   }
 
-  const locale = (await getLocale()) as LocaleType;
+  const locale = await getLocale();
 
   const updateUserListFn =
     userListType === "favoritelists"

@@ -154,6 +154,7 @@
     "forbidden": "Access denied",
     "serverError": "Server error occurred",
     "networkError": "Network error occurred",
-    "tryAgain": "Please try again"
+    "tryAgain": "Please try again",
+    "unexpected": "An unexpected error occurred. Please try again later."
   }
 }

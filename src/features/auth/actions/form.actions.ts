@@ -10,7 +10,6 @@ import {
   createRegisterSchema,
 } from "@/features/auth/schemas";
 import { Language } from "@/common/constants/language.constant";
-import type { LocaleType } from "@/common/types/locale.type";
 import type { TranslatorType } from "@/common/types/translator.type";
 import { serializeMessage } from "@/common/utils/serialize-message.util";
 import { safeParseFormBody } from "@/common/utils/safe-parse-form-body.util";
@@ -60,7 +59,7 @@ const authFormActionFactory = <
       } as FormActionStateType<WithoutSensitiveFormFieldsType<TFormFields>>;
     }
 
-    const locale = (await getLocale()) as LocaleType;
+    const locale = await getLocale();
     const credentials = toCredentials(parsedAuthForm.data);
 
     const response = await authServerAction(credentials, Language[locale]);

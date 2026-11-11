@@ -6,6 +6,7 @@ import { API_BASE_URL } from "@/common/constants/api-base-url.constant";
 import { HttpStatusCodes } from "@/common/constants/http-status-codes.constant";
 import type { GenericResponseType } from "@/common/types/generic-response.type";
 import { getAccessToken } from "@/common/utils/get-access-token.util";
+import { getUnexpectedErrorMessage } from "@/common/utils/get-unexpected-error-message.util";
 
 const apiService = async <TResponse>(
   endpoint: string,
@@ -51,9 +52,7 @@ const apiService = async <TResponse>(
       return {
         status: "error",
         code: errorData?.code ?? response.status,
-        message:
-          errorData?.message ??
-          "An unexpected error occurred. Please try again later.",
+        message: errorData?.message ?? (await getUnexpectedErrorMessage()),
       };
     }
 
@@ -62,7 +61,7 @@ const apiService = async <TResponse>(
     return {
       status: "error",
       code: HttpStatusCodes.INTERNAL_SERVER_ERROR,
-      message: "An unexpected error occurred. Please try again later.",
+      message: await getUnexpectedErrorMessage(),
     };
   }
 };
